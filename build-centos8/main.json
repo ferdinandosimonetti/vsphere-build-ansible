@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "admin-password": "{{ env `VSPHEREPASSWORD`}}",
+    "iso-url": "[iso-ds] linux/centos8.iso",
+    "vm-cpu-num": "2",
+    "vm-disk-size": "25600",
+    "vm-mem-size": "1024",
+    "vm-name": "centos8template",
+    "vsphere-cluster": "CL0",
+    "vsphere-datacenter": "DC0",
+    "vsphere-datastore": "vm-ds",
+    "vsphere-folder": "templates",
+    "vsphere-network": "VM Network",
+    "vsphere-password": "{{env `VSPHEREPASSWORD`}}",
+    "vsphere-server": "vcsa.fsimonetti.lan",
+    "vsphere-user": "administrator@vsphere.local"
+  },
+  "builders": [
+    {
+      "CPUs": "{{user `vm-cpu-num`}}",
+      "RAM": "{{user `vm-mem-size`}}",
+      "RAM_reserve_all": false,
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+      ],
+      "cluster": "{{user `vsphere-cluster`}}",
+      "convert_to_template": "true",
+      "datacenter": "{{user `vsphere-datacenter`}}",
+      "datastore": "{{user `vsphere-datastore`}}",
+      "disk_controller_type": "pvscsi",
+      "folder": "{{user `vsphere-folder`}}",
+      "guest_os_type": "centos8_64Guest",
+      "http_directory": "ks",
+      "insecure_connection": "true",
+      "iso_paths": [
+        "{{user `iso-url`}}"
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `vsphere-network`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "notes": "Build via Packer",
+      "password": "{{user `vsphere-password`}}",
+      "ssh_password": "{{user `admin-password`}}",
+      "ssh_username": "root",
+      "storage": [
+        {
+          "disk_size": "{{user `vm-disk-size`}}",
+          "disk_thin_provisioned": true
+        }
+      ],
+      "type": "vsphere-iso",
+      "username": "{{user `vsphere-user`}}",
+      "vcenter_server": "{{user `vsphere-server`}}",
+      "vm_name": "{{user `vm-name`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "./build.yml",
+      "extra_arguments": [ 
+        "--vault-password-file", 
+        "~/.password" 
+        ]
+    }
+  ]
+}
+

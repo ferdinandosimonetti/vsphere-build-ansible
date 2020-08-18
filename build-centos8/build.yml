@@ -1,0 +1,82 @@
+- name: set up CentOS8 template
+  hosts: all
+  tasks:
+  - name: create sudo group
+    group:
+      name: "sudo"
+  - name: nopasswd sudo for sudo group
+    lineinfile:
+      dest: "/etc/sudoers"
+      state: "present"
+      regexp: "^%sudo"
+      line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+  - name: create user
+    user:
+      name: "admbvtech"
+      group: "sudo"
+  - name: add authkey
+    authorized_key:
+      user: "admbvtech"
+      key: "{{ lookup('file', '{{ item.keyfile }}') }}"
+    loop:
+      - { "keyfile": "./id_rsa.pub" }
+      - { "keyfile": "./id_ed25519.pub" }
+  - name: no root login via SSH
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      state: "present"
+      regexp: "{{ item.reg }}"
+      line: "{{ item.lin }}"
+    loop:
+      - { "reg": "^PermitRootLogin", "lin": "PermitRootLogin no" }
+      - { "reg": "^PubkeyAuthentication", "lin": "PubkeyAuthentication yes" }
+      - { "reg": "AllowAgentForwarding", "lin": "AllowAgentForwarding yes" }
+  - name: lock root password
+    user:
+      name: "root"
+      password_lock: yes
+  - name: add useful packages
+    package:
+      name:
+        - curl
+        - wget
+        - lsof
+        - git
+        - zip
+        - unzip
+        - openssh-clients
+        - python3
+        - python3-pip
+        - python3-setuptools
+        - python3-wheel
+        - realmd
+        - sssd 
+        - oddjob
+        - oddjob-mkhomedir
+        - adcli
+        - samba-common
+        - samba-common-tools
+        - krb5-workstation 
+        - authselect-compat
+      state: present
+  - name: Python3
+    alternatives:
+      name: python
+      link: /usr/bin/python
+      path: /usr/bin/python3
+  - name: PIP3
+    alternatives:
+      name: pip
+      link: /usr/bin/pip
+      path: /usr/bin/pip3
+  - name: upgrade PIP3
+    pip:
+      name: pip
+      state: latest
+      extra_args: "--upgrade"
+
+  
+
+
+
+    
