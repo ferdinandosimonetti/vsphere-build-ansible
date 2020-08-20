@@ -1,3 +1,24 @@
+# DOMAIN
+myaddomain: "fsimonetti.lan"
+myadrealm:  "FSIMONETTI.LAN"
+myadwindomain: "FSIMONETTI"
+myadbasedn: "dc=fsimonetti,dc=lan"
+myaduser: "administrator"
+myadpass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          38363066646236623935303665363432626636383737353865326239643061376563666466393864
+          3639633834353637313330383133313662326439393631650a653330666133613739333138643332
+          66616438336535626363363338643630633738303765653738303335666566396662613633633333
+          6564383165386432390a363032633363316636623238656438333137336664306361623430303535
+          3233
+adjoinerpass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33616335383837316334623539373036326663323435393163656238653639363337393134333465
+          3235363936303032623739383437333933616234623338320a643866346536353036323338646265
+          66613235626463343965373636356265363730323432323438356436386138616466666661366635
+          3532633534316138620a623065633932396237396665666265356233376231323836366136376535
+          6362
+# VSPHERE
 vcenter_hostname: "vcsa.{{ myaddomain }}"
 vcenter_username: "administrator@vsphere.local"
 vcenter_password: !vault |
@@ -9,7 +30,6 @@ vcenter_password: !vault |
           6564
 myvmdcname: "DC0"
 myvmclname: "CL0"
-mynfs: "iscsi.{{ myaddomain }}"
 esxi_username: "root"
 esxi_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -32,22 +52,16 @@ vcenter_license: !vault |
           35623131373366613961623537363136323333326434363437383935626534636265623533623131
           6532373030353933660a323433386364363632663537333538393034383236303538343262363038
           35333932623839353563353230343465353062373136663065313731376464653730
-myaddomain: "fsimonetti.lan"
-myadrealm:  "FSIMONETTI.LAN"
-myadwindomain: "FSIMONETTI"
-myaduser: "administrator"
-mytimezone: "Europe/Rome"
-mytimezonewin: "110"
+# STORAGE
+mynfs: "iscsi.{{ myaddomain }}"
+# NETWORK CONFIG
 mygw: "192.168.101.2"
 mydc: "192.168.101.104"
-myadbasedn: "dc=fsimonetti,dc=lan"
-myadpass: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          38363066646236623935303665363432626636383737353865326239643061376563666466393864
-          3639633834353637313330383133313662326439393631650a653330666133613739333138643332
-          66616438336535626363363338643630633738303765653738303335666566396662613633633333
-          6564383165386432390a363032633363316636623238656438333137336664306361623430303535
-          3233
+mydcname: "dc.{{ myaddomain }}"
+# TIMEZONES
+mytimezone: "Europe/Rome"
+mytimezonewin: "110"
+# IPAM
 ipam_base_url: "https://192.168.101.11/api/"
 ipam_app_id: "vsphere"
 ipam_api_user: "restuser"
@@ -62,5 +76,3 @@ ipam_token_request:  "{{ ipam_base_url }}{{ ipam_app_id }}/user/"
 ipam_lookup_network: "{{ ipam_base_url }}{{ ipam_app_id }}/subnets/cidr/"
 ipam_lookup_ip:   "{{ ipam_base_url }}{{ ipam_app_id }}/addresses/first_free/"
 ipam_description:    "ansible created"
-
-

@@ -1,0 +1,147 @@
+# linea di comando:
+# ansible-playbook --vault-password-file ~/.password --extra-vars @variables.yml ipam.yml
+---
+- hosts: centos
+  become: yes
+  user: admbvtech
+  tasks:
+    - name: install Apache and PHP
+      dnf:
+        name: 
+          - httpd
+          - mod_ssl
+          - '@php'
+          - php-mysqlnd
+          - php-curl
+          - php-gd
+          - php-intl
+          - php-pear
+          - php-recode
+          - php-xmlrpc
+          - php-mbstring
+          - php-gettext
+          - php-gmp
+          - php-json
+          - php-xml
+          - php-fpm
+        state: present
+    - name: enable and start Apache, PHP-FPM
+      service:
+        enabled: yes
+        state: started
+        name: "{{ item.name }}"
+      loop:
+        - { 'name': 'httpd' }
+        - { 'name': 'php-fpm' }
+    - name: add Git and Python3
+      package:
+        name:
+          - git
+          - python3
+          - python3-pip
+          - python3-setuptools
+          - python3-wheel
+        state: present
+    - name: Python3
+      alternatives:
+        name: python
+        link: /usr/bin/python
+        path: /usr/bin/python3
+    - name: PIP3
+      alternatives:
+        name: pip
+        link: /usr/bin/pip
+        path: /usr/bin/pip3
+    - name: upgrade PIP3
+      pip:
+        name: pip
+        state: latest
+        extra_args: "--upgrade"
+    - name: install pexpect
+      pip:
+        name: pexpect
+    - name: install MariaDB and PyMySQL
+      dnf:
+        name:
+          - mariadb
+          - mariadb-server
+          - python3-PyMySQL
+        state: present
+    - name: enable and start MariaDB
+      service:
+        enabled: yes
+        state: started
+        name: mariadb
+    - name: secure MariaDB installation
+      expect:
+        command: /bin/bash -c "/usr/bin/mysql_secure_installation && touch /tmp/.mysqlsecured"
+        responses:
+          Enter current password for root*: ""
+          Set root passwor*: "y"
+          New passwor*: "{{ mysql_root_password }}"
+          Re-enter ne*: "{{ mysql_root_password }}"
+          Remove anonymo*: "y"
+          Disallow root lo*: "y"
+          Remove test database and*: "y"
+          Reload privi*: "y"
+        creates: /tmp/.mysqlsecured
+    - name: create PHPIPAM DB
+      mysql_db:
+        login_user: "root"
+        login_password: "{{ mysql_root_password }}"
+        name: phpipam
+        state: present
+    - name: create phpipam user    
+      mysql_user:
+        login_user: "root"
+        login_password: "{{ mysql_root_password }}"
+        name: "phpipam"
+        password: "{{ mysql_phpipam_password }}"
+        priv: 'phpipam.*:ALL'
+        state: present
+    - name: install PHPIPAM from Git repo
+      git:
+        accept_hostkey: yes
+        dest: "/var/www/html/phpipam"
+        recursive: yes
+        track_submodules: no
+        repo: "https://github.com/phpipam/phpipam.git"
+    - name: copy config default in place
+      copy:
+        dest: "/var/www/html/phpipam/config.php"
+        src:  "/var/www/html/phpipam/config.dist.php"
+        remote_src: yes
+    - name: configure PHPIPAM db connection
+      lineinfile:
+        dest: "/var/www/html/phpipam/config.php"
+        state: "present"
+        regexp: "{{ item.reg }}"
+        line: "{{ item.lin }}"
+      loop:
+        - { "reg": "^$db['host']", "lin": "$db['host'] = 'localhost';" }
+        - { "reg": "^$db['user']", "lin": "$db['user'] = 'phpipam';" }
+        - { "reg": "^$db['pass']", "lin": "$db['pass'] = '{{ mysql_phpipam_password }}';" }
+        - { "reg": "^$db['name']", "lin": "$db['name'] = 'phpipam';" }
+        - { "reg": "^$db['port']", "lin": "$db['port'] = 3306;"}
+    - name: copy Apache virtualhost
+      copy:
+        dest: "/etc/httpd/conf.d/phpipam.conf"
+        src:  "./phpipam.conf"
+    - name: change owner of phpipam dir
+      file:
+        path: "/var/www/html/phpipam"
+        state: directory
+        recurse: yes
+        owner: "apache"
+        group: "apache"
+    - name: restart Apache
+      service:
+        enabled: yes
+        state: restarted
+        name: httpd
+
+
+
+
+
+

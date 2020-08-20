@@ -5,7 +5,7 @@
     "vm-cpu-num": "2",
     "vm-disk-size": "25600",
     "vm-mem-size": "1024",
-    "vm-name": "centos8template",
+    "vm-name": "{{ env `TEMPLATENAME`}}",
     "vsphere-cluster": "CL0",
     "vsphere-datacenter": "DC0",
     "vsphere-datastore": "vm-ds",

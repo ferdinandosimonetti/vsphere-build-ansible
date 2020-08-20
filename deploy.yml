@@ -1,8 +1,8 @@
 ---
 - hosts: localhost
-  gather_facts: false
+  gather_facts: true
   vars_files:
-    - ../deployvariables.yml
+    - ./deployvariables.yml
   tasks:
   - name: Gathering ipam auth token
     register: output
@@ -45,13 +45,10 @@
         description: "{{ vmdescription }}"
   - name: check if IP address has been already grabbed
     register: pinger
-    net_ping:
-      dest: "{{ resipaddr.json.data }}"
-      count: 5
-      state: absent
+    failed_when: "'100% packet loss' not in pinger.stdout"
+    shell: ping -q -c3 {{ resipaddr.json.data }}
   - debug: msg="{{ vmhostname }} assigned IP is {{ resipaddr.json.data }}"
   - name: Create a category
-    delegate_to: localhost
     register: results
     vmware_category:
       hostname: "{{ vcenter_hostname }}"
@@ -61,9 +58,8 @@
       category_description: "Temporary Category {{ vmhostname }}"
       category_cardinality: 'multiple'
       state: present
-      validate_certs: no
+      validate_certs: no  
   - name: create temporary tag
-    delegate_to: localhost
     vmware_tag:
       hostname: '{{ vcenter_hostname }}'
       username: '{{ vcenter_username }}'
@@ -74,8 +70,9 @@
       category_id: "{{ results.category_results.category_id }}"
       state: present
   - meta: refresh_inventory
-  - name: Clone a virtual machine from W2016 template and customize
-    delegate_to: localhost
+# LINUX VM
+  - name: Clone a virtual machine from CentOS template and customize
+    when: vmtype == "linux"
     vmware_guest:
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
@@ -83,11 +80,40 @@
       validate_certs: no
       datacenter: "{{ myvmdcname }}"
       cluster: "{{ myvmclname }}"
-      # to be passed with --extra-vars
       name: "{{ vmhostname }}"
-      annotation: "{{ notes }}"
+      annotation: "{{ vmdescription }}"
       folder: "/{{ myvmdcname }}/vm"
-      template: "w2016template"
+      template: "{{ template }}"
+      networks:
+      - name: VM Network
+        ip: "{{ resipaddr.json.data }}"
+        netmask: 255.255.255.0
+        gateway: 192.168.101.2
+      customization:
+        dns_servers:
+        - 192.168.101.104
+        dns_suffix:
+        - "{{ myaddomain }}"
+        domain: "{{ myaddomain }}"
+        timezone: "{{ mytimezone }}"
+        hwclockUTC: true
+      state: poweredon
+      wait_for_ip_address: true
+      wait_for_customization: true
+# WINDOWS VM
+  - name: Clone a virtual machine from W2016 template and customize
+    when: vmtype == "windows"
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      datacenter: "{{ myvmdcname }}"
+      cluster: "{{ myvmclname }}"
+      name: "{{ vmhostname }}"
+      annotation: "{{ vmdescription }}"
+      folder: "/{{ myvmdcname }}/vm"
+      template: "{{ template }}"
       networks:
       - name: VM Network
         ip: "{{ resipaddr.json.data }}"
@@ -115,10 +141,9 @@
 - hosts: localhost
   gather_facts: true
   vars_files:
-    - ../deployvariables.yml
+    - ./deployvariables.yml
   tasks:  
   - name: Add new tag to the new vm
-    delegate_to: localhost
     vmware_tag_manager:
       hostname: '{{ vcenter_hostname }}'
       username: '{{ vcenter_username }}'
@@ -133,7 +158,6 @@
     shell: date +%Y%m%d%H%M
     register: creationdate
   - name: add attribute CREATIONDATE to new VM
-    delegate_to: localhost
     vmware_guest_custom_attributes:
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
@@ -148,32 +172,36 @@
   - pause:
       minutes: 1
 
+# LINUX VM      
+- hosts: "temporarytag.{{ vmhostname }}"
+  gather_facts: true
+  become: yes
+  user: admbvtech
+  vars_files:
+    - ./deployvariables.yml
+  tasks:
+    - name: Get facts
+      when: vmtype == "linux"
+      setup:
+
+# WINDOWS VM
 - hosts: "temporarytag.{{ vmhostname }}"
   gather_facts: true
   vars_files:
     - ../deployvariables.yml
-    - ../winrm.yml
+    - ./winrm.yml
   tasks:
-    - name: Install last updates
-      win_updates:
-        category_names:
-          - CriticalUpdates
-          - SecurityUpdates
-          - UpdateRollups
-          - ServicePacks
-          - Updates
-        state: installed
-        reboot: yes
-        log_path: C:\ansible.txt
+    - name: Get facts
+      when: vmtype == "windows"
+      setup:
 
 - hosts: localhost
   gather_facts: true
   vars_files:
-    - ../deployvariables.yml
+    - ./deployvariables.yml
   tasks:
     - name: delete temporary tag
       register: results
-      delegate_to: localhost
       vmware_tag:
         hostname: '{{ vcenter_hostname }}'
         username: '{{ vcenter_username }}'
@@ -184,7 +212,6 @@
         category_id: "{{ results.category_results.category_id }}"
         state: absent
     - name: delete a category
-      delegate_to: localhost
       register: results
       vmware_category:
         hostname: "{{ vcenter_hostname }}"
@@ -195,4 +222,3 @@
         category_cardinality: 'multiple'
         state: absent
         validate_certs: no
-

@@ -1,0 +1,71 @@
+# linea di comando:
+# ansible-playbook --vault-password-file ~/.password win.yml
+---
+- hosts: domaincontrollers
+  vars_files:
+    - ../deployvariables.yml
+    - ../winrm.yml
+  tasks:
+    - debug: 
+        var: ansible_date_time.date
+    - name: Checking for Critical Patches and producing a list of available items
+      win_updates:
+        category_names:
+          - CriticalUpdates
+          - SecurityUpdates
+          - UpdateRollups
+          - ServicePacks
+          - Updates
+        state: installed
+        reboot: yes
+        log_path: C:\ansible.txt
+      register: contains
+    - debug:
+        var: contains
+- hosts: localhost
+  vars_files:
+    - ../deployvariables.yml
+  tasks:
+    - name: create OU for Service Accounts
+      delegate_to: localhost
+      ldap_entry:
+        dn: "ou=serviceaccounts,{{ myadbasedn }}"
+        objectClass: organizationalUnit
+        bind_dn: "cn=Administrator,cn=Users,{{ myadbasedn }}"
+        bind_pw: "{{ myadpass }}"
+        server_uri: "ldap://{{ mydcname }}/"
+        validate_certs: no
+- hosts: domaincontrollers
+  vars_files:
+    - ../deployvariables.yml
+    - ../winrm.yml
+  tasks:
+    - name: create Unix admins group
+      win_domain_group:
+        name: linuxadmins
+        description: "Linux admins"
+        scope: global
+        protect: yes
+    - name: create join user
+      win_domain_user:
+        name: joiner
+        password: "{{ adjoinerpass }}"
+        state: present
+        user_cannot_change_password: yes
+        description: "user account for domain join of Linux VMs"
+        path: ou=serviceaccounts,dc=fsimonetti,dc=lan
+        groups:
+          - Domain Admins
+          - linuxadmins
+    - name: set joiner password to never expire
+      win_domain_user:
+        name: joiner
+        password: "{{ adjoinerpass }}"
+        state: present
+        password_never_expires: yes
+        description: "user account for domain join of Linux VMs"
+        path: ou=serviceaccounts,dc=fsimonetti,dc=lan
+        groups:
+          - Domain Admins
+          - linuxadmins
+      

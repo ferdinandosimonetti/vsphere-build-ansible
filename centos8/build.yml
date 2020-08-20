@@ -36,7 +36,9 @@
       name: "root"
       password_lock: yes
   - name: add useful packages
-    package:
+    yum:
+      state: latest
+      update_cache: yes
       name:
         - curl
         - wget
@@ -58,13 +60,12 @@
         - samba-common-tools
         - krb5-workstation 
         - authselect-compat
-      state: present
-  - name: Python3
+  - name: Python3 as /usr/bin/python
     alternatives:
       name: python
       link: /usr/bin/python
       path: /usr/bin/python3
-  - name: PIP3
+  - name: PIP3 as /usr/bin/pip
     alternatives:
       name: pip
       link: /usr/bin/pip
@@ -74,6 +75,26 @@
       name: pip
       state: latest
       extra_args: "--upgrade"
+  - name: install Python DNF
+    pip:
+      name: dnf
+      state: latest
+  - name: install security updates
+    register: security
+    yum:
+      state: latest
+      update_cache: yes
+      security: yes
+      name: '*'
+  - debug: var=security
+  - name: install bugfix/errata
+    register: bugfix
+    yum:
+      state: latest
+      update_cache: yes
+      bugfix: yes
+      name: '*'
+  - debug: var=bugfix
 
   
 

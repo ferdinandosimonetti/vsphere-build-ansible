@@ -1,0 +1,207 @@
+# linea di comando:
+# ansible-playbook -i ../fsimonetti.vmware.yml --vault-password-file ~/.password vsphere-remove-unwanted-attributes.yml
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+  - name: create Datacenter
+    delegate_to: localhost
+    vmware_datacenter:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter_name: "{{ myvmdcname }}"
+      validate_certs: false
+      state: present
+  - name: create Cluster
+    delegate_to: localhost
+    vmware_cluster:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter_name: "{{ myvmdcname }}"
+      cluster_name: "{{ myvmclname }}"
+      validate_certs: false
+      state: present
+  - name: Add ESXi Host 1 to vCenter
+    delegate_to: localhost
+    vmware_host:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      datacenter: "{{ myvmdcname }}"
+      cluster: "{{ myvmclname }}"
+      esxi_hostname: "esx01.fsimonetti.lan"
+      esxi_username: '{{ esxi_username }}'
+      esxi_password: '{{ esxi_password }}'
+      validate_certs: false
+      state: present
+  - name: Add ESXi license to host 1
+    delegate_to: localhost
+    vcenter_license:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      esxi_hostname: "esx01.fsimonetti.lan"
+      license: '{{ esxi_license }}'
+      validate_certs: false
+      state: present      
+  - name: Add ESXi Host 2 to vCenter
+    delegate_to: localhost
+    vmware_host:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      datacenter: "{{ myvmdcname }}"
+      cluster: "{{ myvmclname }}"
+      esxi_hostname: "esx02.fsimonetti.lan"
+      esxi_username: '{{ esxi_username }}'
+      esxi_password: '{{ esxi_password }}'
+      validate_certs: false
+      state: present
+  - name: Add ESXi license to host 2
+    delegate_to: localhost
+    vcenter_license:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      esxi_hostname: "esx02.fsimonetti.lan"
+      license: '{{ esxi_license }}'
+      validate_certs: false
+      state: present
+  - name: Add vCenter license to VCSA
+    delegate_to: localhost
+    vcenter_license:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      license: '{{ vcenter_license }}'
+      validate_certs: false
+      state: present
+  - name: Mount NFS datastores to host 1
+    delegate_to: localhost
+    vmware_host_datastore:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: false
+      nfs_server: '{{ mynfs }}'
+      nfs_path: '{{ item.path }}'
+      datastore_type: 'nfs'
+      datastore_name: '{{ item.name }}'
+      esxi_hostname: "esx01.fsimonetti.lan"
+      state: present
+      nfs_ro: no
+    loop:
+      - { 'name': 'iso-ds', 'path': '/mnt/cl0/v0/iso-ds'}
+      - { 'name': 'vm-ds', 'path': '/mnt/cl0/v1/vm-ds'}
+  - name: Mount NFS datastores to host 2
+    delegate_to: localhost
+    vmware_host_datastore:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: false
+      nfs_server: '{{ mynfs }}'
+      nfs_path: '{{ item.path }}'
+      datastore_type: 'nfs'
+      datastore_name: '{{ item.name }}'
+      esxi_hostname: "esx02.fsimonetti.lan"
+      state: present
+      nfs_ro: no
+    loop:
+      - { 'name': 'iso-ds', 'path': '/mnt/cl0/v0/iso-ds'}
+      - { 'name': 'vm-ds', 'path': '/mnt/cl0/v1/vm-ds'}
+  - name: Create directory structure for OS ISOs and vm templates
+    delegate_to: localhost
+    vsphere_file:
+      host:     '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: false
+      datacenter: "{{ myvmdcname }}"
+      datastore: '{{ item.ds }}'
+      path: '{{ item.dst }}'
+      state: directory
+    loop:
+      - { 'ds': 'iso-ds', 'dst': '/win' }
+      - { 'ds': 'iso-ds', 'dst': '/linux' }
+      - { 'ds': 'vm-ds', 'dst': '/templates' }
+  - name: enable fully automated DRS on the cluster
+    delegate_to: localhost
+    vmware_cluster_drs:
+      cluster_name: "{{ myvmclname }}"
+      enable_drs: yes
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: false
+      datacenter: "{{ myvmdcname }}"
+#  - name: copy Windows 2012R2 ISO to datastore
+#    delegate_to: localhost  
+#    vsphere_copy:
+#      hostname: '{{ vcenter_hostname }}'
+#      username: '{{ vcenter_username }}'
+#      password: '{{ vcenter_password }}'
+#      validate_certs: false
+#      src: /iso/win/2012r2.iso
+#      datacenter: "{{ myvmdcname }}"
+#      datastore: 'iso-ds'
+#      path: /win/2012r2.iso
+#  - name: copy Windows 2016 ISO to datastore
+#    delegate_to: localhost  
+#    vsphere_copy:
+#      hostname: '{{ vcenter_hostname }}'
+#      username: '{{ vcenter_username }}'
+#      password: '{{ vcenter_password }}'
+#      validate_certs: false
+#      src: /iso/win/2016.iso
+#      datacenter: "{{ myvmdcname }}"
+#      datastore: 'iso-ds'
+#      path: /win/2016.iso
+#  - name: copy CentOS 8 ISO to datastore
+#    delegate_to: localhost  
+#    vsphere_copy:
+#      hostname: '{{ vcenter_hostname }}'
+#      username: '{{ vcenter_username }}'
+#      password: '{{ vcenter_password }}'
+#      validate_certs: false
+#      src: /iso/linux/centos8.iso
+#      datacenter: "{{ myvmdcname }}"
+#      datastore: 'iso-ds'
+#      path: /linux/centos8.iso
+#  - name: Clone a virtual machine from Windows template and customize
+#    delegate_to: localhost
+#    vmware_guest:
+#      hostname: "{{ vcenter_hostname }}"
+#      username: "{{ vcenter_username }}"
+#      password: "{{ vcenter_password }}"
+#      validate_certs: no
+#      datacenter: "{{ myvmdcname }}"
+#      cluster: "{{ myvmclname }}"
+#      name: "testvm1"
+#      folder: "/{{ myvmdcname }}/vm"
+#      template: "w2016template"
+#      networks:
+#      - name: VM Network
+#        ip: 192.168.101.10
+#        netmask: 255.255.255.0
+#        gateway: 192.168.101.2
+#      customization:
+#        dns_servers:
+#        - 192.168.101.104
+#        dns_suffix:
+#        - "{{ myaddomain }}"
+#        domain: "{{ myaddomain }}"
+#        # https://docs.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)?redirectedfrom=MSDN
+#        timezone: 110
+#        hwclockUTC: true
+#        domainadmin: "administrator@{{ myaddomain }}"
+#        domainadminpassword: "{{ vcenter_password }}"
+#        fullname: "Ferdinando Simonetti"
+#        joindomain: "{{ myaddomain }}"
+#        orgname: "Ferdinando Simonetti"
+#        password: "{{ vcenter_password }}"
+#      state: poweredon
+#      wait_for_ip_address: true
+#      wait_for_customization: true

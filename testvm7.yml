@@ -1,4 +1,0 @@
----
-vmhostname: "testvm7"
-vmdescription: "{{ vmhostname }} prova3"
-vmnetwork: "192.168.101.0/24"

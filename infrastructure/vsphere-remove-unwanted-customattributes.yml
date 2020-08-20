@@ -1,0 +1,23 @@
+# linea di comando:
+# ansible-playbook -i ../fsimonetti.vmware.yml --vault-password-file ~/.password vsphere-remove-unwanted-attributes.yml
+---
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ../deployvariables.yml
+  tasks:
+    - name: Remove VMware Attribute Definition
+      delegate_to: localhost
+      register: defs
+      vmware_guest_custom_attribute_defs:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        validate_certs: no
+        state: absent
+        attribute_key: "{{ item.name }}"
+      loop:
+        - { "name": "Description" }
+        - { "name": "Notes" }
+        - { "name": "annotation" }
+    - debug: var=defs

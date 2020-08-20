@@ -1,0 +1,18 @@
+# linea di comando:
+# ansible-playbook --vault-password-file ~/.password windows-updates.yml
+- hosts: win
+  gather_facts: true
+  vars_files:
+    - ../deployvariables.yml
+    - ../winrm.yml
+  tasks:
+    - name: Install last updates
+      win_updates:
+        category_names:
+          - CriticalUpdates
+          - SecurityUpdates
+          - UpdateRollups
+          - ServicePacks
+        state: installed
+        reboot: yes
+        log_path: C:\ansible.txt
