@@ -1,0 +1,9 @@
+[win]
+testvm9
+
+[win:vars]
+ansible_user="administrator@FSIMONETTI.LAN"
+ansible_password="Savignone.2015"
+ansible_connection=winrm
+ansible_winrm_transport=kerberos
+ansible_winrm_server_cert_validation=ignore

@@ -13,7 +13,7 @@
     "vsphere-password": "{{env `VSPHEREPASSWORD`}}",
     "vsphere-server": "vcsa.fsimonetti.lan",
     "vsphere-user": "administrator@vsphere.local",
-    "winadmin-password": "{{env `WINADMINPASSWORD`}}"
+    "winadmin-password": "{{env `VSPHEREPASSWORD`}}"
   },
   "builders": [
     {
@@ -34,8 +34,7 @@
         "./scripts/enable-rdp.cmd",
         "./scripts/enable-winrm.ps1",
         "./scripts/install-vm-tools.cmd",
-        "./scripts/set-temp.ps1",
-        "./scripts/ansibleremoting.ps1"
+        "./scripts/set-temp.ps1"
       ],
       "folder": "{{user `vsphere-folder`}}",
       "guest_os_type": "windows9Server64Guest",
@@ -63,12 +62,28 @@
       "vcenter_server": "{{user `vsphere-server`}}",
       "vm_name": "{{user `vm-name`}}",
       "winrm_password": "{{user `winadmin-password`}}",
-      "winrm_username": "Administrator"
+      "winrm_username": "Administrator",
+      "winrm_timeout": "45m"
     }
   ],
   "provisioners": [
     {
-      "type": "windows-update"
+      "type": "powershell",
+      "script": "./scripts/ansibleremoting.ps1"
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "./build.yml",
+      "user": "administrator",
+      "use_proxy": false,
+      "keep_inventory_file": true,
+      "extra_arguments": [ 
+        "--connection", 
+        "packer",
+        "-vvvv",
+        "-e",
+        "ansible_winrm_server_cert_validation=ignore"
+        ]
     }
   ],
   "sensitive-variables": [

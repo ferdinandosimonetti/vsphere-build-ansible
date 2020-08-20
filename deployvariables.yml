@@ -32,14 +32,15 @@ vcenter_license: !vault |
           35623131373366613961623537363136323333326434363437383935626534636265623533623131
           6532373030353933660a323433386364363632663537333538393034383236303538343262363038
           35333932623839353563353230343465353062373136663065313731376464653730
-myaddomain: 'fsimonetti.lan'
-myadrealm:  'FSIMONETTI.LAN'
-myadwindomain: 'FSIMONETTI'
-myaduser: administrator
-mytimezone: Europe/Rome
-mygw: 192.168.101.2
-mydc: 192.168.101.104
-myadbasedn: dc=fsimonetti,dc=lan
+myaddomain: "fsimonetti.lan"
+myadrealm:  "FSIMONETTI.LAN"
+myadwindomain: "FSIMONETTI"
+myaduser: "administrator"
+mytimezone: "Europe/Rome"
+mytimezonewin: "110"
+mygw: "192.168.101.2"
+mydc: "192.168.101.104"
+myadbasedn: "dc=fsimonetti,dc=lan"
 myadpass: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           38363066646236623935303665363432626636383737353865326239643061376563666466393864
@@ -60,6 +61,6 @@ ipam_api_pass: !vault |
 ipam_token_request:  "{{ ipam_base_url }}{{ ipam_app_id }}/user/"
 ipam_lookup_network: "{{ ipam_base_url }}{{ ipam_app_id }}/subnets/cidr/"
 ipam_lookup_ip:   "{{ ipam_base_url }}{{ ipam_app_id }}/addresses/first_free/"
-ipam_description:    "ansible created" 
+ipam_description:    "ansible created"
 
 

@@ -1,0 +1,25 @@
+- name: set up Windows 2016 template
+  hosts: all
+  gather_facts: no
+  tasks:
+  - name: Checking for Critical Patches and producing a list of available items
+    win_updates:
+      category_names:
+        - CriticalUpdates
+        - SecurityUpdates
+        - UpdateRollups
+        - ServicePacks
+        - Updates
+      state: installed
+      reboot: no
+      log_path: C:\ansible.txt
+    register: contains
+
+  - debug:
+      var: contains
+
+  
+
+
+
+    

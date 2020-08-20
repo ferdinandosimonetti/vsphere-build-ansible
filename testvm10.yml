@@ -1,0 +1,5 @@
+---
+vmhostname: "testvm10"
+vmdescription: "{{ vmhostname }} windows"
+vmnetwork: "192.168.101.0/24"
+notes: "Shahaalala"
