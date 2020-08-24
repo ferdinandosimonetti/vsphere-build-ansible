@@ -63,7 +63,9 @@
       "playbook_file": "./build.yml",
       "extra_arguments": [ 
         "--vault-password-file", 
-        "~/.password" 
+        "~/.password",
+        "--extra-vars",
+        "@../deployvariables.yml" 
         ]
     }
   ]

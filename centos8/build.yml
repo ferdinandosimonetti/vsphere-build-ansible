@@ -14,6 +14,7 @@
     user:
       name: "admbvtech"
       group: "sudo"
+      password: "{{ rootpass | password_hash('sha512', 'mysecretsalt') }}"
   - name: add authkey
     authorized_key:
       user: "admbvtech"
