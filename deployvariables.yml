@@ -57,6 +57,7 @@ mynfs: "iscsi.{{ myaddomain }}"
 # NETWORK CONFIG
 mygw: "192.168.101.2"
 mydc: "192.168.101.104"
+myinaddrarpa: "101.168.192.in-addr.arpa"
 mydcname: "dc.{{ myaddomain }}"
 # TIMEZONES
 mytimezone: "Europe/Rome"
