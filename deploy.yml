@@ -209,9 +209,22 @@
   vars_files:
     - ./deployvariables.yml
   tasks:
-    - name: Get facts
-      when: vmtype == "linux"
-      setup:
+    - name: install security updates
+      register: security
+      dnf:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+    - debug: var=security
+    - name: install bugfix/errata
+      register: bugfix
+      dnf:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
+    - debug: var=bugfix
 
 # WINDOWS VM
 - hosts: "temporarytag.{{ vmhostname }}"

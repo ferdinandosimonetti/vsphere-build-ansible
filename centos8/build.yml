@@ -14,7 +14,7 @@
     user:
       name: "admbvtech"
       group: "sudo"
-      password: "{{ rootpass | password_hash('sha512', 'mysecretsalt') }}"
+      password: "{{ rootpass | string | password_hash('sha512', 'mysecretsalt') }}"
   - name: add authkey
     authorized_key:
       user: "admbvtech"
@@ -36,31 +36,22 @@
     user:
       name: "root"
       password_lock: yes
-  - name: add useful packages
-    yum:
+  - name: install security updates
+    register: security
+    dnf:
       state: latest
       update_cache: yes
-      name:
-        - curl
-        - wget
-        - lsof
-        - git
-        - zip
-        - unzip
-        - openssh-clients
-        - python3
-        - python3-pip
-        - python3-setuptools
-        - python3-wheel
-        - realmd
-        - sssd 
-        - oddjob
-        - oddjob-mkhomedir
-        - adcli
-        - samba-common
-        - samba-common-tools
-        - krb5-workstation 
-        - authselect-compat
+      security: yes
+      name: '*'
+  - debug: var=security
+  - name: install bugfix/errata
+    register: bugfix
+    dnf:
+      state: latest
+      update_cache: yes
+      bugfix: yes
+      name: '*'
+  - debug: var=bugfix
   - name: Python3 as /usr/bin/python
     alternatives:
       name: python
@@ -76,29 +67,5 @@
       name: pip
       state: latest
       extra_args: "--upgrade"
-  - name: install Python DNF
-    pip:
-      name: dnf
-      state: latest
-  - name: install security updates
-    register: security
-    yum:
-      state: latest
-      update_cache: yes
-      security: yes
-      name: '*'
-  - debug: var=security
-  - name: install bugfix/errata
-    register: bugfix
-    yum:
-      state: latest
-      update_cache: yes
-      bugfix: yes
-      name: '*'
-  - debug: var=bugfix
-
-  
-
-
 
     
