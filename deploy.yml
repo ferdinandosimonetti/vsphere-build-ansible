@@ -90,7 +90,7 @@
       folder: "/{{ myvmdcname }}/vm"
       template: "{{ template }}"
       networks:
-      - name: VM Network
+      - name: "{{ vmnetworkname }}"
         ip: "{{ resipaddr.json.data }}"
         netmask: 255.255.255.0
         gateway: 192.168.101.2
@@ -120,7 +120,7 @@
       folder: "/{{ myvmdcname }}/vm"
       template: "{{ template }}"
       networks:
-      - name: VM Network
+      - name: "{{ vmnetworkname }}"
         ip: "{{ resipaddr.json.data }}"
         netmask: 255.255.255.0
         gateway: 192.168.101.2

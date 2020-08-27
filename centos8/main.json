@@ -10,7 +10,7 @@
     "vsphere-datacenter": "DC0",
     "vsphere-datastore": "vm-ds",
     "vsphere-folder": "templates",
-    "vsphere-network": "VM Network",
+    "vsphere-network": "{{ env `TEMPLATENETWORKNAME` }}",
     "vsphere-password": "{{env `VSPHEREPASSWORD`}}",
     "vsphere-server": "vcsa.fsimonetti.lan",
     "vsphere-user": "administrator@vsphere.local"
