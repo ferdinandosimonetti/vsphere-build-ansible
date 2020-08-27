@@ -1,8 +1,0 @@
----
-vmhostname: "testvm10"
-vmdescription: "{{ vmhostname }} provagenerale"
-vmnetwork: "192.168.101.0/24"
-template: "centos8template"
-vmtype: "linux"
-#template: "w2016template"
-#vmtype: "windows"
