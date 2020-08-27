@@ -41,7 +41,7 @@
           "network_card": "vmxnet3"
         }
       ],
-      "notes": "Build via Packer",
+      "notes": "Built via Packer - {{isotime}}",
       "password": "{{user `vsphere-password`}}",
       "ssh_password": "{{user `admin-password`}}",
       "ssh_username": "root",
