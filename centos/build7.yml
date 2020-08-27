@@ -1,0 +1,56 @@
+- name: set up CentOS7 template
+  hosts: all
+  tasks:
+  - name: create sudo group
+    group:
+      name: "sudo"
+  - name: nopasswd sudo for sudo group
+    lineinfile:
+      dest: "/etc/sudoers"
+      state: "present"
+      regexp: "^%sudo"
+      line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+  - name: create user
+    user:
+      name: "admbvtech"
+      group: "sudo"
+      password: "{{ rootpass | string | password_hash('sha512', 'mysecretsalt') }}"
+  - name: add authkey
+    authorized_key:
+      user: "admbvtech"
+      key: "{{ lookup('file', '{{ item.keyfile }}') }}"
+    loop:
+      - { "keyfile": "./id_rsa.pub" }
+      - { "keyfile": "./id_ed25519.pub" }
+  - name: no root login via SSH
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      state: "present"
+      regexp: "{{ item.reg }}"
+      line: "{{ item.lin }}"
+    loop:
+      - { "reg": "^PermitRootLogin", "lin": "PermitRootLogin no" }
+      - { "reg": "^PubkeyAuthentication", "lin": "PubkeyAuthentication yes" }
+      - { "reg": "AllowAgentForwarding", "lin": "AllowAgentForwarding yes" }
+  - name: lock root password
+    user:
+      name: "root"
+      password_lock: yes
+  - name: install security updates
+    register: security
+    yum:
+      state: latest
+      update_cache: yes
+      security: yes
+      name: '*'
+  - debug: var=security
+  - name: install bugfix/errata
+    register: bugfix
+    yum:
+      state: latest
+      update_cache: yes
+      bugfix: yes
+      name: '*'
+  - debug: var=bugfix
+
+    

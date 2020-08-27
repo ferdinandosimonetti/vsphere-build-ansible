@@ -8,4 +8,4 @@ export TEMPLATENAME
 echo -n "Enter TEMPLATENETWORKNAME: "
 read TEMPLATENETWORKNAME
 export TEMPLATENETWORKNAME
-packer build main.json
+packer build main7.json

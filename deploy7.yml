@@ -1,0 +1,266 @@
+# linea di comando:
+# ansible-playbook -i external-inventory -i fsimonetti.vmware.yml --vault-password-file ~/.password --extra-vars @testvm11.yml deploy.yml
+---
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+  tasks:
+  - name: Gathering ipam auth token
+    register: output
+    failed_when: output.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_token_request }}"
+      method: POST
+      user: "{{ ipam_api_user }}"
+      password: "{{ ipam_api_pass | trim }}"
+      force_basic_auth: yes
+  - name: getting subnet id
+    register: subnetid
+    failed_when: subnetid.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_lookup_network }}{{ vmnetwork }}"
+      headers: token="{{ output.json.data.token }}"
+  - name: checking subnet for next available ip address
+    register: ipaddress
+    failed_when: ipaddress.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_lookup_ip }}{{ subnetid.json.data[0].id | int }}"
+      headers: token="{{ output.json.data.token }}"
+  - name: reserve ip address
+    register: resipaddr
+    failed_when: resipaddr.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_lookup_ip }}{{ subnetid.json.data[0].id | int }}"
+      method: POST
+      headers: 
+        token: "{{ output.json.data.token }}"
+        Content-Type: application/json
+      body_format: json
+      status_code: 201
+      body:
+        hostname: "{{ vmhostname }}"
+        description: "{{ vmdescription }}"
+  - name: check if IP address has been already grabbed
+    register: pinger
+    failed_when: "'100% packet loss' not in pinger.stdout"
+    shell: ping -q -c3 {{ resipaddr.json.data }}
+  - debug: msg="{{ vmhostname }} assigned IP is {{ resipaddr.json.data }}"
+  - name: Create a category
+    register: results
+    vmware_category:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      category_name: tempcategory.{{ vmhostname }}
+      category_description: "Temporary Category {{ vmhostname }}"
+      category_cardinality: 'multiple'
+      state: present
+      validate_certs: no  
+  - name: get reverse zone from vm address
+    register: reversezone
+    shell: ./inaddrarpa.py {{ resipaddr.json.data }}
+  - name: create temporary tag
+    vmware_tag:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: no
+      tag_name: "temporarytag.{{ vmhostname }}"
+      tag_description: "tag for {{ vmhostname }}"
+      category_id: "{{ results.category_results.category_id }}"
+      state: present
+  - meta: refresh_inventory
+# LINUX VM
+  - name: Clone a virtual machine from CentOS template and customize
+    when: vmtype == "linux"
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      datacenter: "{{ myvmdcname }}"
+      cluster: "{{ myvmclname }}"
+      name: "{{ vmhostname }}"
+      annotation: "{{ vmdescription }}"
+      folder: "/{{ myvmdcname }}/vm"
+      template: "{{ template }}"
+      networks:
+      - name: "{{ vmnetworkname }}"
+        ip: "{{ resipaddr.json.data }}"
+        netmask: 255.255.255.0
+        gateway: 192.168.101.2
+      customization:
+        dns_servers:
+        - 192.168.101.104
+        dns_suffix:
+        - "{{ myaddomain }}"
+        domain: "{{ myaddomain }}"
+        timezone: "{{ mytimezone }}"
+        hwclockUTC: true
+      state: poweredon
+      wait_for_ip_address: true
+      wait_for_customization: true
+# WINDOWS VM
+  - name: Clone a virtual machine from W2016 template and customize
+    when: vmtype == "windows"
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      datacenter: "{{ myvmdcname }}"
+      cluster: "{{ myvmclname }}"
+      name: "{{ vmhostname }}"
+      annotation: "{{ vmdescription }}"
+      folder: "/{{ myvmdcname }}/vm"
+      template: "{{ template }}"
+      networks:
+      - name: "{{ vmnetworkname }}"
+        ip: "{{ resipaddr.json.data }}"
+        netmask: 255.255.255.0
+        gateway: 192.168.101.2
+      customization:
+        dns_servers:
+        - 192.168.101.104
+        dns_suffix:
+        - "{{ myaddomain }}"
+        domain: "{{ myaddomain }}"
+        domainadmin: "{{ myaduser }}@{{ myaddomain }}"
+        domainadminpassword: "{{ myadpass }}"
+        joindomain: "{{ myaddomain }}"
+        orgname: "Nome azienda"
+        password: "{{ myadpass }}"
+#        # For Windows VMs        
+#        # https://docs.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)?redirectedfrom=MSDN
+        timezone: "{{ mytimezonewin }}"
+        hwclockUTC: true
+      state: poweredon
+      wait_for_ip_address: true
+      wait_for_customization: true
+
+- hosts: domaincontrollers
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+    - ./winrm.yml
+  tasks:
+  - name: Add DNS A record
+    when: vmtype == "linux"
+    win_dns_record:
+      name: "{{ vmhostname }}"
+      value: "{{ hostvars['localhost']['resipaddr'].json.data }}"
+      type: "A"
+      state: present
+      zone: "{{ myaddomain }}"
+  - debug: var={{ hostvars['localhost']['resipaddr'].json.data.split('.')[-1:][0] | string }}
+  - name: Add DNS PTR record
+    when: vmtype == "linux"
+    win_dns_record:
+      name:  "{{ hostvars['localhost']['resipaddr'].json.data.split('.')[-1:][0] | string }}"
+      value: "{{ vmhostname }}.{{ myaddomain }}"
+      type: "PTR"
+      state: present
+      zone: "{{ hostvars['localhost']['reversezone'].stdout }}"
+
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+  tasks:  
+  - name: Add new tag to the new vm
+    vmware_tag_manager:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: no
+      tag_names: 
+      - "temporarytag.{{ vmhostname }}"
+      object_name: "{{ vmhostname }}"
+      object_type: VirtualMachine
+      state: add
+  - name: record VM creation date/time
+    shell: date +%Y%m%d%H%M
+    register: creationdate
+  - name: add attribute CREATIONDATE to new VM
+    vmware_guest_custom_attributes:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      name: "{{ vmhostname }}"
+      state: present
+      attributes:
+        - name: CREATIONDATE
+          value: "{{ creationdate.stdout }}"
+  - meta: refresh_inventory
+  - pause:
+      minutes: 1
+
+# LINUX VM      
+- hosts: "temporarytag.{{ vmhostname }}"
+  gather_facts: true
+  become: yes
+  user: admbvtech
+  vars_files:
+    - ./deployvariables.yml
+  tasks:
+    - name: install security updates
+      register: security
+      yum:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+    - debug: var=security
+    - name: install bugfix/errata
+      register: bugfix
+      yum:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
+    - debug: var=bugfix
+
+# WINDOWS VM
+- hosts: "temporarytag.{{ vmhostname }}"
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+    - ./winrm.yml
+  tasks:
+    - name: Get facts
+      when: vmtype == "windows"
+      setup:
+
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+  tasks:
+    - name: delete temporary tag
+      register: results
+      vmware_tag:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'
+        validate_certs: no
+        tag_name: "temporarytag.{{ vmhostname }}"
+        tag_description: "tag for {{ vmhostname }}"
+        category_id: "{{ results.category_results.category_id }}"
+        state: absent
+    - name: delete a category
+      register: results
+      vmware_category:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        category_name: tempcategory.{{ vmhostname }}
+        category_description: "Temporary Category {{ vmhostname }}"
+        category_cardinality: 'multiple'
+        state: absent
+        validate_certs: no

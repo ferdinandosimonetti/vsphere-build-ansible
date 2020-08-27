@@ -1,0 +1,11 @@
+#!/bin/bash
+echo -n "Enter VSPHEREPASSWORD: "
+read VSPHEREPASSWORD
+export VSPHEREPASSWORD
+echo -n "Enter TEMPLATENAME: "
+read TEMPLATENAME
+export TEMPLATENAME
+echo -n "Enter TEMPLATENETWORKNAME: "
+read TEMPLATENETWORKNAME
+export TEMPLATENETWORKNAME
+packer build main8.json

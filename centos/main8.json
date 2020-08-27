@@ -21,7 +21,7 @@
       "RAM": "{{user `vm-mem-size`}}",
       "RAM_reserve_all": false,
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks8.cfg<enter><wait>"
       ],
       "cluster": "{{user `vsphere-cluster`}}",
       "convert_to_template": "true",
@@ -60,7 +60,7 @@
   "provisioners": [
     {
       "type": "ansible",
-      "playbook_file": "./build.yml",
+      "playbook_file": "./build8.yml",
       "extra_arguments": [ 
         "--vault-password-file", 
         "~/.password",
