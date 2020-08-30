@@ -1,0 +1,281 @@
+# linea di comando:
+# ansible-playbook -i external-inventory -i fsimonetti.vmware.yml --vault-password-file ~/.password --extra-vars @testvm11.yml deploy.yml
+---
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+  tasks:
+  - name: Gathering ipam auth token
+    register: output
+    failed_when: output.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_token_request }}"
+      method: POST
+      user: "{{ ipam_api_user }}"
+      password: "{{ ipam_api_pass | trim }}"
+      force_basic_auth: yes
+  - name: getting subnet id
+    register: subnetid
+    failed_when: subnetid.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_lookup_network }}{{ vmnetwork }}"
+      headers: token="{{ output.json.data.token }}"
+  - name: checking subnet for next available ip address
+    register: ipaddress
+    failed_when: ipaddress.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_lookup_ip }}{{ subnetid.json.data[0].id | int }}"
+      headers: token="{{ output.json.data.token }}"
+  - name: reserve ip address
+    register: resipaddr
+    failed_when: resipaddr.json.success != true
+    uri:
+      validate_certs: false
+      url: "{{ ipam_lookup_ip }}{{ subnetid.json.data[0].id | int }}"
+      method: POST
+      headers: 
+        token: "{{ output.json.data.token }}"
+        Content-Type: application/json
+      body_format: json
+      status_code: 201
+      body:
+        hostname: "{{ vmhostname }}"
+        description: "{{ vmdescription }}"
+  - name: check if IP address has been already grabbed
+    register: pinger
+    failed_when: "'100% packet loss' not in pinger.stdout"
+    shell: ping -q -c3 {{ resipaddr.json.data }}
+  - debug: msg="{{ vmhostname }} assigned IP is {{ resipaddr.json.data }}"
+  - name: get reverse zone from vm address
+    register: reversezone
+    shell: ./inaddrarpa.py {{ resipaddr.json.data }}
+
+# LINUX VM
+  - name: Clone a virtual machine from CentOS template and customize
+    when: vmtype == "linux"
+    register: vm
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      datacenter: "{{ myvmdcname }}"
+      cluster: "{{ myvmclname }}"
+      name: "{{ vmhostname }}"
+      annotation: "{{ vmdescription }}"
+      folder: "/{{ myvmdcname }}/vm"
+      template: "{{ template }}"
+      networks:
+      - name: "{{ vmnetworkname }}"
+        ip: "{{ resipaddr.json.data }}"
+        netmask: 255.255.255.0
+        gateway: 192.168.101.2
+      customization:
+        dns_servers:
+        - 192.168.101.104
+        dns_suffix:
+        - "{{ myaddomain }}"
+        domain: "{{ myaddomain }}"
+        timezone: "{{ mytimezone }}"
+        hwclockUTC: true
+      state: poweredon
+      wait_for_ip_address: true
+      wait_for_customization: true
+# WINDOWS VM
+  - name: Clone a virtual machine from W2016 template and customize
+    when: vmtype == "windows"
+    register: vm
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      datacenter: "{{ myvmdcname }}"
+      cluster: "{{ myvmclname }}"
+      name: "{{ vmhostname }}"
+      annotation: "{{ vmdescription }}"
+      folder: "/{{ myvmdcname }}/vm"
+      template: "{{ template }}"
+      networks:
+      - name: "{{ vmnetworkname }}"
+        ip: "{{ resipaddr.json.data }}"
+        netmask: 255.255.255.0
+        gateway: 192.168.101.2
+      customization:
+        dns_servers:
+        - 192.168.101.104
+        dns_suffix:
+        - "{{ myaddomain }}"
+        domain: "{{ myaddomain }}"
+        domainadmin: "{{ myaduser }}@{{ myaddomain }}"
+        domainadminpassword: "{{ myadpass }}"
+        joindomain: "{{ myaddomain }}"
+        orgname: "Nome azienda"
+        password: "{{ myadpass }}"
+#        # For Windows VMs        
+#        # https://docs.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)?redirectedfrom=MSDN
+        timezone: "{{ mytimezonewin }}"
+        hwclockUTC: true
+      state: poweredon
+      wait_for_ip_address: true
+      wait_for_customization: true
+
+- hosts: domaincontrollers
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+    - ./winrm.yml
+  tasks:
+  - name: Add DNS A record
+    when: vmtype == "linux"
+    win_dns_record:
+      name: "{{ vmhostname }}"
+      value: "{{ hostvars['localhost']['resipaddr'].json.data }}"
+      type: "A"
+      state: present
+      zone: "{{ myaddomain }}"
+  - debug: var={{ hostvars['localhost']['resipaddr'].json.data.split('.')[-1:][0] | string }}
+  - name: Add DNS PTR record
+    when: vmtype == "linux"
+    win_dns_record:
+      name:  "{{ hostvars['localhost']['resipaddr'].json.data.split('.')[-1:][0] | string }}"
+      value: "{{ vmhostname }}.{{ myaddomain }}"
+      type: "PTR"
+      state: present
+      zone: "{{ hostvars['localhost']['reversezone'].stdout }}"
+
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+  tasks:  
+  - name: Add newly created Linux VM to inventory
+    when: 
+      - vm.instance is defined
+      - vmtype == "linux"
+    add_host:
+      name: "{{ vm.instance.ipv4 }}"
+      group: linuxvms
+      hw_guest_id: "{{ vm.instance.hw_guest_id }}"
+      hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
+      hw_name: "{{ vm.instance.hw_name }}"
+  - name: Add newly created Windows VM to inventory
+    when: 
+      - vm.instance is defined
+      - vmtype == "windows"
+    add_host:
+      name: "{{ vm.instance.ipv4 }}"
+      group: windowsvms
+      hw_guest_id: "{{ vm.instance.hw_guest_id }}"
+      hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
+      hw_name: "{{ vm.instance.hw_name }}"
+  - name: record VM creation date/time
+    shell: date +%Y%m%d%H%M
+    register: creationdate
+  - name: add attribute CREATIONDATE to new VM
+    vmware_guest_custom_attributes:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      name: "{{ vm.instance.hw_name }}"
+      state: present
+      attributes:
+        - name: CREATIONDATE
+          value: "{{ creationdate.stdout }}"
+
+# LINUX VM      
+- hosts: linuxvms
+  gather_facts: true
+  become: yes
+  user: admbvtech
+  vars_files:
+    - ./deployvariables.yml
+  tasks:
+    - name: install security updates (CentOS8)
+      register: security
+      when: hw_guest_id == "centos8_64Guest"
+      dnf:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+    - name: install bugfix/errata (CentOS8)
+      register: bugfix
+      when: hw_guest_id == "centos8_64Guest"
+      dnf:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
+    - name: install security updates (CentOS7)
+      register: security
+      when: hw_guest_id == "centos7_64Guest"
+      yum:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+    - name: install bugfix/errata (CentOS7)
+      register: bugfix
+      when: hw_guest_id == "centos7_64Guest"
+      yum:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
+    - debug: var=security
+    - debug: var=bugfix
+
+# WINDOWS VM
+- hosts: windowsvms
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+    - ./winrm.yml
+  tasks:
+    - name: Create local admin user
+      win_user:
+        name: admbvtech
+        description: "Local admin"
+        password: "{{ rootpass }}"
+        password_never_expires: yes
+        user_cannot_change_password: yes
+        groups:
+          - Users
+          - Administrators
+
+- hosts: windowsvms
+  gather_facts: true
+  vars_files:
+    - ./deployvariables.yml
+    - ./winrm-local.yml
+  tasks:
+    - name: Fix RDP issue con CredSSP (Server 2016)
+      when: hw_guest_full_name is search("2016")
+      win_updates:
+        category_names:
+          - Updates
+        state: installed
+        whitelist: KB4103723
+        log_path: c:\credssp.txt
+    - name: Fix RDP issue con CredSSP (Server 2012 R2)
+      when: hw_guest_full_name is search("2012 R2")
+      win_updates:
+        category_names:
+          - Updates
+        state: installed
+        whitelist: KB4103725
+        log_path: c:\credssp.txt
+    - name: Fix RDP issue con CredSSP (Server 2008 R2)
+      when: hw_guest_full_name is search("2008 R2")
+      win_updates:
+        category_names:
+          - Updates
+        state: installed
+        whitelist: KB4103718
+        log_path: c:\credssp.txt

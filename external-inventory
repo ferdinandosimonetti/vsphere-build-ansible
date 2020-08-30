@@ -1,2 +1,11 @@
 [domaincontrollers]
 dc
+
+[c7]
+testvm13
+
+[c8]
+testvm12
+
+[w16]
+testvm14
