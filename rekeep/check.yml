@@ -1,0 +1,24 @@
+---
+
+    #    Windows Server 2008 SP2: KB3154517
+    #    Windows Server 2008 R2: KB3154518
+    #    Windows Server 2012: KB3154519
+    #    Windows Server 2012 R2: KB3154520
+    
+    - hosts: sptest
+      gather_facts: true
+      vars_files:
+        - ../winrm-local.yml
+    
+      tasks:
+      - name: Updates
+        win_updates:
+          categories:
+            - CriticalUpdates
+            - SecurityUpdates
+            - UpdateRollups
+            - Service Packs
+          state: searched
+          # This can be used instead of using a win_reboot task after this one and ensures all updates for that category is installed in one go.
+          reboot: no
+          log_path: c:\20200831-updates.txt
