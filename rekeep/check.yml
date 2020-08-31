@@ -9,49 +9,179 @@
     - ./vsphere.yml
     - ./acilia.yml
   tasks:
-    - name: gather vm info
-      register: vminfo
-      vmware_guest_info:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
-        datacenter: "{{ vsphere_datacenter }}"
-        validate_certs: no
-        name: "{{ vmname }}"
-    - debug: var=vminfo
-    - name: add host
-      add_host:
-        groups: targetvm
-        name: "{{ vmaddr }}"
-        vmname: "{{ vminfo.instance.hw_name }}"
-        vmdc: "{{ vsphere_datacenter }}"
-        vmcl: "{{ vminfo.instance.hw_cluster }}"
-        vmfolder: "{{ vminfo.instance.hw_folder }}"
-        vmfullos: "{{ vminfo.instance.hw_guest_full_name }}"
-    - name: current snapshot informations
-      register: snapinfo
-      vmware_guest_snapshot_info:
-        hostname: "{{ vcenter_hostname }}"
-        username: "{{ vcenter_username }}"
-        password: "{{ vcenter_password }}"
-        datacenter: "{{ vsphere_datacenter }}"
-        folder: "{{ vminfo.instance.hw_folder }}"
-        validate_certs: no
-        name: "{{ vmname }}"
-    - debug: var=snapinfo
+  - name: gather vm info
+    register: vminfo
+    vmware_guest_info:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vsphere_datacenter }}"
+      validate_certs: no
+      name: "{{ vmname }}"
+  - debug: var=vminfo
+  - name: add host
+    add_host:
+      groups: targetvm
+      name: "{{ vmaddr }}"
+      vmname: "{{ vminfo.instance.hw_name }}"
+      vmdc: "{{ vsphere_datacenter }}"
+      vmcl: "{{ vminfo.instance.hw_cluster }}"
+      vmfolder: "{{ vminfo.instance.hw_folder }}"
+      vmfullos: "{{ vminfo.instance.hw_guest_full_name }}"
+  - name: current snapshot informations
+    register: snapinfo
+    vmware_guest_snapshot_info:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vsphere_datacenter }}"
+      folder: "{{ vminfo.instance.hw_folder }}"
+      validate_certs: no
+      name: "{{ vmname }}"
+  - debug: var=snapinfo
+  - name: safety snapshot
+    vmware_guest_snapshot:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      datacenter: "{{ vsphere_datacenter }}"
+      folder: "{{ vminfo.instance.hw_folder }}"
+      validate_certs: no
+      name: "{{ vmname }}"
+      state: present
+      snapshot_name: "20200831-prepatching"
+      description: "snapshot di sicurezza pre patching"
 
-
-
-
-
-#      - name: Updates
-#        win_updates:
-#          categories:
-#            - CriticalUpdates
-#            - SecurityUpdates
-#            - UpdateRollups
-#            - Service Packs
-#          state: searched
-#          # This can be used instead of using a win_reboot task after this one and ensures all updates for that category is installed in one go.
-#          reboot: no
-#          log_path: c:\20200831-updates.txt
+- hosts: targetvm
+  gather_facts: true
+  vars_files:
+    - ./winrm-local.yml
+  tasks:
+    - name: Updates
+      win_updates:
+        categories:
+          - SecurityUpdates
+      state: installed
+      # This can be used instead of using a win_reboot task after this one and ensures all updates for that category is installed in one go.
+      reboot: no
+      log_path: c:\20200831-updates.txt
+  - name: TLS1.2 Server enabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server
+      name: Enabled
+      data: 1
+      type: dword
+  - name: TLS1.2 Server not disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server
+      name: DisabledByDefault
+      data: 0
+      type: dword
+  - name: TLS1.2 Client enabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client
+      name: Enabled
+      data: 1
+      type: dword
+  - name: TLS1.2 Client not disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client
+      name: DisabledByDefault
+      data: 0
+      type: dword
+  - name: TLS1.0 Server disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+      name: Enabled
+      data: 0
+      type: dword
+  - name: TLS1.0 Server default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server
+      name: DisabledByDefault
+      data: 1
+      type: dword
+  - name: TLS1.0 Client disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client
+      name: Enabled
+      data: 0
+      type: dword
+  - name: TLS1.0 Client default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client
+      name: DisabledByDefault
+      data: 1
+      type: dword
+  - name: TLS1.1 Server disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+      name: Enabled
+      data: 0
+      type: dword
+  - name: TLS1.1 Server default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server
+      name: DisabledByDefault
+      data: 1
+      type: dword
+  - name: TLS1.1 Client disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client
+      name: Enabled
+      data: 0
+      type: dword
+  - name: TLS1.1 Client default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client
+      name: DisabledByDefault
+      data: 1
+      type: dword
+  - name: SSL2.0 Server disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server
+      name: Enabled
+      data: 0
+      type: dword
+  - name: SSL2.0 Server default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server
+      name: DisabledByDefault
+      data: 1
+      type: dword
+  - name: SSL2.0 Client disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client
+      name: Enabled
+      data: 0
+      type: dword
+  - name: SSL2.0 Client default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client
+      name: DisabledByDefault
+      data: 1
+      type: dword
+  - name: SSL3.0 Server disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+      name: Enabled
+      data: 0
+      type: dword
+  - name: SSL3.0 Server default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Server
+      name: DisabledByDefault
+      data: 1
+      type: dword
+  - name: SSL3.0 Client disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client
+      name: Enabled
+      data: 0
+      type: dword
+  - name: SSL3.0 Client default disabled
+    win_regedit:
+      path: HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 3.0\Client
+      name: DisabledByDefault
+      data: 1
+      type: dword
