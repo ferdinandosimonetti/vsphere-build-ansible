@@ -1,24 +1,57 @@
 ---
+#    Windows Server 2008 SP2: KB3154517
+#    Windows Server 2008 R2: KB3154518
+#    Windows Server 2012: KB3154519
+#    Windows Server 2012 R2: KB3154520
+- hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ./vsphere.yml
+    - ./acilia.yml
+  tasks:
+    - name: gather vm info
+      register: vminfo
+      vmware_guest_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        datacenter: "{{ vsphere_datacenter }}"
+        validate_certs: no
+        name: "{{ vmname }}"
+    - debug: var=vminfo
+    - name: add host
+      add_host:
+        groups: targetvm
+        name: "{{ vmaddr }}"
+        vmname: "{{ vminfo.instance.hw_name }}"
+        vmdc: "{{ vsphere_datacenter }}"
+        vmcl: "{{ vminfo.instance.hw_cluster }}"
+        vmfolder: "{{ vminfo.instance.hw_folder }}"
+        vmfullos: "{{ vminfo.instance.hw_guest_full_name }}"
+    - name: current snapshot informations
+      register: snapinfo
+      vmware_guest_snapshot_info:
+        hostname: "{{ vcenter_hostname }}"
+        username: "{{ vcenter_username }}"
+        password: "{{ vcenter_password }}"
+        datacenter: "{{ vsphere_datacenter }}"
+        folder: "{{ vminfo.instance.hw_folder }}"
+        validate_certs: no
+        name: "{{ vmname }}"
+    - debug: var=snapinfo
 
-    #    Windows Server 2008 SP2: KB3154517
-    #    Windows Server 2008 R2: KB3154518
-    #    Windows Server 2012: KB3154519
-    #    Windows Server 2012 R2: KB3154520
-    
-    - hosts: sptest
-      gather_facts: true
-      vars_files:
-        - ../winrm-local.yml
-    
-      tasks:
-      - name: Updates
-        win_updates:
-          categories:
-            - CriticalUpdates
-            - SecurityUpdates
-            - UpdateRollups
-            - Service Packs
-          state: searched
-          # This can be used instead of using a win_reboot task after this one and ensures all updates for that category is installed in one go.
-          reboot: no
-          log_path: c:\20200831-updates.txt
+
+
+
+
+#      - name: Updates
+#        win_updates:
+#          categories:
+#            - CriticalUpdates
+#            - SecurityUpdates
+#            - UpdateRollups
+#            - Service Packs
+#          state: searched
+#          # This can be used instead of using a win_reboot task after this one and ensures all updates for that category is installed in one go.
+#          reboot: no
+#          log_path: c:\20200831-updates.txt

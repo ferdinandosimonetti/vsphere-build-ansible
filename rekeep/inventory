@@ -5,3 +5,6 @@
 
 [sptest]
 10.197.68.132
+
+[sptest:vars]
+vmname = "mntcpsmsrv110"
