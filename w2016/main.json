@@ -9,11 +9,11 @@
     "vsphere-datacenter": "DC0",
     "vsphere-datastore": "vm-ds",
     "vsphere-folder": "templates",
-    "vsphere-network": "VM Network",
+    "vsphere-network": "{{env `TEMPLATENETWORK`}}",
     "vsphere-password": "{{env `VSPHEREPASSWORD`}}",
     "vsphere-server": "vcsa.fsimonetti.lan",
     "vsphere-user": "administrator@vsphere.local",
-    "winadmin-password": "{{env `VSPHEREPASSWORD`}}"
+    "winadmin-password": "{{env `WINADMINPASSWORD`}}"
   },
   "builders": [
     {
@@ -68,22 +68,11 @@
   ],
   "provisioners": [
     {
-      "type": "powershell",
-      "script": "./scripts/ansibleremoting.ps1"
+      "type": "windows-update"
     },
     {
-      "type": "ansible",
-      "playbook_file": "./build.yml",
-      "user": "administrator",
-      "use_proxy": false,
-      "keep_inventory_file": true,
-      "extra_arguments": [ 
-        "--connection", 
-        "packer",
-        "-vvvv",
-        "-e",
-        "ansible_winrm_server_cert_validation=ignore"
-        ]
+      "type": "powershell",
+      "script": "./scripts/ansibleremoting.ps1"
     }
   ],
   "sensitive-variables": [

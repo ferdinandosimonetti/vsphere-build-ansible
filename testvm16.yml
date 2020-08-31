@@ -1,0 +1,9 @@
+---
+vmhostname: "testvm16"
+vmdescription: "{{ vmhostname }} provagenerale Windows 2016"
+vmnetwork: "192.168.101.0/24"
+vmnetworkname: "VM Network"
+#template: "centos7template"
+#vmtype: "linux"
+template: "w2016template"
+vmtype: "windows"
