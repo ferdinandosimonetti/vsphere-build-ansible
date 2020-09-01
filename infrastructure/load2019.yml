@@ -1,0 +1,19 @@
+# linea di comando:
+# ansible-playbook -i ../fsimonetti.vmware.yml --vault-password-file ~/.password load2019.yml
+---
+- hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ../deployvariables.yml
+  tasks:
+  - name: copy Windows 2019 ISO to datastore
+    delegate_to: localhost  
+    vsphere_copy:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: false
+      src: /iso/win/2019.iso
+      datacenter: "{{ myvmdcname }}"
+      datastore: 'iso-ds'
+      path: /win/2019.iso

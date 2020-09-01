@@ -236,46 +236,11 @@
   gather_facts: true
   vars_files:
     - ./deployvariables.yml
-    - ./winrm.yml
-  tasks:
-    - name: Create local admin user
-      win_user:
-        name: admbvtech
-        description: "Local admin"
-        password: "{{ rootpass }}"
-        password_never_expires: yes
-        user_cannot_change_password: yes
-        groups:
-          - Users
-          - Administrators
-
-- hosts: windowsvms
-  gather_facts: true
-  vars_files:
-    - ./deployvariables.yml
     - ./winrm-local.yml
   tasks:
-    - name: Fix RDP issue con CredSSP (Server 2016)
-      when: hw_guest_full_name is search("2016")
+    - name: Latest (security-only) updates
       win_updates:
         category_names:
-          - Updates
+          - SecurityUpdates
         state: installed
-        whitelist: KB4103723
-        log_path: c:\credssp.txt
-    - name: Fix RDP issue con CredSSP (Server 2012 R2)
-      when: hw_guest_full_name is search("2012 R2")
-      win_updates:
-        category_names:
-          - Updates
-        state: installed
-        whitelist: KB4103725
-        log_path: c:\credssp.txt
-    - name: Fix RDP issue con CredSSP (Server 2008 R2)
-      when: hw_guest_full_name is search("2008 R2")
-      win_updates:
-        category_names:
-          - Updates
-        state: installed
-        whitelist: KB4103718
-        log_path: c:\credssp.txt
+        log_path: c:\last-updates.txt

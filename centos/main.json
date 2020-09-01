@@ -1,11 +1,12 @@
 {
   "variables": {
     "admin-password": "{{ env `VSPHEREPASSWORD`}}",
-    "iso-url": "[iso-ds] linux/centos8.iso",
+    "iso-url": "[iso-ds] {{ env `ISOPATH`}}",
     "vm-cpu-num": "2",
     "vm-disk-size": "25600",
     "vm-mem-size": "1024",
     "vm-name": "{{ env `TEMPLATENAME`}}",
+    "vm-guest-os": "{{ env `VMOS` }}",
     "vsphere-cluster": "CL0",
     "vsphere-datacenter": "DC0",
     "vsphere-datastore": "vm-ds",
@@ -21,7 +22,7 @@
       "RAM": "{{user `vm-mem-size`}}",
       "RAM_reserve_all": false,
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks8.cfg<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `vm-guest-os` }}.cfg<enter><wait>"
       ],
       "cluster": "{{user `vsphere-cluster`}}",
       "convert_to_template": "true",
@@ -29,7 +30,7 @@
       "datastore": "{{user `vsphere-datastore`}}",
       "disk_controller_type": "pvscsi",
       "folder": "{{user `vsphere-folder`}}",
-      "guest_os_type": "centos8_64Guest",
+      "guest_os_type": "{{ user `vm-guest-os` }}",
       "http_directory": "ks",
       "insecure_connection": "true",
       "iso_paths": [
@@ -60,7 +61,7 @@
   "provisioners": [
     {
       "type": "ansible",
-      "playbook_file": "./build8.yml",
+      "playbook_file": "./build.yml",
       "extra_arguments": [ 
         "--vault-password-file", 
         "~/.password",
