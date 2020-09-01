@@ -1,0 +1,190 @@
+2020/09/01 15:57:26 [INFO] Packer version: 1.6.1 [go1.13.14 linux amd64]
+2020/09/01 15:57:26 [DEBUG] Discovered plugin: windows-update = /home/ubuntu/.local/bin/packer-provisioner-windows-update
+2020/09/01 15:57:26 using external provisioners [windows-update]
+2020/09/01 15:57:26 Checking 'PACKER_CONFIG' for a config file path
+2020/09/01 15:57:26 'PACKER_CONFIG' not set; checking the default config file path
+2020/09/01 15:57:26 Attempting to open config file: /home/ubuntu/.packerconfig
+2020/09/01 15:57:26 [WARN] Config file doesn't exist: /home/ubuntu/.packerconfig
+2020/09/01 15:57:26 Setting cache directory: /home/ubuntu/vsphere-build-ansible/win/packer_cache
+2020/09/01 15:57:26 Creating plugin client for path: /home/ubuntu/.local/bin/packer
+2020/09/01 15:57:26 Starting plugin: /home/ubuntu/.local/bin/packer []string{"/home/ubuntu/.local/bin/packer", "plugin", "packer-builder-vsphere-iso"}
+2020/09/01 15:57:26 Waiting for RPC address for: /home/ubuntu/.local/bin/packer
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: [INFO] Packer version: 1.6.1 [go1.13.14 linux amd64]
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: Checking 'PACKER_CONFIG' for a config file path
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: 'PACKER_CONFIG' not set; checking the default config file path
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: Attempting to open config file: /home/ubuntu/.packerconfig
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: [WARN] Config file doesn't exist: /home/ubuntu/.packerconfig
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: Setting cache directory: /home/ubuntu/vsphere-build-ansible/win/packer_cache
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: args: []string{"packer-builder-vsphere-iso"}
+2020/09/01 15:57:26 Received unix RPC address for /home/ubuntu/.local/bin/packer: addr is /tmp/packer-plugin049756825
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: Plugin address: unix /tmp/packer-plugin049756825
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: Waiting for connection...
+2020/09/01 15:57:26 packer-builder-vsphere-iso plugin: Serving a plugin connection...
+2020/09/01 15:57:26 Creating plugin client for path: /home/ubuntu/.local/bin/packer-provisioner-windows-update
+2020/09/01 15:57:26 Starting plugin: /home/ubuntu/.local/bin/packer-provisioner-windows-update []string{"/home/ubuntu/.local/bin/packer-provisioner-windows-update"}
+2020/09/01 15:57:26 Waiting for RPC address for: /home/ubuntu/.local/bin/packer-provisioner-windows-update
+2020/09/01 15:57:26 packer-provisioner-windows-update plugin: 2020/09/01 15:57:26 Plugin address: unix /tmp/packer-plugin755521120
+2020/09/01 15:57:26 Received unix RPC address for /home/ubuntu/.local/bin/packer-provisioner-windows-update: addr is /tmp/packer-plugin755521120
+2020/09/01 15:57:26 packer-provisioner-windows-update plugin: 2020/09/01 15:57:26 Waiting for connection...
+2020/09/01 15:57:26 packer-provisioner-windows-update plugin: 2020/09/01 15:57:26 Serving a plugin connection...
+2020/09/01 15:57:26 Creating plugin client for path: /home/ubuntu/.local/bin/packer
+2020/09/01 15:57:26 Starting plugin: /home/ubuntu/.local/bin/packer []string{"/home/ubuntu/.local/bin/packer", "plugin", "packer-provisioner-powershell"}
+2020/09/01 15:57:26 Waiting for RPC address for: /home/ubuntu/.local/bin/packer
+2020/09/01 15:57:26 Received unix RPC address for /home/ubuntu/.local/bin/packer: addr is /tmp/packer-plugin823431087
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: [INFO] Packer version: 1.6.1 [go1.13.14 linux amd64]
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: Checking 'PACKER_CONFIG' for a config file path
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: 'PACKER_CONFIG' not set; checking the default config file path
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: Attempting to open config file: /home/ubuntu/.packerconfig
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: [WARN] Config file doesn't exist: /home/ubuntu/.packerconfig
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: Setting cache directory: /home/ubuntu/vsphere-build-ansible/win/packer_cache
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: args: []string{"packer-provisioner-powershell"}
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: Plugin address: unix /tmp/packer-plugin823431087
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: Waiting for connection...
+2020/09/01 15:57:26 packer-provisioner-powershell plugin: Serving a plugin connection...
+2020/09/01 15:57:26 Preparing build: vsphere-iso
+2020/09/01 15:57:26 ui: [1;32mvsphere-iso: output will be in this color.[0m
+2020/09/01 15:57:26 ui: 
+2020/09/01 15:57:26 Build debug mode: false
+2020/09/01 15:57:26 Force build: false
+2020/09/01 15:57:26 On error: 
+2020/09/01 15:57:26 Waiting on builds to complete...
+2020/09/01 15:57:26 Starting build run: vsphere-iso
+2020/09/01 15:57:26 Running builder: vsphere-iso
+2020/09/01 15:57:26 [INFO] (telemetry) Starting builder vsphere-iso
+2020/09/01 15:57:26 ui: [1;32m==> vsphere-iso: Creating VM...[0m
+2020/09/01 15:57:27 ui: [1;32m==> vsphere-iso: Customizing hardware...[0m
+2020/09/01 15:57:27 ui: [1;32m==> vsphere-iso: Mounting ISO images...[0m
+2020/09/01 15:57:27 packer-builder-vsphere-iso plugin: Creating CD-ROM on controller '&{{{} 200 0xc0008a97c0 <nil> <nil> <nil> 0 <nil>} 0 []}' with iso '[iso-ds] win/2019.iso'
+2020/09/01 15:57:27 packer-builder-vsphere-iso plugin: Creating CD-ROM on controller '&{{{} 200 0xc000b6ece0 <nil> <nil> <nil> 0 <nil>} 0 [3000]}' with iso '[] /vmimages/tools-isoimages/windows.iso'
+2020/09/01 15:57:28 ui: [1;32m==> vsphere-iso: Creating floppy disk...[0m
+2020/09/01 15:57:28 packer-builder-vsphere-iso plugin: Floppy path: /tmp/packer012702500
+2020/09/01 15:57:28 packer-builder-vsphere-iso plugin: Initializing block device backed by temporary file
+2020/09/01 15:57:28 packer-builder-vsphere-iso plugin: Formatting the block device with a FAT filesystem...
+2020/09/01 15:57:28 packer-builder-vsphere-iso plugin: Initializing FAT filesystem on block device
+2020/09/01 15:57:28 packer-builder-vsphere-iso plugin: Reading the root directory from the filesystem
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying files flatly from floppy_files[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying file: ./2019/autounattend.xml[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying file: ./scripts/disable-network-discovery.cmd[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying file: ./scripts/disable-winrm.ps1[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying file: ./scripts/enable-rdp.cmd[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying file: ./scripts/enable-winrm.ps1[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying file: ./scripts/install-vm-tools.cmd[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Copying file: ./scripts/set-temp.ps1[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Done copying files from floppy_files[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Collecting paths from floppy_dirs[0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Resulting paths from floppy_dirs : [][0m
+2020/09/01 15:57:28 ui: [0;32m    vsphere-iso: Done copying paths from floppy_dirs[0m
+2020/09/01 15:57:28 ui: [1;32m==> vsphere-iso: Uploading created floppy image[0m
+2020/09/01 15:57:28 ui: [1;32m==> vsphere-iso: Adding generated Floppy...[0m
+2020/09/01 15:57:28 ui: [1;32m==> vsphere-iso: Set boot order temporary...[0m
+2020/09/01 15:57:28 ui: [1;32m==> vsphere-iso: Power on VM...[0m
+2020/09/01 15:57:29 packer-builder-vsphere-iso plugin: [INFO] Waiting for IP, up to total timeout: 30m0s, settle timeout: 5s
+2020/09/01 15:57:29 ui: [1;32m==> vsphere-iso: Waiting for IP...[0m
+2020/09/01 16:19:27 packer-builder-vsphere-iso plugin: VM IP aquired: 192.168.101.214
+2020/09/01 16:19:27 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.214
+2020/09/01 16:19:28 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.214
+2020/09/01 16:19:29 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.214
+2020/09/01 16:19:30 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.214
+2020/09/01 16:19:31 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.214
+2020/09/01 16:19:33 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.214
+2020/09/01 16:19:33 packer-builder-vsphere-iso plugin: VM IP seems stable enough: 192.168.101.214
+2020/09/01 16:19:33 ui: [1;32m==> vsphere-iso: IP address: 192.168.101.214[0m
+2020/09/01 16:19:33 ui: [1;32m==> vsphere-iso: Using winrm communicator to connect: 192.168.101.214[0m
+2020/09/01 16:19:33 packer-builder-vsphere-iso plugin: Waiting for WinRM, up to timeout: 45m0s
+2020/09/01 16:19:33 ui: [1;32m==> vsphere-iso: Waiting for WinRM to become available...[0m
+2020/09/01 16:19:33 packer-builder-vsphere-iso plugin: [INFO] Attempting WinRM connection...
+2020/09/01 16:19:33 packer-builder-vsphere-iso plugin: [DEBUG] connecting to remote shell using WinRM
+2020/09/01 16:20:03 packer-builder-vsphere-iso plugin: [ERROR] connection error: unknown error Post http://192.168.101.214:5985/wsman: dial tcp 192.168.101.214:5985: i/o timeout
+2020/09/01 16:20:03 packer-builder-vsphere-iso plugin: [ERROR] WinRM connection err: unknown error Post http://192.168.101.214:5985/wsman: dial tcp 192.168.101.214:5985: i/o timeout
+2020/09/01 16:20:08 packer-builder-vsphere-iso plugin: [INFO] Attempting WinRM connection...
+2020/09/01 16:20:08 packer-builder-vsphere-iso plugin: [DEBUG] connecting to remote shell using WinRM
+2020/09/01 16:20:29 packer-builder-vsphere-iso plugin: Checking that WinRM is connected with: 'powershell.exe -EncodedCommand aQBmACAAKABUAGUAcwB0AC0AUABhAHQAaAAgAHYAYQByAGkAYQBiAGwAZQA6AGcAbABvAGIAYQBsADoAUAByAG8AZwByAGUAcwBzAFAAcgBlAGYAZQByAGUAbgBjAGUAKQB7ACQAUAByAG8AZwByAGUAcwBzAFAAcgBlAGYAZQByAGUAbgBjAGUAPQAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwB9ADsAIABlAGMAaABvACAAIgBXAGkAbgBSAE0AIABjAG8AbgBuAGUAYwB0AGUAZAAuACIA'
+2020/09/01 16:20:29 packer-builder-vsphere-iso plugin: [INFO] starting remote command: powershell.exe -EncodedCommand aQBmACAAKABUAGUAcwB0AC0AUABhAHQAaAAgAHYAYQByAGkAYQBiAGwAZQA6AGcAbABvAGIAYQBsADoAUAByAG8AZwByAGUAcwBzAFAAcgBlAGYAZQByAGUAbgBjAGUAKQB7ACQAUAByAG8AZwByAGUAcwBzAFAAcgBlAGYAZQByAGUAbgBjAGUAPQAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwB9ADsAIABlAGMAaABvACAAIgBXAGkAbgBSAE0AIABjAG8AbgBuAGUAYwB0AGUAZAAuACIA
+2020/09/01 16:20:34 ui error: [1;31m==> vsphere-iso: #< CLIXML[0m
+2020/09/01 16:20:34 packer-builder-vsphere-iso plugin: [INFO] command 'powershell.exe -EncodedCommand aQBmACAAKABUAGUAcwB0AC0AUABhAHQAaAAgAHYAYQByAGkAYQBiAGwAZQA6AGcAbABvAGIAYQBsADoAUAByAG8AZwByAGUAcwBzAFAAcgBlAGYAZQByAGUAbgBjAGUAKQB7ACQAUAByAG8AZwByAGUAcwBzAFAAcgBlAGYAZQByAGUAbgBjAGUAPQAnAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAJwB9ADsAIABlAGMAaABvACAAIgBXAGkAbgBSAE0AIABjAG8AbgBuAGUAYwB0AGUAZAAuACIA' exited with code: 0
+2020/09/01 16:20:34 ui: [0;32m    vsphere-iso: WinRM connected.[0m
+2020/09/01 16:20:34 ui error: [1;31m==> vsphere-iso: <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj><Obj S="progress" RefId="1"><TNRef RefId="0" /><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>[0m
+2020/09/01 16:20:34 packer-builder-vsphere-iso plugin: Connected to machine
+2020/09/01 16:20:34 ui: [1;32m==> vsphere-iso: Connected to WinRM![0m
+2020/09/01 16:20:34 packer-builder-vsphere-iso plugin: Running the provision hook
+2020/09/01 16:20:34 [INFO] (telemetry) Starting provisioner windows-update
+2020/09/01 16:20:34 ui: [1;32m==> vsphere-iso: Uploading the Windows update elevated script...[0m
+2020/09/01 16:20:34 packer-provisioner-windows-update plugin: 2020/09/01 16:20:34 [INFO] 4121 bytes written for 'uploadData'
+2020/09/01 16:20:34 [INFO] 4121 bytes written for 'uploadData'
+2020/09/01 16:20:34 packer-builder-vsphere-iso plugin: Uploading file to 'C:/Windows/Temp/packer-windows-update-elevated.ps1'
+2020/09/01 16:20:45 packer-builder-vsphere-iso plugin: #< CLIXML
+2020/09/01 16:20:50 packer-builder-vsphere-iso plugin: <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>#< CLIXML
+2020/09/01 16:20:50 ui: [1;32m==> vsphere-iso: Uploading the Windows update check for reboot required elevated script...[0m
+2020/09/01 16:20:50 packer-provisioner-windows-update plugin: 2020/09/01 16:20:50 [INFO] 4190 bytes written for 'uploadData'
+2020/09/01 16:20:50 [INFO] 4190 bytes written for 'uploadData'
+2020/09/01 16:20:50 packer-builder-vsphere-iso plugin: <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>Uploading file to 'C:/Windows/Temp/packer-windows-update-pending-reboot-elevated.ps1'
+2020/09/01 16:20:54 packer-builder-vsphere-iso plugin: #< CLIXML
+2020/09/01 16:20:57 packer-builder-vsphere-iso plugin: <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>#< CLIXML
+2020/09/01 16:20:57 ui: [1;32m==> vsphere-iso: Uploading the Windows update script...[0m
+2020/09/01 16:20:57 packer-provisioner-windows-update plugin: 2020/09/01 16:20:57 [INFO] 9759 bytes written for 'uploadData'
+2020/09/01 16:20:57 [INFO] 9759 bytes written for 'uploadData'
+2020/09/01 16:20:57 packer-builder-vsphere-iso plugin: <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>Uploading file to 'C:/Windows/Temp/packer-windows-update.ps1'
+2020/09/01 16:21:01 packer-builder-vsphere-iso plugin: #< CLIXML
+2020/09/01 16:21:04 packer-builder-vsphere-iso plugin: <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>#< CLIXML
+2020/09/01 16:21:04 ui: [1;32m==> vsphere-iso: Running Windows update...[0m
+2020/09/01 16:21:04 packer-builder-vsphere-iso plugin: <Objs Version="1.1.0.1" xmlns="http://schemas.microsoft.com/powershell/2004/04"><Obj S="progress" RefId="0"><TN RefId="0"><T>System.Management.Automation.PSCustomObject</T><T>System.Object</T></TN><MS><I64 N="SourceId">1</I64><PR N="Record"><AV>Preparing modules for first use.</AV><AI>0</AI><Nil /><PI>-1</PI><PC>-1</PC><T>Completed</T><SR>-1</SR><SD> </SD></PR></MS></Obj></Objs>[INFO] starting remote command: PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-elevated.ps1
+2020/09/01 16:21:25 ui: [0;32m    vsphere-iso: Searching for Windows updates...[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2018-10-15; 20.72 MB): Update for Adobe Flash Player for Windows Server 2019 (1809) for x64-based Systems (KB4462930)[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-05-12; 29.96 MB): Windows Malicious Software Removal Tool x64 - v5.82 (KB890830)[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-05-19; 2.34 MB): 2020-01 Update for Windows Server 2019 for x64-based Systems (KB4494174)[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-06-09; 21.09 MB): 2020-06 Security Update for Adobe Flash Player for Windows Server 2019 for x64-based Systems (KB4561600)[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-08-20; 74.89 MB): 2020-08 Cumulative Update Preview for .NET Framework 3.5, 4.7.2 and 4.8 for Windows Server 2019 for x64 (KB4571462)[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-09-01; 100.53 MB): Security Intelligence Update for Microsoft Defender Antivirus - KB2267602 (Version 1.323.314.0)[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Warning The update 'VMware, Inc. - System - 7/11/2019 12:00:00 AM - 9.8.16.0' has the CanRequestUserInput flag set (if the install hangs, you might need to exclude it with the filter 'exclude:$_.InstallationBehavior.CanRequestUserInput' or 'exclude:$_.Title -like '*VMware, Inc. - System - 7/11/2019 12:00:00 AM - 9.8.16.0*'')[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2019-10-12; 0.08 MB): VMware, Inc. - System - 7/11/2019 12:00:00 AM - 9.8.16.0[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Warning The update 'VMware, Inc. - Net - 1.8.16.0' has the CanRequestUserInput flag set (if the install hangs, you might need to exclude it with the filter 'exclude:$_.InstallationBehavior.CanRequestUserInput' or 'exclude:$_.Title -like '*VMware, Inc. - Net - 1.8.16.0*'')[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-08-26; 0.07 MB): VMware, Inc. - Net - 1.8.16.0[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Warning The update 'VMware, Inc. - System - 9.8.16.0' has the CanRequestUserInput flag set (if the install hangs, you might need to exclude it with the filter 'exclude:$_.InstallationBehavior.CanRequestUserInput' or 'exclude:$_.Title -like '*VMware, Inc. - System - 9.8.16.0*'')[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-08-29; 0.07 MB): VMware, Inc. - System - 9.8.16.0[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Found Windows update (2020-08-11; 15530.56 MB): 2020-08 Cumulative Update for Windows Server 2019 (1809) for x64-based Systems (KB4565349)[0m
+2020/09/01 16:21:35 ui: [0;32m    vsphere-iso: Downloading Windows updates (10 updates; 15780.3 MB)...[0m
+2020/09/01 16:22:13 ui: [0;32m    vsphere-iso: Waiting for operation to complete (system performance: 37% cpu; 93% memory)...[0m
+2020/09/01 16:23:15 ui: [0;32m    vsphere-iso: Waiting for operation to complete (system performance: 39% cpu; 87% memory)...[0m
+2020/09/01 16:24:18 ui: [0;32m    vsphere-iso: Waiting for operation to complete (system performance: 29% cpu; 92% memory)...[0m
+2020/09/01 16:25:21 ui: [0;32m    vsphere-iso: Waiting for operation to complete (system performance: 41% cpu; 97% memory)...[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: Installing Windows updates...[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR: Exception from HRESULT: 0x80240016[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR: at <ScriptBlock>, C:\Windows\Temp\packer-windows-update.ps1: line 250[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR: at <ScriptBlock>, <No file>: line 1[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR EXCEPTION: System.Runtime.InteropServices.COMException (0x80240016): Exception from HRESULT: 0x80240016[0m
+2020/09/01 16:25:57 packer-builder-vsphere-iso plugin: [INFO] command 'PowerShell -ExecutionPolicy Bypass -OutputFormat Text -File C:/Windows/Temp/packer-windows-update-elevated.ps1' exited with code: 1
+2020/09/01 16:25:57 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 1
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR EXCEPTION:    at System.Management.Automation.ComInterop.ComRuntimeHelpers.CheckThrowException(Int32 hresult, ExcepInfo& excepInfo, ComMethodDesc method, Object[] args, UInt32 argErr)[0m
+2020/09/01 16:25:57 [INFO] 0 bytes written for 'stderr'
+2020/09/01 16:25:57 [INFO] 3534 bytes written for 'stdout'
+2020/09/01 16:25:57 [INFO] RPC client: Communicator ended with: 1
+2020/09/01 16:25:57 [INFO] RPC endpoint: Communicator ended with: 1
+2020/09/01 16:25:57 packer-provisioner-windows-update plugin: 2020/09/01 16:25:57 [INFO] 0 bytes written for 'stderr'
+2020/09/01 16:25:57 packer-provisioner-windows-update plugin: 2020/09/01 16:25:57 [INFO] 3534 bytes written for 'stdout'
+2020/09/01 16:25:57 packer-provisioner-windows-update plugin: 2020/09/01 16:25:57 [INFO] RPC client: Communicator ended with: 1
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR EXCEPTION:    at CallSite.Target(Closure , CallSite , ComObject )[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR EXCEPTION:    at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR EXCEPTION:    at System.Dynamic.UpdateDelegates.UpdateAndExecute1[T0,TRet](CallSite site, T0 arg0)[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR EXCEPTION:    at System.Management.Automation.Interpreter.DynamicInstruction`2.Run(InterpretedFrame frame)[0m
+2020/09/01 16:25:57 ui: [0;32m    vsphere-iso: ERROR EXCEPTION:    at System.Management.Automation.Interpreter.EnterTryCatchFinallyInstruction.Run(InterpretedFrame frame)[0m
+2020/09/01 16:25:57 [INFO] (telemetry) ending windows-update
+2020/09/01 16:25:57 ui: [1;32m==> vsphere-iso: Provisioning step had errors: Running the cleanup provisioner, if present...[0m
+2020/09/01 16:25:57 ui: [1;32m==> vsphere-iso: Clear boot order...[0m
+2020/09/01 16:25:57 ui: [1;32m==> vsphere-iso: Power off VM...[0m
+2020/09/01 16:25:57 ui: [1;32m==> vsphere-iso: Deleting Floppy image ...[0m
+2020/09/01 16:25:57 packer-builder-vsphere-iso plugin: Deleting floppy disk: /tmp/packer012702500
+2020/09/01 16:25:57 ui: [1;32m==> vsphere-iso: Destroying VM...[0m
+2020/09/01 16:26:01 [INFO] (telemetry) ending vsphere-iso
+2020/09/01 16:26:01 ui error: [1;31mBuild 'vsphere-iso' errored: Windows update script exited with non-zero exit status: 1[0m
+2020/09/01 16:26:01 machine readable: error-count []string{"1"}
+2020/09/01 16:26:01 ui error: 
+==> Some builds didn't complete successfully and had errors:
+2020/09/01 16:26:01 machine readable: vsphere-iso,error []string{"Windows update script exited with non-zero exit status: 1"}
+2020/09/01 16:26:01 ui error: --> vsphere-iso: Windows update script exited with non-zero exit status: 1
+2020/09/01 16:26:01 ui: 
+==> Builds finished but no artifacts were created.
+2020/09/01 16:26:01 [INFO] (telemetry) Finalizing.
+2020/09/01 16:26:01 waiting for all plugin processes to complete...
+2020/09/01 16:26:01 /home/ubuntu/.local/bin/packer: plugin process exited
+2020/09/01 16:26:01 /home/ubuntu/.local/bin/packer-provisioner-windows-update: plugin process exited
+2020/09/01 16:26:01 /home/ubuntu/.local/bin/packer: plugin process exited
