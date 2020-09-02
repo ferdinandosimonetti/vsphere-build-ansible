@@ -1,0 +1,64 @@
+---
+- hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ./variables.yml
+  tasks:
+    - name: gather SSH keys info
+      register: output
+      hcloud_ssh_key_info:
+        api_token: "{{ token }}"
+    - debug: var=output.hcloud_ssh_key_info
+    - name: create master node
+      hcloud_server:
+        api_token: "{{ token }}"
+        name: k8master
+        labels: { "role": "master", "project": "k8" }
+        server_type: cpx11
+        image: centos-7
+        location: fsn1
+        ssh_keys:
+          - ferdi@LAPTOP-S6G27617-wsl
+          - ferdi@LAPTOP-S6G27617-win
+        state: present
+    - name: create workers
+      loop:
+        - "1"
+        - "2"
+        - "3"
+      hcloud_server:
+        api_token: "{{ token }}"
+        name: "k8node0{{ item }}"
+        labels: { "role": "node", "project": "k8" }
+        server_type: cpx11
+        image: centos-7
+        location: fsn1
+        ssh_keys:
+          - ferdi@LAPTOP-S6G27617-wsl
+          - ferdi@LAPTOP-S6G27617-win
+        state: present
+    - meta: refresh_inventory
+
+- hosts: label_project_k8
+  remote_user: root
+  gather_facts: true
+  vars:
+    k8s_cni: calico                                      # calico, flannel
+    container_runtime: docker                            # docker, cri-o, containerd 
+    configure_firewalld: true                            # true / false
+    # Docker proxy support
+    setup_proxy: false                                   # Set to true to configure proxy
+    proxy_server: "proxy.example.com:8080"               # Proxy server address and port
+    docker_proxy_exclude: "localhost,127.0.0.1"          # Adresses to exclude from proxy
+  roles:
+    - kubernetes-bootstrap
+
+- hosts: label_role_master
+  gather_facts: true
+  vars_files:
+    - ./variables.yml
+  tasks:
+
+
+
+    

@@ -1,46 +1,7 @@
 ---
-- hosts: localhost
-  gather_facts: false
-  vars_files:
-    - ./variables.yml
-  tasks:
-    - name: gather SSH keys info
-      register: output
-      hcloud_ssh_key_info:
-        api_token: "{{ token }}"
-    - debug: var=output.hcloud_ssh_key_info
-    - name: create master node
-      hcloud_server:
-        api_token: "{{ token }}"
-        name: k8master
-        labels: { "role": "master", "project": "k8" }
-        server_type: cpx11
-        image: centos-7
-        location: fsn1
-        ssh_keys:
-          - ferdi@LAPTOP-S6G27617-wsl
-          - ferdi@LAPTOP-S6G27617-win
-        state: present
-    - name: create workers
-      loop:
-        - "1"
-        - "2"
-        - "3"
-      hcloud_server:
-        api_token: "{{ token }}"
-        name: "k8node0{{ item }}"
-        labels: { "role": "node", "project": "k8" }
-        server_type: cpx11
-        image: centos-7
-        location: fsn1
-        ssh_keys:
-          - ferdi@LAPTOP-S6G27617-wsl
-          - ferdi@LAPTOP-S6G27617-win
-        state: present
-    - meta: refresh_inventory
-
-- hosts: label_project_k8
-  remote_user: root
+- hosts: k8
+  become: yes
+  user: admbvtech
   gather_facts: true
   vars:
     k8s_cni: calico                                      # calico, flannel
@@ -52,13 +13,34 @@
     docker_proxy_exclude: "localhost,127.0.0.1"          # Adresses to exclude from proxy
   roles:
     - kubernetes-bootstrap
-
-- hosts: label_role_master
-  gather_facts: true
-  vars_files:
-    - ./variables.yml
   tasks:
+    - name: reboot vms
+      reboot:
+    - name: systemctl reload
+      systemd:
+        daemon_reload: yes
+    - name: restart kubelet
+      systemd:
+        name: kubelet
+        state: restarted
+    - name: gather Docker images
+      command:
+        cmd: kubeadm config images pull
 
-
-
-    
+- hosts: master
+  become: yes
+  user: admbvtech
+  gather_facts: true
+  vars:
+    k8folder: "k8s"
+  vars_files:
+    - ../deployvariables.yml
+  tasks:
+    - name: copy vSphere K8 configuration
+      template:
+        src: etc/kubernetes/vsphere.conf.j2
+        dest: /etc/kubernetes/vsphere.conf
+    - name: copy K8 init configuration
+      template:
+        src: etc/kubernetes/initdefault.yml.j2
+        dest: /etc/kubernetes/initmaster.yml

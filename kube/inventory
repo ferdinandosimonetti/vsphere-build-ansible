@@ -1,0 +1,11 @@
+[k8]
+k8master
+k8node01
+k8node02
+
+[master]
+k8master
+
+[worker]
+k8node01
+k8node02

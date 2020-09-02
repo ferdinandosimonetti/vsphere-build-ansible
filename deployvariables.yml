@@ -37,6 +37,8 @@ vcenter_password: !vault |
           6564
 myvmdcname: "DC0"
 myvmclname: "CL0"
+myvmdatastore: "vm-ds"
+myvmnetwork: "VM Network"
 esxi_username: "root"
 esxi_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
