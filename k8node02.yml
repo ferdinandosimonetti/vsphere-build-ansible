@@ -1,0 +1,13 @@
+---
+vmhostname: "k8node02"
+vmdescription: "worker host K8S"
+vmnetwork: "192.168.101.0/24"
+vmnetworkname: "VM Network"
+template: "centos7template"
+vmtype: "linux"
+vmfolder: "/k8s"
+vmcpu: 2
+vmram: 2048
+vmosid: "centos7_64Guest"
+#template: "w2016template"
+#vmtype: "windows"

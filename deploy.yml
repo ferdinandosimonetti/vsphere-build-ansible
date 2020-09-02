@@ -53,76 +53,132 @@
   - name: get reverse zone from vm address
     register: reversezone
     shell: ./inaddrarpa.py {{ resipaddr.json.data }}
+  # LINUX VM
+  - name: complete deployment of a Linux VM
+    when: vmtype == "linux" 
+    block:
+      - name: Clone a virtual machine from CentOS template and customize
+        register: vm
+        vmware_guest:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          datacenter: "{{ myvmdcname }}"
+          cluster: "{{ myvmclname }}"
+          name: "{{ vmhostname }}"
+          annotation: "{{ vmdescription }}"
+          folder: "/{{ myvmdcname }}/vm{{ vmfolder }}"
+          template: "{{ template }}"
+          hardware:
+            memory_mb: "{{ vmram }}"
+            num_cpus: "{{ vmcpu }}"
+            osid: "{{ vmosid }}"
+            scsi: paravirtual
+          networks:
+          - name: "{{ vmnetworkname }}"
+            ip: "{{ resipaddr.json.data }}"
+            netmask: 255.255.255.0
+            gateway: 192.168.101.2
+          customization:
+            dns_servers:
+            - 192.168.101.104
+            dns_suffix:
+            - "{{ myaddomain }}"
+            domain: "{{ myaddomain }}"
+            timezone: "{{ mytimezone }}"
+            hwclockUTC: true
+          state: poweredon
+          wait_for_ip_address: true
+          wait_for_customization: true
+      - name: Add newly created Linux VM to inventory
+        add_host:
+          name: "{{ vm.instance.ipv4 }}"
+          group: linuxvms
+          hw_guest_id: "{{ vm.instance.hw_guest_id }}"
+          hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
+          hw_name: "{{ vm.instance.hw_name }}"
+      - name: record VM creation date/time
+        shell: date +%Y%m%d%H%M
+        register: creationdate
+      - name: add attribute CREATIONDATE to new VM
+        vmware_guest_custom_attributes:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          name: "{{ vm.instance.hw_name }}"
+          state: present
+          attributes:
+            - name: CREATIONDATE
+              value: "{{ creationdate.stdout }}"
 
-# LINUX VM
-  - name: Clone a virtual machine from CentOS template and customize
-    when: vmtype == "linux"
-    register: vm
-    vmware_guest:
-      hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
-      validate_certs: no
-      datacenter: "{{ myvmdcname }}"
-      cluster: "{{ myvmclname }}"
-      name: "{{ vmhostname }}"
-      annotation: "{{ vmdescription }}"
-      folder: "/{{ myvmdcname }}/vm"
-      template: "{{ template }}"
-      networks:
-      - name: "{{ vmnetworkname }}"
-        ip: "{{ resipaddr.json.data }}"
-        netmask: 255.255.255.0
-        gateway: 192.168.101.2
-      customization:
-        dns_servers:
-        - 192.168.101.104
-        dns_suffix:
-        - "{{ myaddomain }}"
-        domain: "{{ myaddomain }}"
-        timezone: "{{ mytimezone }}"
-        hwclockUTC: true
-      state: poweredon
-      wait_for_ip_address: true
-      wait_for_customization: true
-# WINDOWS VM
-  - name: Clone a virtual machine from W2016 template and customize
+  # WINDOWS VM
+  - name: Complete deployment of a Windows VM
     when: vmtype == "windows"
-    register: vm
-    vmware_guest:
-      hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
-      validate_certs: no
-      datacenter: "{{ myvmdcname }}"
-      cluster: "{{ myvmclname }}"
-      name: "{{ vmhostname }}"
-      annotation: "{{ vmdescription }}"
-      folder: "/{{ myvmdcname }}/vm"
-      template: "{{ template }}"
-      networks:
-      - name: "{{ vmnetworkname }}"
-        ip: "{{ resipaddr.json.data }}"
-        netmask: 255.255.255.0
-        gateway: 192.168.101.2
-      customization:
-        dns_servers:
-        - 192.168.101.104
-        dns_suffix:
-        - "{{ myaddomain }}"
-        domain: "{{ myaddomain }}"
-        domainadmin: "{{ myaduser }}@{{ myaddomain }}"
-        domainadminpassword: "{{ myadpass }}"
-        joindomain: "{{ myaddomain }}"
-        orgname: "Nome azienda"
-        password: "{{ myadpass }}"
-#        # For Windows VMs        
-#        # https://docs.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)?redirectedfrom=MSDN
-        timezone: "{{ mytimezonewin }}"
-        hwclockUTC: true
-      state: poweredon
-      wait_for_ip_address: true
-      wait_for_customization: true
+    block:
+      - name: Clone a virtual machine from W2016 template and customize
+        register: vm
+        vmware_guest:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          datacenter: "{{ myvmdcname }}"
+          cluster: "{{ myvmclname }}"
+          name: "{{ vmhostname }}"
+          annotation: "{{ vmdescription }}"
+          folder: "/{{ myvmdcname }}/vm{{ folder }}"
+          template: "{{ template }}"
+          hardware:
+            memory_mb: "{{ vmram }}"
+            num_cpus: "{{ vmcpu }}"
+            osid: "{{ vmosid }}"
+            scsi: lsilogicsas 
+          networks:
+          - name: "{{ vmnetworkname }}"
+            ip: "{{ resipaddr.json.data }}"
+            netmask: 255.255.255.0
+            gateway: 192.168.101.2
+          customization:
+            dns_servers:
+            - 192.168.101.104
+            dns_suffix:
+            - "{{ myaddomain }}"
+            domain: "{{ myaddomain }}"
+            domainadmin: "{{ myaduser }}@{{ myaddomain }}"
+            domainadminpassword: "{{ myadpass }}"
+            joindomain: "{{ myaddomain }}"
+            orgname: "Nome azienda"
+            password: "{{ myadpass }}"
+    #        # For Windows VMs        
+    #        # https://docs.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)?redirectedfrom=MSDN
+            timezone: "{{ mytimezonewin }}"
+            hwclockUTC: true
+          state: poweredon
+          wait_for_ip_address: true
+          wait_for_customization: true
+      - name: Add newly created Windows VM to inventory
+        add_host:
+          name: "{{ vm.instance.ipv4 }}"
+          group: windowsvms
+          hw_guest_id: "{{ vm.instance.hw_guest_id }}"
+          hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
+          hw_name: "{{ vm.instance.hw_name }}"
+      - name: record VM creation date/time
+        shell: date +%Y%m%d%H%M
+        register: creationdate
+      - name: add attribute CREATIONDATE to new VM
+        vmware_guest_custom_attributes:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          name: "{{ vm.instance.hw_name }}"
+          state: present
+          attributes:
+            - name: CREATIONDATE
+              value: "{{ creationdate.stdout }}"
 
 - hosts: domaincontrollers
   gather_facts: true
@@ -147,46 +203,6 @@
       type: "PTR"
       state: present
       zone: "{{ hostvars['localhost']['reversezone'].stdout }}"
-
-- hosts: localhost
-  gather_facts: true
-  vars_files:
-    - ./deployvariables.yml
-  tasks:  
-  - name: Add newly created Linux VM to inventory
-    when: 
-      - vm.instance is defined
-      - vmtype == "linux"
-    add_host:
-      name: "{{ vm.instance.ipv4 }}"
-      group: linuxvms
-      hw_guest_id: "{{ vm.instance.hw_guest_id }}"
-      hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
-      hw_name: "{{ vm.instance.hw_name }}"
-  - name: Add newly created Windows VM to inventory
-    when: 
-      - vm.instance is defined
-      - vmtype == "windows"
-    add_host:
-      name: "{{ vm.instance.ipv4 }}"
-      group: windowsvms
-      hw_guest_id: "{{ vm.instance.hw_guest_id }}"
-      hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
-      hw_name: "{{ vm.instance.hw_name }}"
-  - name: record VM creation date/time
-    shell: date +%Y%m%d%H%M
-    register: creationdate
-  - name: add attribute CREATIONDATE to new VM
-    vmware_guest_custom_attributes:
-      hostname: "{{ vcenter_hostname }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
-      validate_certs: no
-      name: "{{ vm.instance.hw_name }}"
-      state: present
-      attributes:
-        - name: CREATIONDATE
-          value: "{{ creationdate.stdout }}"
 
 # LINUX VM      
 - hosts: linuxvms
