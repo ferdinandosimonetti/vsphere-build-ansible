@@ -42,5 +42,106 @@
         dest: /etc/kubernetes/vsphere.conf
     - name: copy K8 init configuration
       template:
-        src: etc/kubernetes/initdefault.yml.j2
+        src: etc/kubernetes/initmaster.yml.j2
         dest: /etc/kubernetes/initmaster.yml
+    - name: CREATE CLUSTER
+      command:
+        creates: /etc/kubernetes/pki/ca.crt
+        cmd: kubeadm init --config /etc/kubernetes/initmaster.yml     
+    - name: create admbvtech's .kube dir
+      file:
+        state: directory
+        path: "/home/{{ ansible_env.SUDO_USER }}/.kube"
+        owner: "{{ ansible_env.SUDO_USER }}"
+        group: "{{ ansible_env.SUDO_GID }}"
+    - name: copy kubeconfig
+      copy:
+        remote_src: yes
+        src: /etc/kubernetes/admin.conf
+        dest: "/home/{{ ansible_env.SUDO_USER }}/.kube/config"
+        owner: "{{ ansible_env.SUDO_USER }}"
+        group: "{{ ansible_env.SUDO_GID }}"
+  
+- hosts: master
+  become: no
+  user: admbvtech
+  gather_facts: true
+  vars:
+    k8folder: "k8s"
+  vars_files:
+    - ../deployvariables.yml
+  tasks:
+    - name: deploy Calico
+      command:
+        cmd: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+    - name: cycle until pods are ready
+      register: result
+      until: result.stdout == "0"
+      retries: 60
+      delay: 10
+      shell:
+        cmd: kubectl get pods -n kube-system|awk '{print $3}'|egrep -v 'STATUS|Running'|wc -l
+    - name: get discovery information for worker nodes
+      register: discovery
+      command:
+        cmd: kubectl -n kube-public get configmap cluster-info -o jsonpath='{.data.kubeconfig}'
+    - name: grab discovery content, put it in a fact to be transmitted to worker nodes
+      set_fact: workerdiscovery="{{ discovery.stdout }}"
+      delegate_to: "{{ item }}"
+      delegate_facts: true
+      with_items: "{{ groups['worker'] }}"
+
+- hosts: worker
+  become: yes
+  user: admbvtech
+  gather_facts: true
+  vars:
+    k8folder: "k8s"
+  vars_files:
+    - ../deployvariables.yml
+  tasks:
+    - name: compile discovery.yml
+      template:
+        src: etc/kubernetes/discovery.yml.j2
+        dest: /etc/kubernetes/discovery.yml
+    - name: compile initworker.yml
+      template:
+        src: etc/kubernetes/initworker.yml.j2
+        dest: /etc/kubernetes/initworker.yml
+    - name: join cluster
+      command:
+        creates: /etc/kubernetes/pki/ca.crt
+        cmd: kubeadm join --config /etc/kubernetes/initworker.yml
+
+- hosts: master
+  become: no
+  user: admbvtech
+  gather_facts: true
+  vars_files:
+    - ../deployvariables.yml
+  tasks:
+    - name: cycle checking if all nodes are Ready
+      register: result
+      until: result.stdout == "0"
+      retries: 60
+      delay: 5
+      shell:
+        cmd: kubectl get nodes|awk '{print $2}'|egrep -v 'STATUS|Ready'|wc -l
+    - name: copy storage classes definitions
+      copy:
+        src: "{{ item }}"
+        dest: "/home/admbvtech/{{ item }}"
+        owner: admbvtech
+        group: sudo
+      loop:
+        - sc-thin.yml
+        - sc-thick.yml
+    - name: create storage classese
+      command:
+        cmd: "kubectl apply -f /home/admbvtech/{{ item }}"
+      loop:
+        - sc-thin.yml
+        - sc-thick.yml
+
+
+
