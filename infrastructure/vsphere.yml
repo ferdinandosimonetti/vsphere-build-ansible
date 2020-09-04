@@ -159,17 +159,17 @@
 #      datacenter: "{{ myvmdcname }}"
 #      datastore: 'iso-ds'
 #      path: /win/2016.iso
-#  - name: copy CentOS 8 ISO to datastore
-#    delegate_to: localhost  
-#    vsphere_copy:
-#      hostname: '{{ vcenter_hostname }}'
-#      username: '{{ vcenter_username }}'
-#      password: '{{ vcenter_password }}'
-#      validate_certs: false
-#      src: /iso/linux/centos8.iso
-#      datacenter: "{{ myvmdcname }}"
-#      datastore: 'iso-ds'
-#      path: /linux/centos8.iso
+  - name: copy CentOS 7 ISO to datastore
+    delegate_to: localhost  
+    vsphere_copy:
+      hostname: '{{ vcenter_hostname }}'
+      username: '{{ vcenter_username }}'
+      password: '{{ vcenter_password }}'
+      validate_certs: false
+      src: /iso/linux/centos7.iso
+      datacenter: "{{ myvmdcname }}"
+      datastore: 'iso-ds'
+      path: /linux/centos7.iso
 #  - name: Clone a virtual machine from Windows template and customize
 #    delegate_to: localhost
 #    vmware_guest:

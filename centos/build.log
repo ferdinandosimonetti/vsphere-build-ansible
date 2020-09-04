@@ -1,0 +1,1593 @@
+2020/09/03 21:36:08 [INFO] Packer version: 1.6.1 [go1.13.14 linux amd64]
+2020/09/03 21:36:08 [DEBUG] Discovered plugin: windows-update = /home/ubuntu/.local/bin/packer-provisioner-windows-update
+2020/09/03 21:36:08 using external provisioners [windows-update]
+2020/09/03 21:36:08 Checking 'PACKER_CONFIG' for a config file path
+2020/09/03 21:36:08 'PACKER_CONFIG' not set; checking the default config file path
+2020/09/03 21:36:08 Attempting to open config file: /home/ubuntu/.packerconfig
+2020/09/03 21:36:08 [WARN] Config file doesn't exist: /home/ubuntu/.packerconfig
+2020/09/03 21:36:08 Setting cache directory: /home/ubuntu/vsphere-build-ansible/centos/packer_cache
+2020/09/03 21:36:08 Creating plugin client for path: /home/ubuntu/.local/bin/packer
+2020/09/03 21:36:08 Starting plugin: /home/ubuntu/.local/bin/packer []string{"/home/ubuntu/.local/bin/packer", "plugin", "packer-builder-vsphere-iso"}
+2020/09/03 21:36:08 Waiting for RPC address for: /home/ubuntu/.local/bin/packer
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: [INFO] Packer version: 1.6.1 [go1.13.14 linux amd64]
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: Checking 'PACKER_CONFIG' for a config file path
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: 'PACKER_CONFIG' not set; checking the default config file path
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: Attempting to open config file: /home/ubuntu/.packerconfig
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: [WARN] Config file doesn't exist: /home/ubuntu/.packerconfig
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: Setting cache directory: /home/ubuntu/vsphere-build-ansible/centos/packer_cache
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: args: []string{"packer-builder-vsphere-iso"}
+2020/09/03 21:36:08 Received unix RPC address for /home/ubuntu/.local/bin/packer: addr is /tmp/packer-plugin115218734
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: Plugin address: unix /tmp/packer-plugin115218734
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: Waiting for connection...
+2020/09/03 21:36:08 packer-builder-vsphere-iso plugin: Serving a plugin connection...
+2020/09/03 21:36:08 Creating plugin client for path: /home/ubuntu/.local/bin/packer
+2020/09/03 21:36:08 Starting plugin: /home/ubuntu/.local/bin/packer []string{"/home/ubuntu/.local/bin/packer", "plugin", "packer-provisioner-ansible"}
+2020/09/03 21:36:08 Waiting for RPC address for: /home/ubuntu/.local/bin/packer
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: [INFO] Packer version: 1.6.1 [go1.13.14 linux amd64]
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: Checking 'PACKER_CONFIG' for a config file path
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: 'PACKER_CONFIG' not set; checking the default config file path
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: Attempting to open config file: /home/ubuntu/.packerconfig
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: [WARN] Config file doesn't exist: /home/ubuntu/.packerconfig
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: Setting cache directory: /home/ubuntu/vsphere-build-ansible/centos/packer_cache
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: args: []string{"packer-provisioner-ansible"}
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: Plugin address: unix /tmp/packer-plugin553143500
+2020/09/03 21:36:08 Received unix RPC address for /home/ubuntu/.local/bin/packer: addr is /tmp/packer-plugin553143500
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: Waiting for connection...
+2020/09/03 21:36:08 packer-provisioner-ansible plugin: Serving a plugin connection...
+2020/09/03 21:36:08 Preparing build: vsphere-iso
+2020/09/03 21:36:09 packer-provisioner-ansible plugin: ansible-playbook version: 2.9.11
+2020/09/03 21:36:09 ui: [1;32mvsphere-iso: output will be in this color.[0m
+2020/09/03 21:36:09 ui: 
+2020/09/03 21:36:09 Build debug mode: false
+2020/09/03 21:36:09 Force build: false
+2020/09/03 21:36:09 On error: 
+2020/09/03 21:36:09 Waiting on builds to complete...
+2020/09/03 21:36:09 Starting build run: vsphere-iso
+2020/09/03 21:36:09 Running builder: vsphere-iso
+2020/09/03 21:36:09 [INFO] (telemetry) Starting builder vsphere-iso
+2020/09/03 21:36:09 ui: [1;32m==> vsphere-iso: Creating VM...[0m
+2020/09/03 21:36:11 ui: [1;32m==> vsphere-iso: Customizing hardware...[0m
+2020/09/03 21:36:12 ui: [1;32m==> vsphere-iso: Mounting ISO images...[0m
+2020/09/03 21:36:12 packer-builder-vsphere-iso plugin: Creating CD-ROM on controller '&{{{} 200 0xc000eda3e0 <nil> <nil> <nil> 0 <nil>} 0 []}' with iso '[iso-ds] linux/centos7.iso'
+2020/09/03 21:36:13 packer-builder-vsphere-iso plugin: No floppy files specified. Floppy disk will not be made.
+2020/09/03 21:36:13 ui: [1;32m==> vsphere-iso: Starting HTTP server on port 8065[0m
+2020/09/03 21:36:13 packer-builder-vsphere-iso plugin: Found available port: 8065 on IP: 0.0.0.0
+2020/09/03 21:36:13 ui: [1;32m==> vsphere-iso: Set boot order temporary...[0m
+2020/09/03 21:36:13 ui: [1;32m==> vsphere-iso: Power on VM...[0m
+2020/09/03 21:36:15 ui: [1;32m==> vsphere-iso: Waiting 10s for boot...[0m
+2020/09/03 21:36:25 ui: [1;32m==> vsphere-iso: HTTP server is working at http://192.168.101.110:8065/[0m
+2020/09/03 21:36:25 ui: [1;32m==> vsphere-iso: Typing boot command...[0m
+2020/09/03 21:36:25 packer-builder-vsphere-iso plugin: Special code '<tab>' found, replacing with: CodeTab
+2020/09/03 21:36:25 packer-builder-vsphere-iso plugin: Sending char ' ', code CodeSpacebar, shift false
+2020/09/03 21:36:25 packer-builder-vsphere-iso plugin: Sending char 't', code CodeT, shift false
+2020/09/03 21:36:25 packer-builder-vsphere-iso plugin: Sending char 'e', code CodeE, shift false
+2020/09/03 21:36:25 packer-builder-vsphere-iso plugin: Sending char 'x', code CodeX, shift false
+2020/09/03 21:36:25 packer-builder-vsphere-iso plugin: Sending char 't', code CodeT, shift false
+2020/09/03 21:36:26 packer-builder-vsphere-iso plugin: Sending char ' ', code CodeSpacebar, shift false
+2020/09/03 21:36:26 packer-builder-vsphere-iso plugin: Sending char 'k', code CodeK, shift false
+2020/09/03 21:36:26 packer-builder-vsphere-iso plugin: Sending char 's', code CodeS, shift false
+2020/09/03 21:36:26 packer-builder-vsphere-iso plugin: Sending char '=', code CodeEqualSign, shift false
+2020/09/03 21:36:26 packer-builder-vsphere-iso plugin: Sending char 'h', code CodeH, shift false
+2020/09/03 21:36:26 packer-builder-vsphere-iso plugin: Sending char 't', code CodeT, shift false
+2020/09/03 21:36:27 packer-builder-vsphere-iso plugin: Sending char 't', code CodeT, shift false
+2020/09/03 21:36:27 packer-builder-vsphere-iso plugin: Sending char 'p', code CodeP, shift false
+2020/09/03 21:36:27 packer-builder-vsphere-iso plugin: Sending char ':', code CodeSemicolon, shift true
+2020/09/03 21:36:27 packer-builder-vsphere-iso plugin: Sending char '/', code CodeSlash, shift false
+2020/09/03 21:36:27 packer-builder-vsphere-iso plugin: Sending char '/', code CodeSlash, shift false
+2020/09/03 21:36:27 packer-builder-vsphere-iso plugin: Sending char '1', code Code1, shift false
+2020/09/03 21:36:28 packer-builder-vsphere-iso plugin: Sending char '9', code Code9, shift false
+2020/09/03 21:36:28 packer-builder-vsphere-iso plugin: Sending char '2', code Code2, shift false
+2020/09/03 21:36:28 packer-builder-vsphere-iso plugin: Sending char '.', code CodeFullStop, shift false
+2020/09/03 21:36:28 packer-builder-vsphere-iso plugin: Sending char '1', code Code1, shift false
+2020/09/03 21:36:29 packer-builder-vsphere-iso plugin: Sending char '6', code Code6, shift false
+2020/09/03 21:36:29 packer-builder-vsphere-iso plugin: Sending char '8', code Code8, shift false
+2020/09/03 21:36:29 packer-builder-vsphere-iso plugin: Sending char '.', code CodeFullStop, shift false
+2020/09/03 21:36:29 packer-builder-vsphere-iso plugin: Sending char '1', code Code1, shift false
+2020/09/03 21:36:29 packer-builder-vsphere-iso plugin: Sending char '0', code Code0, shift false
+2020/09/03 21:36:30 packer-builder-vsphere-iso plugin: Sending char '1', code Code1, shift false
+2020/09/03 21:36:30 packer-builder-vsphere-iso plugin: Sending char '.', code CodeFullStop, shift false
+2020/09/03 21:36:30 packer-builder-vsphere-iso plugin: Sending char '1', code Code1, shift false
+2020/09/03 21:36:30 packer-builder-vsphere-iso plugin: Sending char '1', code Code1, shift false
+2020/09/03 21:36:30 packer-builder-vsphere-iso plugin: Sending char '0', code Code0, shift false
+2020/09/03 21:36:31 packer-builder-vsphere-iso plugin: Sending char ':', code CodeSemicolon, shift true
+2020/09/03 21:36:31 packer-builder-vsphere-iso plugin: Sending char '8', code Code8, shift false
+2020/09/03 21:36:31 packer-builder-vsphere-iso plugin: Sending char '0', code Code0, shift false
+2020/09/03 21:36:31 packer-builder-vsphere-iso plugin: Sending char '6', code Code6, shift false
+2020/09/03 21:36:31 packer-builder-vsphere-iso plugin: Sending char '5', code Code5, shift false
+2020/09/03 21:36:32 packer-builder-vsphere-iso plugin: Sending char '/', code CodeSlash, shift false
+2020/09/03 21:36:32 packer-builder-vsphere-iso plugin: Sending char 'c', code CodeC, shift false
+2020/09/03 21:36:32 packer-builder-vsphere-iso plugin: Sending char 'e', code CodeE, shift false
+2020/09/03 21:36:32 packer-builder-vsphere-iso plugin: Sending char 'n', code CodeN, shift false
+2020/09/03 21:36:32 packer-builder-vsphere-iso plugin: Sending char 't', code CodeT, shift false
+2020/09/03 21:36:32 packer-builder-vsphere-iso plugin: Sending char 'o', code CodeO, shift false
+2020/09/03 21:36:33 packer-builder-vsphere-iso plugin: Sending char 's', code CodeS, shift false
+2020/09/03 21:36:33 packer-builder-vsphere-iso plugin: Sending char '7', code Code7, shift false
+2020/09/03 21:36:33 packer-builder-vsphere-iso plugin: Sending char '_', code CodeHyphenMinus, shift true
+2020/09/03 21:36:33 packer-builder-vsphere-iso plugin: Sending char '6', code Code6, shift false
+2020/09/03 21:36:34 packer-builder-vsphere-iso plugin: Sending char '4', code Code4, shift false
+2020/09/03 21:36:34 packer-builder-vsphere-iso plugin: Sending char 'G', code CodeG, shift true
+2020/09/03 21:36:34 packer-builder-vsphere-iso plugin: Sending char 'u', code CodeU, shift false
+2020/09/03 21:36:34 packer-builder-vsphere-iso plugin: Sending char 'e', code CodeE, shift false
+2020/09/03 21:36:34 packer-builder-vsphere-iso plugin: Sending char 's', code CodeS, shift false
+2020/09/03 21:36:34 packer-builder-vsphere-iso plugin: Sending char 't', code CodeT, shift false
+2020/09/03 21:36:35 packer-builder-vsphere-iso plugin: Sending char '.', code CodeFullStop, shift false
+2020/09/03 21:36:35 packer-builder-vsphere-iso plugin: Sending char 'c', code CodeC, shift false
+2020/09/03 21:36:35 packer-builder-vsphere-iso plugin: Sending char 'f', code CodeF, shift false
+2020/09/03 21:36:35 packer-builder-vsphere-iso plugin: Sending char 'g', code CodeG, shift false
+2020/09/03 21:36:35 packer-builder-vsphere-iso plugin: Special code '<enter>' found, replacing with: CodeReturnEnter
+2020/09/03 21:36:36 packer-builder-vsphere-iso plugin: [INFO] Waiting 1s
+2020/09/03 21:36:37 ui: [1;32m==> vsphere-iso: Waiting for IP...[0m
+2020/09/03 21:36:37 packer-builder-vsphere-iso plugin: [INFO] Waiting for IP, up to total timeout: 30m0s, settle timeout: 5s
+2020/09/03 21:59:08 packer-builder-vsphere-iso plugin: VM IP aquired: 192.168.101.215
+2020/09/03 21:59:08 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.215
+2020/09/03 21:59:09 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.215
+2020/09/03 21:59:10 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.215
+2020/09/03 21:59:11 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.215
+2020/09/03 21:59:12 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.215
+2020/09/03 21:59:13 packer-builder-vsphere-iso plugin: VM IP is still the same: 192.168.101.215
+2020/09/03 21:59:13 packer-builder-vsphere-iso plugin: VM IP seems stable enough: 192.168.101.215
+2020/09/03 21:59:13 ui: [1;32m==> vsphere-iso: IP address: 192.168.101.215[0m
+2020/09/03 21:59:13 ui: [1;32m==> vsphere-iso: Using ssh communicator to connect: 192.168.101.215[0m
+2020/09/03 21:59:13 packer-builder-vsphere-iso plugin: [INFO] Waiting for SSH, up to timeout: 5m0s
+2020/09/03 21:59:13 ui: [1;32m==> vsphere-iso: Waiting for SSH to become available...[0m
+2020/09/03 21:59:13 packer-builder-vsphere-iso plugin: [INFO] Attempting SSH connection to 192.168.101.215:22...
+2020/09/03 21:59:13 packer-builder-vsphere-iso plugin: [DEBUG] reconnecting to TCP connection for SSH
+2020/09/03 21:59:13 packer-builder-vsphere-iso plugin: [DEBUG] handshaking with SSH
+2020/09/03 21:59:17 packer-builder-vsphere-iso plugin: [DEBUG] handshake complete!
+2020/09/03 21:59:17 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:17 packer-builder-vsphere-iso plugin: [INFO] agent forwarding enabled
+2020/09/03 21:59:17 ui: [1;32m==> vsphere-iso: Connected to SSH![0m
+2020/09/03 21:59:17 packer-builder-vsphere-iso plugin: Running the provision hook
+2020/09/03 21:59:17 [INFO] (telemetry) Starting provisioner ansible
+2020/09/03 21:59:17 ui: [1;32m==> vsphere-iso: Provisioning with Ansible...[0m
+2020/09/03 21:59:17 ui: [0;32m    vsphere-iso: Setting up proxy adapter for Ansible....[0m
+2020/09/03 21:59:18 packer-provisioner-ansible plugin: Creating inventory file for Ansible run...
+2020/09/03 21:59:18 packer-provisioner-ansible plugin: SSH proxy: serving on 127.0.0.1:33399
+2020/09/03 21:59:18 ui: [1;32m==> vsphere-iso: Executing Ansible: ansible-playbook -e packer_build_name="vsphere-iso" -e packer_builder_type=vsphere-iso -e packer_http_addr=192.168.101.110:8065 --ssh-extra-args '-o IdentitiesOnly=yes' --vault-password-file ~/.password --extra-vars @../deployvariables.yml -e ansible_ssh_private_key_file=/tmp/ansible-key677598139 -i /tmp/packer-provisioner-ansible838458334 /home/ubuntu/vsphere-build-ansible/centos/build.yml[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:  _______________________________[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso: < PLAY [set up CentOS template] >[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:  -------------------------------[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:20 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:  ________________________[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso: < TASK [Gathering Facts] >[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:  ------------------------[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:21 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: SSH proxy: accepted connection
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: authentication attempt from 127.0.0.1:58220 to 127.0.0.1:33399 as ubuntu using none
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: authentication attempt from 127.0.0.1:58220 to 127.0.0.1:33399 as ubuntu using publickey
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:21 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:21 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518 && echo ansible-tmp-1599163161.338946-12496-172916344369518="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518 `" ) && sleep 0'
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518 && echo ansible-tmp-1599163161.338946-12496-172916344369518="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518 `" ) && sleep 0'
+2020/09/03 21:59:21 [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:21 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:21 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo PLATFORM; uname; echo FOUND; command -v '"'"'/usr/bin/python'"'"'; command -v '"'"'python3.7'"'"'; command -v '"'"'python3.6'"'"'; command -v '"'"'python3.5'"'"'; command -v '"'"'python2.7'"'"'; command -v '"'"'python2.6'"'"'; command -v '"'"'/usr/libexec/platform-python'"'"'; command -v '"'"'/usr/bin/python3'"'"'; command -v '"'"'python'"'"'; echo ENDFOUND && sleep 0'
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo PLATFORM; uname; echo FOUND; command -v '"'"'/usr/bin/python'"'"'; command -v '"'"'python3.7'"'"'; command -v '"'"'python3.6'"'"'; command -v '"'"'python3.5'"'"'; command -v '"'"'python2.7'"'"'; command -v '"'"'python2.6'"'"'; command -v '"'"'/usr/libexec/platform-python'"'"'; command -v '"'"'/usr/bin/python3'"'"'; command -v '"'"'python'"'"'; echo ENDFOUND && sleep 0'
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] 146 bytes written for 'stdout'
+2020/09/03 21:59:21 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:21 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:21 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 146 bytes written for 'stdout'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python && sleep 0'
+2020/09/03 21:59:21 packer-provisioner-ansible plugin: [INFO] 1234 bytes written for 'stdin'
+2020/09/03 21:59:21 [INFO] 1234 bytes written for 'stdin'
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:21 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python && sleep 0'
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:22 [INFO] 519 bytes written for 'stdout'
+2020/09/03 21:59:22 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:22 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:22 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] 519 bytes written for 'stdout'
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/AnsiballZ_setup.py'
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] 264628 bytes written for 'uploadData'
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_setup.py: perms=C0600 size=264628
+2020/09/03 21:59:22 [INFO] 264628 bytes written for 'uploadData'
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 38): Sink: C0600 264628 AnsiballZ_setup.py
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/AnsiballZ_setup.py'"'"' && sleep 0'
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/AnsiballZ_setup.py'"'"' && sleep 0'
+2020/09/03 21:59:22 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:22 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:22 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:22 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:22 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:22 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/AnsiballZ_setup.py'"'"' && sleep 0'
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:22 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/AnsiballZ_setup.py'"'"' && sleep 0'
+2020/09/03 21:59:23 [INFO] 14954 bytes written for 'stdout'
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 14954 bytes written for 'stdout'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163161.338946-12496-172916344369518/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso: ok: [default][0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:  __________________________[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso: < TASK [create sudo group] >[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:  --------------------------[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:23 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380 && echo ansible-tmp-1599163163.4474535-12511-83572839138380="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380 `" ) && sleep 0'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380 && echo ansible-tmp-1599163163.4474535-12511-83572839138380="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380 `" ) && sleep 0'
+2020/09/03 21:59:23 [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/AnsiballZ_group.py'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_group.py: perms=C0600 size=117196
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 117196 bytes written for 'uploadData'
+2020/09/03 21:59:23 [INFO] 117196 bytes written for 'uploadData'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 38): Sink: C0600 117196 AnsiballZ_group.py
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/AnsiballZ_group.py'"'"' && sleep 0'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/AnsiballZ_group.py'"'"' && sleep 0'
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:23 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/AnsiballZ_group.py'"'"' && sleep 0'
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:23 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/AnsiballZ_group.py'"'"' && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 221 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 221 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163163.4474535-12511-83572839138380/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso: changed: [default][0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:  _____________________________________[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso: < TASK [nopasswd sudo for sudo group] >[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:  -------------------------------------[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:24 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254 && echo ansible-tmp-1599163164.1718085-12521-277427583244254="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254 `" ) && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254 && echo ansible-tmp-1599163164.1718085-12521-277427583244254="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254 `" ) && sleep 0'
+2020/09/03 21:59:24 [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/AnsiballZ_lineinfile.py'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 119737 bytes written for 'uploadData'
+2020/09/03 21:59:24 [INFO] 119737 bytes written for 'uploadData'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_lineinfile.py: perms=C0600 size=119737
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 43): Sink: C0600 119737 AnsiballZ_lineinfile.py
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] 855 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 855 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.1718085-12521-277427583244254/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso: changed: [default][0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:  ____________________[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso: < TASK [create user] >[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:  --------------------[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:24 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225 && echo ansible-tmp-1599163164.9002101-12531-265084698189225="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225 `" ) && sleep 0'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225 && echo ansible-tmp-1599163164.9002101-12531-265084698189225="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225 `" ) && sleep 0'
+2020/09/03 21:59:24 [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:24 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:24 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/AnsiballZ_user.py'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 137508 bytes written for 'uploadData'
+2020/09/03 21:59:25 [INFO] 137508 bytes written for 'uploadData'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_user.py: perms=C0600 size=137508
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 37): Sink: C0600 137508 AnsiballZ_user.py
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:25 [INFO] 964 bytes written for 'stdout'
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 964 bytes written for 'stdout'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163164.9002101-12531-265084698189225/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso: changed: [default][0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:  ____________________[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso: < TASK [add authkey] >[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:  --------------------[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:25 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:25 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601 && echo ansible-tmp-1599163165.8514779-12551-248845953659601="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601 `" ) && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601 && echo ansible-tmp-1599163165.8514779-12551-248845953659601="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601 `" ) && sleep 0'
+2020/09/03 21:59:25 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:25 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:25 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/AnsiballZ_authorized_key.py'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 146423 bytes written for 'uploadData'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_authorized_key.py: perms=C0600 size=146423
+2020/09/03 21:59:26 [INFO] 146423 bytes written for 'uploadData'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 47): Sink: C0600 146423 AnsiballZ_authorized_key.py
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:26 [INFO] 2811 bytes written for 'stdout'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 2811 bytes written for 'stdout'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163165.8514779-12551-248845953659601/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 ui: [0;32m    vsphere-iso: changed: [default] => (item={'keyfile': './id_rsa.pub'})[0m
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:26 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167 && echo ansible-tmp-1599163166.6660593-12551-37555941598167="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167 `" ) && sleep 0'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167 && echo ansible-tmp-1599163166.6660593-12551-37555941598167="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167 `" ) && sleep 0'
+2020/09/03 21:59:26 [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/AnsiballZ_authorized_key.py'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 [INFO] 145384 bytes written for 'uploadData'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 145384 bytes written for 'uploadData'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_authorized_key.py: perms=C0600 size=145384
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 47): Sink: C0600 145384 AnsiballZ_authorized_key.py
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:26 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:26 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/AnsiballZ_authorized_key.py'"'"' && sleep 0'
+2020/09/03 21:59:27 [INFO] 739 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 739 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163166.6660593-12551-37555941598167/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso: changed: [default] => (item={'keyfile': './id_ed25519.pub'})[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:  ______________________________[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso: < TASK [no root login via SSH] >[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:  ------------------------------[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104 && echo ansible-tmp-1599163167.1942112-12568-75733902533104="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104 `" ) && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104 && echo ansible-tmp-1599163167.1942112-12568-75733902533104="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104 `" ) && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/AnsiballZ_lineinfile.py'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 119743 bytes written for 'uploadData'
+2020/09/03 21:59:27 [INFO] 119743 bytes written for 'uploadData'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_lineinfile.py: perms=C0600 size=119743
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 43): Sink: C0600 119743 AnsiballZ_lineinfile.py
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 902 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 902 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.1942112-12568-75733902533104/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso: changed: [default] => (item={'reg': '^PermitRootLogin', 'lin': 'PermitRootLogin no'})[0m
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:27 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972 && echo ansible-tmp-1599163167.6059155-12568-66248395173972="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972 `" ) && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972 && echo ansible-tmp-1599163167.6059155-12568-66248395173972="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972 `" ) && sleep 0'
+2020/09/03 21:59:27 [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 125 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/AnsiballZ_lineinfile.py'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_lineinfile.py: perms=C0600 size=119754
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 119754 bytes written for 'uploadData'
+2020/09/03 21:59:27 [INFO] 119754 bytes written for 'uploadData'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 43): Sink: C0600 119754 AnsiballZ_lineinfile.py
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:27 [INFO] 913 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 913 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163167.6059155-12568-66248395173972/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:27 ui: [0;32m    vsphere-iso: changed: [default] => (item={'reg': '^PubkeyAuthentication', 'lin': 'PubkeyAuthentication yes'})[0m
+2020/09/03 21:59:27 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:28 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487 && echo ansible-tmp-1599163168.03699-12568-275149114866487="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487 `" ) && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487 && echo ansible-tmp-1599163168.03699-12568-275149114866487="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487 `" ) && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 123 bytes written for 'stdout'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 123 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/AnsiballZ_lineinfile.py'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_lineinfile.py: perms=C0600 size=119752
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 119752 bytes written for 'uploadData'
+2020/09/03 21:59:28 [INFO] 119752 bytes written for 'uploadData'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 43): Sink: C0600 119752 AnsiballZ_lineinfile.py
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2020/09/03 21:59:28 [INFO] 915 bytes written for 'stdout'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 915 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.03699-12568-275149114866487/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso: changed: [default] => (item={'reg': 'AllowAgentForwarding', 'lin': 'AllowAgentForwarding yes'})[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:  ___________________________[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso: < TASK [lock root password] >[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:  ---------------------------[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:28 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:28 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978 && echo ansible-tmp-1599163168.6363275-12592-104929975583978="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978 `" ) && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978 && echo ansible-tmp-1599163168.6363275-12592-104929975583978="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978 `" ) && sleep 0'
+2020/09/03 21:59:28 [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/AnsiballZ_user.py'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 137391 bytes written for 'uploadData'
+2020/09/03 21:59:28 [INFO] 137391 bytes written for 'uploadData'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_user.py: perms=C0600 size=137391
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 37): Sink: C0600 137391 AnsiballZ_user.py
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:28 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:28 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:28 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/AnsiballZ_user.py'"'"' && sleep 0'
+2020/09/03 21:59:29 [INFO] 870 bytes written for 'stdout'
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 870 bytes written for 'stdout'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163168.6363275-12592-104929975583978/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso: changed: [default][0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:  ___________________________________________[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso: < TASK [install security updates (CentOS8)] >[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:  -------------------------------------------[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso: skipping: [default][0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:  ________________________________________[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso: < TASK [install bugfix/errata (CentOS8)] >[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:  ----------------------------------------[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso: skipping: [default][0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:  ___________________________________________[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso: < TASK [install security updates (CentOS7)] >[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:  -------------------------------------------[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 21:59:29 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 21:59:29 [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339 && echo ansible-tmp-1599163169.4855247-12608-237788252574339="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339 `" ) && sleep 0'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339 && echo ansible-tmp-1599163169.4855247-12608-237788252574339="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339 `" ) && sleep 0'
+2020/09/03 21:59:29 [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 127 bytes written for 'stdout'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/AnsiballZ_yum.py'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_yum.py: perms=C0600 size=161007
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 161007 bytes written for 'uploadData'
+2020/09/03 21:59:29 [INFO] 161007 bytes written for 'uploadData'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 36): Sink: C0600 161007 AnsiballZ_yum.py
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 21:59:29 [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 21:59:29 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 21:59:29 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 22:00:06 [INFO] 708 bytes written for 'stdout'
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 708 bytes written for 'stdout'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163169.4855247-12608-237788252574339/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso: ok: [default][0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:  ________________________________________[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso: < TASK [install bugfix/errata (CentOS7)] >[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:  ----------------------------------------[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 22:00:06 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728 && echo ansible-tmp-1599163206.320812-12627-26564361849728="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728 `" ) && sleep 0'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728 && echo ansible-tmp-1599163206.320812-12627-26564361849728="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728 `" ) && sleep 0'
+2020/09/03 22:00:06 [INFO] 123 bytes written for 'stdout'
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 123 bytes written for 'stdout'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/AnsiballZ_yum.py'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 161001 bytes written for 'uploadData'
+2020/09/03 22:00:06 [INFO] 161001 bytes written for 'uploadData'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_yum.py: perms=C0600 size=161001
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 36): Sink: C0600 161001 AnsiballZ_yum.py
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:06 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:06 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:06 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/AnsiballZ_yum.py'"'"' && sleep 0'
+2020/09/03 22:00:12 [INFO] 708 bytes written for 'stdout'
+2020/09/03 22:00:12 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:12 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:12 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:12 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:12 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] 708 bytes written for 'stdout'
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:12 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:12 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163206.320812-12627-26564361849728/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:12 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:12 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:12 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:12 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:12 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:12 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:12 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso: ok: [default][0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:  ___________________________________[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso: < TASK [Python3 as /usr/bin/python] >[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:  -----------------------------------[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 22:00:12 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559 && echo ansible-tmp-1599163213.0731318-12646-63762843132559="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559 `" ) && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559 && echo ansible-tmp-1599163213.0731318-12646-63762843132559="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559 `" ) && sleep 0'
+2020/09/03 22:00:13 [INFO] 125 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 125 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/AnsiballZ_alternatives.py'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_alternatives.py: perms=C0600 size=114611
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 114611 bytes written for 'uploadData'
+2020/09/03 22:00:13 [INFO] 114611 bytes written for 'uploadData'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 45): Sink: C0600 114611 AnsiballZ_alternatives.py
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:13 [INFO] 141 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 141 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.0731318-12646-63762843132559/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso: changed: [default][0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:  _____________________________[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso: < TASK [PIP3 as /usr/bin/pip] >[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:  -----------------------------[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 22:00:13 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:13 [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382 && echo ansible-tmp-1599163213.8282983-12656-51677205678382="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382 `" ) && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382 && echo ansible-tmp-1599163213.8282983-12656-51677205678382="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382 `" ) && sleep 0'
+2020/09/03 22:00:13 [INFO] 125 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 125 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/AnsiballZ_alternatives.py'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 114602 bytes written for 'uploadData'
+2020/09/03 22:00:13 [INFO] 114602 bytes written for 'uploadData'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_alternatives.py: perms=C0600 size=114602
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 45): Sink: C0600 114602 AnsiballZ_alternatives.py
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:13 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:13 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:13 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/AnsiballZ_alternatives.py'"'"' && sleep 0'
+2020/09/03 22:00:14 [INFO] 132 bytes written for 'stdout'
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 132 bytes written for 'stdout'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163213.8282983-12656-51677205678382/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso: changed: [default][0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:  _____________________[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso: < TASK [upgrade PIP3] >[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:  ---------------------[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 22:00:14 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'echo ~ubuntu && sleep 0'
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 8 bytes written for 'stdout'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061 && echo ansible-tmp-1599163214.8413694-12666-258902863521061="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061 `" ) && sleep 0'
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '( umask 77 && mkdir -p "` echo ~ubuntu/.ansible/tmp `"&& mkdir ~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061 && echo ansible-tmp-1599163214.8413694-12666-258902863521061="` echo ~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061 `" ) && sleep 0'
+2020/09/03 22:00:14 [INFO] 127 bytes written for 'stdout'
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:14 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 127 bytes written for 'stdout'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:14 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: new exec request: scp -t '~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/AnsiballZ_pip.py'
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] Starting remote scp process:  scp -vt ~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] Started SCP session, beginning transfers...
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] scp: Uploading AnsiballZ_pip.py: perms=C0600 size=123435
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: [INFO] 123435 bytes written for 'uploadData'
+2020/09/03 22:00:15 [INFO] 123435 bytes written for 'uploadData'
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] SCP session complete, closing stdin pipe.
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] Waiting for SSH session to complete.
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] scp stderr (length 36): Sink: C0600 123435 AnsiballZ_pip.py
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/AnsiballZ_pip.py'"'"' && sleep 0'
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'chmod u+x '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/'"'"' '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/AnsiballZ_pip.py'"'"' && sleep 0'
+2020/09/03 22:00:15 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:15 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:15 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:15 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:15 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: ansible provisioner pty-req request
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:15 packer-provisioner-ansible plugin: new exec request: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/AnsiballZ_pip.py'"'"' && sleep 0'
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:15 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c '/usr/bin/python '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/AnsiballZ_pip.py'"'"' && sleep 0'
+2020/09/03 22:00:25 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:25 [INFO] 892 bytes written for 'stdout'
+2020/09/03 22:00:25 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:25 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:25 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:25 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] 892 bytes written for 'stdout'
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: new env request: LANG=C.UTF-8
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: new exec request: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:25 packer-builder-vsphere-iso plugin: [DEBUG] Opening new ssh session
+2020/09/03 22:00:25 packer-builder-vsphere-iso plugin: [DEBUG] starting remote command: /bin/sh -c 'rm -f -r '"'"'~ubuntu/.ansible/tmp/ansible-tmp-1599163214.8413694-12666-258902863521061/'"'"' > /dev/null 2>&1 && sleep 0'
+2020/09/03 22:00:25 packer-builder-vsphere-iso plugin: [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:25 [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:25 [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:25 [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:25 [INFO] RPC endpoint: Communicator ended with: 0
+2020/09/03 22:00:25 [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdout'
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stderr'
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] RPC client: Communicator ended with: 0
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: [INFO] 0 bytes written for 'stdin'
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso: changed: [default][0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:  ____________[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso: < PLAY RECAP >[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:  ------------[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:         \   ^__^[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:          \  (oo)\_______[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:             (__)\       )\/\[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:                 ||----w |[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:                 ||     ||[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso: default                    : ok=12   changed=9    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0[0m
+2020/09/03 22:00:25 ui: [0;32m    vsphere-iso:[0m
+2020/09/03 22:00:25 packer-provisioner-ansible plugin: shutting down the SSH proxy
+2020/09/03 22:00:25 [INFO] (telemetry) ending ansible
+2020/09/03 22:00:25 ui: [1;32m==> vsphere-iso: Shutting down VM...[0m
+2020/09/03 22:00:25 packer-builder-vsphere-iso plugin: Waiting max 5m0s for shutdown to complete
+2020/09/03 22:00:28 ui: [1;32m==> vsphere-iso: Deleting Floppy drives...[0m
+2020/09/03 22:00:29 ui: [1;32m==> vsphere-iso: Eject CD-ROM drives...[0m
+2020/09/03 22:00:29 ui: [1;32m==> vsphere-iso: Convert VM into template...[0m
+2020/09/03 22:00:29 ui: [1;32m==> vsphere-iso: Clear boot order...[0m
+2020/09/03 22:00:29 [INFO] (telemetry) ending vsphere-iso
+2020/09/03 22:00:29 ui: [1;32mBuild 'vsphere-iso' finished.[0m
+2020/09/03 22:00:29 ui: 
+==> Builds finished. The artifacts of successful builds are:
+2020/09/03 22:00:29 machine readable: vsphere-iso,artifact-count []string{"1"}
+2020/09/03 22:00:29 machine readable: vsphere-iso,artifact []string{"0", "builder-id", "jetbrains.vsphere"}
+2020/09/03 22:00:29 machine readable: vsphere-iso,artifact []string{"0", "id", "CENTOS7-2003"}
+2020/09/03 22:00:29 machine readable: vsphere-iso,artifact []string{"0", "string", "CENTOS7-2003"}
+2020/09/03 22:00:29 machine readable: vsphere-iso,artifact []string{"0", "files-count", "0"}
+2020/09/03 22:00:29 machine readable: vsphere-iso,artifact []string{"0", "end"}
+2020/09/03 22:00:29 ui: --> vsphere-iso: CENTOS7-2003
+2020/09/03 22:00:29 [INFO] (telemetry) Finalizing.
+2020/09/03 22:00:30 waiting for all plugin processes to complete...
+2020/09/03 22:00:30 /home/ubuntu/.local/bin/packer: plugin process exited
+2020/09/03 22:00:30 /home/ubuntu/.local/bin/packer: plugin process exited

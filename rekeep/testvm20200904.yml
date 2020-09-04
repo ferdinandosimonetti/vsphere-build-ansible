@@ -1,0 +1,19 @@
+---
+vmtype: "linux"
+
+vmhostname: "testvm20200904"
+vmdescription: "{{ vmhostname }} test via Ansible"
+vmram: "2048"
+vmcpu: "2"
+vmosid: "centos64Guest"
+vmfolder: ""
+vmdatastore: "DSCLU03-MANUTENCOOP-SSD/MANUTENCOOP-SSD-0767-008"
+template: "CENTOS7-2003"
+
+vmnetwork: "10.20.0.0/16"
+vmnetname: "Vlan-Zola_20"
+vmaddress: "10.20.0.90"
+vmgateway: "10.20.0.1"
+vmnetmask: "255.255.0.0"
+
+
