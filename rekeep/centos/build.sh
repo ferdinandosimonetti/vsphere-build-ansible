@@ -18,4 +18,4 @@ read VMOS
 export ISOPATH VMOS
 export PACKER_LOG=1
 export PACKER_LOG_PATH=./build.log
-packer build main.json
+packer build --force main.json

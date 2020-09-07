@@ -4,6 +4,7 @@ addns1: "10.197.65.53"
 addns2: "10.20.0.11"
 # TIMEZONES
 adtimezone: "Europe/Rome"
+adtimezonewin: "110"
 # VSPHERE
 vcenter_hostname: "rkpacivc01.{{ addomain }}"
 vcenter_username: "customer-admin@vsphere.local"

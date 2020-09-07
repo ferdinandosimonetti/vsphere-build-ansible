@@ -1,20 +1,20 @@
 {
   "variables": {
     "admin-password": "{{ env `ADMINPASSWORD`}}",
-    "iso-url": "[iso-ds] {{ env `ISOPATH`}}",
+    "iso-url": "[MANUTENCOOP-FC15MS-0624-001] ISO/LINUX/{{ env `ISOPATH`}}",
     "vm-cpu-num": "2",
     "vm-disk-size": "25600",
     "vm-mem-size": "1024",
     "vm-name": "{{ env `TEMPLATENAME`}}",
     "vm-guest-os": "{{ env `VMOS` }}",
-    "vsphere-cluster": "CL0",
-    "vsphere-datacenter": "DC0",
-    "vsphere-datastore": "vm-ds",
-    "vsphere-folder": "templates",
+    "vsphere-cluster": "CLU01-REKEEP",
+    "vsphere-datacenter": "DC1-ACILIA",
+    "vsphere-datastore": "MANUTENCOOP-FC5MS-0624-008",
+    "vsphere-folder": "Template/LINUX",
     "vsphere-network": "{{ env `TEMPLATENETWORKNAME` }}",
     "vsphere-password": "{{env `VSPHEREPASSWORD`}}",
-    "vsphere-server": "vcsa.fsimonetti.lan",
-    "vsphere-user": "administrator@vsphere.local"
+    "vsphere-server": "rkpacivc01.intra.manutencoop.it",
+    "vsphere-user": "customer-admin@vsphere.local"
   },
   "builders": [
     {
@@ -22,7 +22,7 @@
       "RAM": "{{user `vm-mem-size`}}",
       "RAM_reserve_all": false,
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `vm-guest-os` }}.cfg<enter><wait>"
+        "<tab> text ks=hd:fd0:/{{ user `vm-guest-os` }}.cfg<enter><wait>"
       ],
       "cluster": "{{user `vsphere-cluster`}}",
       "convert_to_template": "true",
@@ -31,7 +31,10 @@
       "disk_controller_type": "pvscsi",
       "folder": "{{user `vsphere-folder`}}",
       "guest_os_type": "{{ user `vm-guest-os` }}",
-      "http_directory": "ks",
+      "vm_version": 13,
+      "floppy_files": [
+        "ks/{{ user `vm-guest-os` }}.cfg"
+      ],
       "insecure_connection": "true",
       "iso_paths": [
         "{{user `iso-url`}}"
@@ -66,7 +69,7 @@
         "--vault-password-file", 
         "~/.password",
         "--extra-vars",
-        "@../deployvariables.yml" 
+        "@../acilia.yml" 
         ]
     }
   ]

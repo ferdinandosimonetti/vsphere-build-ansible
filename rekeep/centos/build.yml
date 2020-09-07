@@ -37,46 +37,7 @@
     user:
       name: "root"
       password_lock: yes
-  - name: install security updates (CentOS8)
-    register: security
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "8"
-    dnf:
-      state: latest
-      update_cache: yes
-      security: yes
-      name: '*'
-  - name: install bugfix/errata (CentOS8)
-    register: bugfix
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "8"
-    dnf:
-      state: latest
-      update_cache: yes
-      bugfix: yes
-      name: '*'
-  - name: install security updates (CentOS7)
-    register: security
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "7"
-    yum:
-      state: latest
-      update_cache: yes
-      security: yes
-      name: '*'
-  - name: install bugfix/errata (CentOS7)
-    register: bugfix
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "7"
-    yum:
-      state: latest
-      update_cache: yes
-      bugfix: yes
-      name: '*'
+
 
 
     
