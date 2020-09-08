@@ -103,8 +103,8 @@
           hw_name: "{{ vm.instance.hw_name }}"
       - name: record VM creation date/time
         shell: date +%Y%m%d%H%M
-        register: creationdate
-      - name: add attribute CREATIONDATE to new VM
+        register: deploydate
+      - name: add attribute DEPLOYDATE to new VM
         vmware_guest_custom_attributes:
           hostname: "{{ vcenter_hostname }}"
           username: "{{ vcenter_username }}"
@@ -113,8 +113,19 @@
           name: "{{ vm.instance.hw_name }}"
           state: present
           attributes:
-            - name: CREATIONDATE
-              value: "{{ creationdate.stdout }}"
+            - name: DEPLOYDATE
+              value: "{{ deploydate.stdout }}"
+      - name: add attribute DEPLOYTEMPLATE to new VM
+        vmware_guest_custom_attributes:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          name: "{{ vm.instance.hw_name }}"
+          state: present
+          attributes:
+            - name: DEPLOYTEMPLATE
+              value: "{{ template }}"
 
   # WINDOWS VM
   - name: Complete deployment of a Windows VM
@@ -249,6 +260,32 @@
         name: '*'
     - debug: var=security
     - debug: var=bugfix
+    - name: get parted info
+      register: result
+      parted:
+        device: /dev/sda
+        number: 2
+        state: info
+        unit: cyl
+    - name: print info for partition 2
+      debug:
+        var: result.partitions[1].size
+    - name: resize partition to end of disk
+      command:
+        cmd: parted /dev/sda resizepart 2 100%
+    - name: get parted info
+      register: result
+      parted:
+        device: /dev/sda
+        number: 2
+        state: info
+        unit: cyl
+    - name: print info for partition 2
+      debug:
+        var: result.partitions[1].size
+    - name: extend pv
+      command:
+        cmd: pvresize /dev/sda2
 
 # WINDOWS VM
 - hosts: windowsvms

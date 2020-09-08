@@ -1,5 +1,5 @@
 ---
-vmhostname: "testvm17"
+vmhostname: "testvm18"
 vmdescription: "{{ vmhostname }} 6"
 vmnetwork: "192.168.101.0/24"
 vmnetworkname: "VM Network"

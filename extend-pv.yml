@@ -1,0 +1,38 @@
+---
+- hosts: c7
+  become: yes
+  user: admbvtech
+  gather_facts: true
+  tasks:
+    - name: get parted info
+      register: result
+      parted:
+        device: /dev/sda
+        number: 2
+        state: info
+        unit: cyl
+    - name: print info for partition 2
+      debug:
+        var: result.partitions[1].size
+    - name: resize partition to end of disk
+      command:
+        cmd: parted /dev/sda resizepart 2 100%
+    - name: get parted info
+      register: result
+      parted:
+        device: /dev/sda
+        number: 2
+        state: info
+        unit: cyl
+    - name: print info for partition 2
+      debug:
+        var: result.partitions[1].size
+    - name: extend pv
+      command:
+        cmd: pvresize /dev/sda2
+        
+
+
+
+
+

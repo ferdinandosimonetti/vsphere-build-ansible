@@ -1,0 +1,17 @@
+---
+- hosts: worker
+  become: yes
+  user: admbvtech
+  gather_facts: true
+  tasks:
+    - name: overwrite /etc/default/grub
+      copy:
+        src: etc/default/grub
+        dest: /etc/default/grub
+        owner: root
+        group: root
+    - name: mkgrub
+      command:
+        cmd: grub2-mkconfig -o /boot/grub2/grub.cfg
+    - name: reboot
+      reboot:
