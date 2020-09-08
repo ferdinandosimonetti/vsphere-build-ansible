@@ -3,7 +3,7 @@
     "admin-password": "{{ env `VSPHEREPASSWORD`}}",
     "iso-url": "[iso-ds] {{ env `ISOPATH`}}",
     "vm-cpu-num": "2",
-    "vm-disk-size": "25600",
+    "vm-disk-size": "{{ env `DISKSIZE`}}",
     "vm-mem-size": "1024",
     "vm-name": "{{ env `TEMPLATENAME`}}",
     "vm-guest-os": "{{ env `VMOS` }}",

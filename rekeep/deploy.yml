@@ -28,6 +28,10 @@
             memory_mb: "{{ vmram }}"
             num_cpus: "{{ vmcpu }}"
             osid: "{{ vmosid }}"
+          disk:
+          - size_gb: "{{ vmdisksize }}"
+            type: "{{ vmdisktype }}"
+            datastore: "{{ vmdatastore }}"
           networks:
           - name: "{{ vmnetname }}"
             ip: "{{ vmaddress }}"
@@ -80,13 +84,14 @@
 
 # LINUX VM      
 - hosts: linuxvms
-  gather_facts: true
+  gather_facts: false
   become: yes
   user: admbvtech
   vars_files:
     - ./acilia.yml
   tasks:
-    - name: get facts
-      register: result
-      setup:
-    - debug: var=result
+  - name: get facts
+    register: result
+    setup:
+  - name: print facts
+    debug: var=result  

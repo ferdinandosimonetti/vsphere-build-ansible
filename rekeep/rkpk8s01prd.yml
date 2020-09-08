@@ -1,0 +1,22 @@
+---
+vmtype: "linux"
+
+vmhostname: "rkpk8s01prd"
+vmdescription: "k8s master nuovo cluster PRD + vSphere"
+vmram: "8192"
+vmcpu: "4"
+vmdisksize: "64"
+adddisksize: "128"
+vmdisktype: "eagerzeroedthick"
+vmosid: "centos64Guest"
+vmfolder: "/Rekeep-Produzione/KUBERNETES-PRD"
+vmdatastore: "MANUTENCOOP-SSD-0767-008"
+template: "CENTOS7-2003-64G"
+
+vmnetwork: "10.197.65.0"
+vmnetname: "Erog-ORA_476"
+vmaddress: "10.197.65.144"
+vmgateway: "10.197.65.1"
+vmnetmask: "255.255.255.0"
+
+

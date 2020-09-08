@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - ./acilia.yml
+  tasks:
+  - name: add disk to vm
+    vmware_guest:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      name: "{{ vmhostname }}"
+      disk:
+        - size_gb: "{{ adddisksize }}"
+          type: thick
+          datastore: "{{ vmdatastore }}"
+          state: present
+          scsi_controller: 1
+          unit_number: 1
+          scsi_type: paravirtual

@@ -3,7 +3,7 @@
     "admin-password": "{{ env `ADMINPASSWORD`}}",
     "iso-url": "[MANUTENCOOP-FC15MS-0624-001] ISO/LINUX/{{ env `ISOPATH`}}",
     "vm-cpu-num": "2",
-    "vm-disk-size": "25600",
+    "vm-disk-size": "{{ env `DISKSIZE`}}",
     "vm-mem-size": "1024",
     "vm-name": "{{ env `TEMPLATENAME`}}",
     "vm-guest-os": "{{ env `VMOS` }}",
@@ -52,7 +52,7 @@
       "storage": [
         {
           "disk_size": "{{user `vm-disk-size`}}",
-          "disk_thin_provisioned": true
+          "disk_thin_provisioned": false
         }
       ],
       "type": "vsphere-iso",
