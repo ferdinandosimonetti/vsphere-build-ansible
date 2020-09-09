@@ -87,6 +87,22 @@
       lv: swap
       state: absent
       force: yes
-  - name: final reboot
-    reboot:
+  
+  - name: setup chrony.conf
+    template:
+      src: etc/chrony.conf.j2
+      dest: /etc/chrony.conf
+      user: root
+      group: root
+  - name: setup step tickers
+    template:
+      src: etc/ntp/step-tickers.j2
+      dest: /etc/ntp/step-tickers.j2
+      user: root
+      group: root
+  - name: restart chrony
+    systemd:
+      name: chronyd
+      state: restarted
+      enabled: yes
 
