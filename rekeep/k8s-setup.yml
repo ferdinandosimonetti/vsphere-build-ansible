@@ -80,5 +80,13 @@
   - name: mkgrub
     command:
       cmd: grub2-mkconfig -o /boot/grub2/grub.cfg
-  - name: reboot
+  
+  - name: Remove the swap LV
+    lvol:
+      vg: vg00
+      lv: swap
+      state: absent
+      force: yes
+  - name: final reboot
     reboot:
+
