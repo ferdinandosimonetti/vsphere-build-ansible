@@ -2,78 +2,163 @@
   hosts: all
   gather_facts: true
   tasks:
-  - name: create sudo group
-    group:
-      name: "sudo"
-  - name: nopasswd sudo for sudo group
-    lineinfile:
-      dest: "/etc/sudoers"
-      state: "present"
-      regexp: "^%sudo"
-      line: "%sudo ALL=(ALL) NOPASSWD: ALL"
-  - name: create user
-    user:
-      name: "admbvtech"
-      group: "sudo"
-      password: "{{ rootpass | string | password_hash('sha512', 'mysecretsalt') }}"
-  - name: add authkey
-    authorized_key:
-      user: "admbvtech"
-      key: "{{ lookup('file', '{{ item.keyfile }}') }}"
-    loop:
-      - { "keyfile": "./id_rsa.pub" }
-      - { "keyfile": "./id_ed25519.pub" }
-  - name: no root login via SSH
-    lineinfile:
-      dest: "/etc/ssh/sshd_config"
-      state: "present"
-      regexp: "{{ item.reg }}"
-      line: "{{ item.lin }}"
-    loop:
-      - { "reg": "^PermitRootLogin", "lin": "PermitRootLogin no" }
-      - { "reg": "^PubkeyAuthentication", "lin": "PubkeyAuthentication yes" }
-      - { "reg": "AllowAgentForwarding", "lin": "AllowAgentForwarding yes" }
-  - name: lock root password
-    user:
-      name: "root"
-      password_lock: yes
-  - name: install security updates (CentOS8)
-    register: security
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "8"
-    dnf:
-      state: latest
-      update_cache: yes
-      security: yes
-      name: '*'
-  - name: install bugfix/errata (CentOS8)
-    register: bugfix
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "8"
-    dnf:
-      state: latest
-      update_cache: yes
-      bugfix: yes
-      name: '*'
-  - name: install security updates (CentOS7)
-    register: security
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "7"
-    yum:
-      state: latest
-      update_cache: yes
-      security: yes
-      name: '*'
-  - name: install bugfix/errata (CentOS7)
-    register: bugfix
-    when:
-      - ansible_facts['distribution'] == "CentOS"
-      - ansible_facts['distribution_major_version'] == "7"
-    yum:
-      state: latest
-      update_cache: yes
-      bugfix: yes
-      name: '*'
+    - name: create sudo group
+      group:
+        name: sudo
+    - name: sudoers Cmnd_Alias block
+      blockinfile:
+        path: /etc/sudoers
+        state: present
+        insertafter:
+        block: |
+          ####### Comandi abilitati ########################################################################
+          Cmnd_Alias ALLCOMMAND =  /bin/*, /sbin/*, /usr/bin/*, /usr/sbin/*, /usr/local/bin/*, /usr/local/sbin/*, /opt/OV/bin/*
+          ##################################################################################################
+          ####### Comandi disabilitati #####################################################################
+          Cmnd_Alias  NO_COMMAND = !/bin/su, !/usr/sbin/useradd, !/usr/sbin/usermod, !/usr/sbin/userdel, !/*bin/* *passwd*, !/*bin/* *group*, !/*bin/* *shadow*, !/*bin/* *sudoers*, !/usr/bin/chattr, !/usr/bin/at, !/usr/bin/crontab -e,  !/usr/bin/rz, !/*/*/scp, !/*/*/*ftp, !/*/*/*/scp, !/*/*/*/*ftp, !/*/scp, !/*/*ftp, !/bin/* * /etc/*, !/usr/bin/passwd, !/bin/touch /usr/bin/*, !/usr/bin/setfacl, !/usr/bin/getfacl, !/usr/bin/chacl, !/bin/ln *passwd*,  !/sbin/init,  !/sbin/telinit , !/usr/sbin/xinetd, !/usr/bin/find *exec*, !/usr/bin/make, !/usr/bin/* *system*, !/usr/bin/* *signal*
+          Cmnd_Alias  NO_SHELLS =  !/*bin/*sh*, !/bin/* *sh *, !/usr/bin/* *sh, !/usr/local/bin/* *sh, !/opt/OV/bin/* *sh, !/sbin/* *sh
+          ##################################################################################################
+          Cmnd_Alias     CMD = ALLCOMMAND, NO_COMMAND, NO_SHELLS
+    - name: nopasswd sudo for sudo group
+      lineinfile:
+        dest: "/etc/sudoers"
+        state: "present"
+        regexp: "^%sudo"
+        line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+
+    - name: create Ansible user
+      user:
+        name: "admbvtech"
+        groups: "sudo"
+        password: "{{ rootpass | string | password_hash('sha512', 'mysecretsalt') }}"
+    - name: add authkey
+      authorized_key:
+        user: "admbvtech"
+        key: "{{ lookup('file', '{{ item.keyfile }}') }}"
+      loop:
+        - { "keyfile": "./id_rsa.pub" }
+        - { "keyfile": "./id_ed25519.pub" }
+
+    - name: create rekeep-specific users
+      user:
+        name: "{{ item }}"
+      loop:
+        - nagios
+        - nimsplus
+    - name: create rekeep-specific crstaff
+      group:
+        name: crstaff
+        gid: 30000
+    - name: create rekeep-specific crstaff users
+      user:
+        name: "{{ item }}"
+        group: crstaff
+        password: "{{ rampass | string | password_hash('sha512', 'mysecretsalt') }}"
+      loop:
+        - ramuser
+        - ramfr-bvtech
+    - name: nopasswd sudo /usr/bin/passwd for ramuser
+      lineinfile:
+        dest: "/etc/sudoers"
+        state: "present"
+        line: "ramuser ALL = NOPASSWD: /usr/bin/passwd"
+    - name: nopasswd bash for ramfr-bvtech
+      lineinfile:
+        dest: "/etc/sudoers"
+        state: present
+        line: "ramfr-bvtech ALL = NOPASSWD: /bin/bash"
+    - name: nopasswd CMD for group crstaff
+      lineinfile:
+        dest: "/etc/sudoers"
+        state: present
+        line: "%crstaff ALL = NOPASSWD: CMD"
+
+    - name: no root login via SSH
+      lineinfile:
+        dest: "/etc/ssh/sshd_config"
+        state: "present"
+        regexp: "{{ item.reg }}"
+        line: "{{ item.lin }}"
+      loop:
+        - { "reg": "^PermitRootLogin", "lin": "PermitRootLogin without-password" }
+        - { "reg": "^PubkeyAuthentication", "lin": "PubkeyAuthentication yes" }
+        - { "reg": "AllowAgentForwarding", "lin": "AllowAgentForwarding yes" }
+    - name: disable AcceptEnv per le variabili LC_
+      lineinfile:
+        dest: "/etc/ssh/sshd_config"
+        regexp: "^AcceptEnv LC_"
+        state: absent
+    - name: disable AcceptEnv per le variabili LANG
+      lineinfile:
+        dest: "/etc/ssh/sshd_config"
+        regexp: "^AcceptEnv LANG"
+        state: absent
+    - name: add line to /etc/hosts
+      lineinfile:
+        dest: /etc/hosts
+        state: present
+        line: 192.168.10.100  ssb-manutencoop.telecomitalia.it
+
+    - name: copying Bladelogic RPM
+      copy:
+        src: /iso/software/RSCD/RSCD89-SP4-LIN64.rpm
+        dest: /tmp/RSCD89-SP4-LIN64.rpm
+    - name: local installation of Bladelogic
+      command:
+        cmd: yum -y localinstall /tmp/RSCD89-SP4-LIN64.rpm
+    - name: Bladelogic exports file
+      copy:
+        src: etc/rsc/exports
+        dest: /etc/rsc/exports
+        owner: root
+        group: root
+    - name: Restart and enable Bladelogic
+      service:
+        name: rscd
+        state: restarted
+        enabled: yes
+    - name: lock root password
+      user:
+        name: "root"
+        password_lock: yes
+
+    - name: install security updates (CentOS8)
+      register: security
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "8"
+      dnf:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+    - name: install bugfix/errata (CentOS8)
+      register: bugfix
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "8"
+      dnf:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
+    - name: install security updates (CentOS7)
+      register: security
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "7"
+      yum:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+    - name: install bugfix/errata (CentOS7)
+      register: bugfix
+      when:
+        - ansible_facts['distribution'] == "CentOS"
+        - ansible_facts['distribution_major_version'] == "7"
+      yum:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
