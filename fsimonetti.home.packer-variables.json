@@ -1,0 +1,9 @@
+{
+  "vsphere_datacenter": "DC0",
+  "vsphere_cluster": "CL0",
+  "isodatastore": "iso-ds",
+  "isopath_linux": "linux/",
+  "isopath_windows": "windows/",
+  "templatedatastore": "vm-ds",
+  "templatenetwork": "VM Network"
+}

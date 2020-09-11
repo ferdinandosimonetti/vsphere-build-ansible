@@ -1,0 +1,93 @@
+{
+  "variables": {
+    "customer": "fsimonetti",
+    "location": "home",
+    "isofile": "centos7.iso",
+    "vsphere-password": "{{env `VSPHEREPASSWORD`}}",
+    "admin-password": "{{ env `ADMINPASSWORD`}}",
+    "vm-disk-size": "{{ env `DISKSIZE`}}",
+    "vm-name": "{{ env `TEMPLATENAME`}}",
+    "vsphere_datacenter": "DC0",
+    "vsphere_cluster": "CL0",
+    "isodatastore": "iso-ds",
+    "isopath_linux": "linux/",
+    "isopath_windows": "windows/",
+    "templatedatastore": "vm-ds",
+    "templatenetwork": "VM Network",
+    "vcenter_hostname": "vcsa.fsimonetti.lan",
+    "vcenter_username": "administrator@vsphere.local",
+    "centos7_guestos": "centos7_64Guest",
+    "centos8_guestos": "centos8_64Guest",
+    "vm_version": "15"
+  },
+  "builders": [
+    {
+      "vcenter_server": "{{user `vcenter_hostname`}}",
+      "username": "{{user `vcenter_username`}}",
+      "password": "{{user `vsphere-password`}}",
+      "CPUs": "2",
+      "RAM": "2048",
+      "RAM_reserve_all": false,
+      "boot_command": [
+        "<tab> text ks=hd:fd0:/{{ user `customer`}}.ks<enter><wait>"
+      ],
+      "cluster": "{{user `vsphere_cluster`}}",
+      "convert_to_template": "true",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "datastore": "{{user `templatedatastore`}}",
+      "disk_controller_type": "pvscsi",
+      "folder": "{{user `templatefolder`}}",
+      "guest_os_type": "{{ user `centos7_guestos` }}",
+      "vm_version": "{{ user `vm_version` }}",
+      "floppy_files": [
+        "ks/centos7/{{ user `customer`}}.ks"
+      ],
+      "insecure_connection": "true",
+      "iso_paths": [
+        "[{{ user `isodatastore` }}] {{ user `isopath_linux` }}{{ user `isofile`}}"
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `templatenetwork`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "notes": "Built via Packer - {{isotime}}",
+      "ssh_password": "{{user `admin-password`}}",
+      "ssh_username": "root",
+      "storage": [
+        {
+          "disk_size": "{{user `vm-disk-size`}}",
+          "disk_thin_provisioned": false
+        }
+      ],
+      "type": "vsphere-iso",
+      "vm_name": "{{user `vm-name`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "/iso/software/RSCD/RSCD89-SP4-LIN64.rpm",
+      "destination": "/tmp/RSCD89-SP4-LIN64.rpm"
+    },
+    {
+      "type": "file",
+      "source": "/iso/software/SYSLOG-NG/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm",
+      "destination": "/tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm"
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "./build.yml",
+      "extra_arguments": [ 
+        "--vault-password-file", 
+        "~/.password",
+        "--extra-vars",
+        "@./{{ user `customer`}}.ansible-variables.yml",
+        "--extra-vars",
+        "@./{{ user `customer`}}.{{ user `location` }}.ansible-variables.yml"
+        ]
+    }
+  ]
+}
+

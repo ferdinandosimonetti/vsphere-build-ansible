@@ -1,4 +1,4 @@
-ansible_user: "admbvtech"
+ansible_user: "{{ rootuser }}"
 ansible_password: "{{ rootpass }}"
 ansible_connection: winrm
 ansible_winrm_transport: ntlm

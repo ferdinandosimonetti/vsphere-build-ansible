@@ -1,5 +1,5 @@
-ansible_user: "{{ myaduser }}@{{ myadrealm }}"
-ansible_password: "{{ myadpass }}"
+ansible_user: "{{ aduser }}@{{ adrealm }}"
+ansible_password: "{{ adpass }}"
 ansible_connection: winrm
 ansible_winrm_transport: kerberos
 ansible_winrm_server_cert_validation: ignore
