@@ -1,50 +1,41 @@
 {
   "variables": {
-    "customer": "fsimonetti",
-    "location": "home",
-    "isofile": "centos7.iso",
-    "vsphere-password": "{{env `VSPHEREPASSWORD`}}",
-    "admin-password": "{{ env `ADMINPASSWORD`}}",
-    "vm-disk-size": "{{ env `DISKSIZE`}}",
-    "vm-name": "{{ env `TEMPLATENAME`}}",
-    "vsphere_datacenter": "DC0",
-    "vsphere_cluster": "CL0",
-    "isodatastore": "iso-ds",
-    "isopath_linux": "linux/",
-    "isopath_windows": "windows/",
-    "templatedatastore": "vm-ds",
-    "templatenetwork": "VM Network",
-    "vcenter_hostname": "vcsa.fsimonetti.lan",
-    "vcenter_username": "administrator@vsphere.local",
-    "centos7_guestos": "centos7_64Guest",
-    "centos8_guestos": "centos8_64Guest",
-    "vm_version": "15"
+    "vcenter-password": "{{env `VCENTERPASSWORD`}}",
+    "admin-password": "{{ env `ADMINPASSWORD`}}"
   },
   "builders": [
     {
+      "type": "vsphere-iso",
+
       "vcenter_server": "{{user `vcenter_hostname`}}",
       "username": "{{user `vcenter_username`}}",
-      "password": "{{user `vsphere-password`}}",
-      "CPUs": "2",
-      "RAM": "2048",
-      "RAM_reserve_all": false,
-      "boot_command": [
-        "<tab> text ks=hd:fd0:/{{ user `customer`}}.ks<enter><wait>"
-      ],
-      "cluster": "{{user `vsphere_cluster`}}",
-      "convert_to_template": "true",
-      "datacenter": "{{user `vsphere_datacenter`}}",
-      "datastore": "{{user `templatedatastore`}}",
-      "disk_controller_type": "pvscsi",
-      "folder": "{{user `templatefolder`}}",
-      "guest_os_type": "{{ user `centos7_guestos` }}",
-      "vm_version": "{{ user `vm_version` }}",
-      "floppy_files": [
-        "ks/centos7/{{ user `customer`}}.ks"
-      ],
+      "password": "{{user `vcenter-password`}}",
       "insecure_connection": "true",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "cluster": "{{user `vsphere_cluster`}}",
+      "datastore": "{{user `templatedatastore`}}",
+
+      "vm_name": "{{user `vm-name`}}",
+      "notes": "Built via Packer - {{isotime}}",
+      "convert_to_template": "true",
+      "folder": "{{user `templatefolder`}}",
+
+      "guest_os_type": "{{ user `centos7_guestos` }}",
+
+      "CPUs": "2",
+      "RAM": "4096",
+      "RAM_reserve_all": false,
+      "disk_controller_type": "pvscsi",
+
+      "ssh_password": "{{user `admin-password`}}",
+      "ssh_username": "root",
+
+      "http_directory": "ks",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7/{{ user `customer` }}.ks<enter><wait>"
+      ],
       "iso_paths": [
-        "[{{ user `isodatastore` }}] {{ user `isopath_linux` }}{{ user `isofile`}}"
+        "[{{ user `isodatastore` }}] {{ user `isopath_linux` }}{{ user `iso-name` }}"
       ],
       "network_adapters": [
         {
@@ -52,17 +43,12 @@
           "network_card": "vmxnet3"
         }
       ],
-      "notes": "Built via Packer - {{isotime}}",
-      "ssh_password": "{{user `admin-password`}}",
-      "ssh_username": "root",
       "storage": [
         {
           "disk_size": "{{user `vm-disk-size`}}",
-          "disk_thin_provisioned": false
+          "disk_thin_provisioned": true
         }
-      ],
-      "type": "vsphere-iso",
-      "vm_name": "{{user `vm-name`}}"
+      ]
     }
   ],
   "provisioners": [
@@ -80,12 +66,13 @@
       "type": "ansible",
       "playbook_file": "./build.yml",
       "extra_arguments": [ 
+        "-v",
         "--vault-password-file", 
         "~/.password",
         "--extra-vars",
-        "@./{{ user `customer`}}.ansible-variables.yml",
+        "@./{{user `customer`}}.ansible-variables.yml",
         "--extra-vars",
-        "@./{{ user `customer`}}.{{ user `location` }}.ansible-variables.yml"
+        "@./{{user `customer`}}.{{user `location`}}.ansible-variables.yml"
         ]
     }
   ]

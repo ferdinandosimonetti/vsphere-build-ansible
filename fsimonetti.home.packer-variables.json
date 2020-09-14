@@ -5,5 +5,7 @@
   "isopath_linux": "linux/",
   "isopath_windows": "windows/",
   "templatedatastore": "vm-ds",
-  "templatenetwork": "VM Network"
+  "templatenetwork": "VM Network",
+  "templatefolder": "templates",
+  "location": "home"
 }

@@ -1,0 +1,35 @@
+---
+# REKEEP USERS
+- name: create rekeep-specific users
+  user:
+    name: "{{ item }}"
+  loop:
+    - nagios
+    - nimsplus
+- name: create rekeep-specific crstaff
+  group:
+    name: crstaff
+    gid: 30000
+- name: create rekeep-specific crstaff users
+  user:
+    name: "{{ item }}"
+    group: crstaff
+    password: "{{ rampass | string | password_hash('sha512', 'mysecretsalt') }}"
+  loop:
+    - ramuser
+    - ramfr-bvtech
+- name: nopasswd sudo /usr/bin/passwd for ramuser
+  lineinfile:
+    dest: "/etc/sudoers"
+    state: "present"
+    line: "ramuser ALL = NOPASSWD: /usr/bin/passwd"
+- name: nopasswd bash for ramfr-bvtech
+  lineinfile:
+    dest: "/etc/sudoers"
+    state: present
+    line: "ramfr-bvtech ALL = NOPASSWD: /bin/bash"
+- name: nopasswd CMD for group crstaff
+  lineinfile:
+    dest: "/etc/sudoers"
+    state: present
+    line: "%crstaff ALL=(ALL) ALL"

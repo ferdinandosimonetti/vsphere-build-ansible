@@ -1,3 +1,5 @@
+# ANSIBLE
+ansibleuser: "ubuntu" 
 # DOMAIN
 addomain: "fsimonetti.lan"
 adrealm:  "FSIMONETTI.LAN"

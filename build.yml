@@ -2,7 +2,8 @@
   hosts: all
   gather_facts: true
   tasks:
-  # ADMBVTECH SETUP
+
+  # ANSIBLE USER SETUP
   - name: create sudo group
     group:
       name: sudo
@@ -14,65 +15,34 @@
       line: "%sudo ALL=(ALL) NOPASSWD: ALL"
   - name: create Ansible user
     user:
-      name: "admbvtech"
+      name: "{{ ansibleuser }}"
       groups: "sudo"
       password: "{{ rootpass | string | password_hash('sha512', 'mysecretsalt') }}"
   - name: add authkey
     authorized_key:
-      user: "admbvtech"
+      user: "{{ ansibleuser }}"
       key: "{{ lookup('file', '{{ item.keyfile }}') }}"
     loop:
       - { "keyfile": "./id_rsa.pub" }
       - { "keyfile": "./id_ed25519.pub" }
-  # REKEEP USERS
-  - name: create rekeep-specific users
-    user:
-      name: "{{ item }}"
-    loop:
-      - nagios
-      - nimsplus
-  - name: create rekeep-specific crstaff
-    group:
-      name: crstaff
-      gid: 30000
-  - name: create rekeep-specific crstaff users
-    user:
-      name: "{{ item }}"
-      group: crstaff
-      password: "{{ rampass | string | password_hash('sha512', 'mysecretsalt') }}"
-    loop:
-      - ramuser
-      - ramfr-bvtech
+  
+  # EXTRA USERS
+  - name: if extra users/group/sudo setup task file exists, run it
+    stat:
+      path: "tasks/build.{{ customer }}.users.yml"
+    register: extra_users_file
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.users.yml"
+    when: extra_users_file.stat.exists
+  - name: if extra users/group/sudo setup task file exists (for specific location), run it
+    stat:
+      path: "tasks/build.{{ customer }}.{{ location }}.users.yml"
+    register: extra_users_file_location
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.{{ location }}.users.yml"
+    when: extra_users_file_location.stat.exists
 
-  - name: sudoers Cmnd_Alias block
-    blockinfile:
-      path: /etc/sudoers
-      state: present
-      insertafter:
-      block: |
-        ####### Comandi abilitati ########################################################################
-        Cmnd_Alias ALLCOMMAND =  /bin/*, /sbin/*, /usr/bin/*, /usr/sbin/*, /usr/local/bin/*, /usr/local/sbin/*, /opt/OV/bin/*
-        ##################################################################################################
-        ####### Comandi disabilitati #####################################################################
-        Cmnd_Alias  NO_COMMAND = !/bin/su, !/usr/sbin/useradd, !/usr/sbin/usermod, !/usr/sbin/userdel, !/*bin/* *passwd*, !/*bin/* *group*, !/*bin/* *shadow*, !/*bin/* *sudoers*, !/usr/bin/chattr, !/usr/bin/at, !/usr/bin/crontab -e,  !/usr/bin/rz, !/*/*/scp, !/*/*/*ftp, !/*/*/*/scp, !/*/*/*/*ftp, !/*/scp, !/*/*ftp, !/bin/* * /etc/*, !/usr/bin/passwd, !/bin/touch /usr/bin/*, !/usr/bin/setfacl, !/usr/bin/getfacl, !/usr/bin/chacl, !/bin/ln *passwd*,  !/sbin/init,  !/sbin/telinit , !/usr/sbin/xinetd, !/usr/bin/find *exec*, !/usr/bin/make, !/usr/bin/* *system*, !/usr/bin/* *signal*
-        Cmnd_Alias  NO_SHELLS =  !/*bin/*sh*, !/bin/* *sh *, !/usr/bin/* *sh, !/usr/local/bin/* *sh, !/opt/OV/bin/* *sh, !/sbin/* *sh
-        ##################################################################################################
-        Cmnd_Alias     CMD = ALLCOMMAND, NO_COMMAND, NO_SHELLS
-  - name: nopasswd sudo /usr/bin/passwd for ramuser
-    lineinfile:
-      dest: "/etc/sudoers"
-      state: "present"
-      line: "ramuser ALL = NOPASSWD: /usr/bin/passwd"
-  - name: nopasswd bash for ramfr-bvtech
-    lineinfile:
-      dest: "/etc/sudoers"
-      state: present
-      line: "ramfr-bvtech ALL = NOPASSWD: /bin/bash"
-  - name: nopasswd CMD for group crstaff
-    lineinfile:
-      dest: "/etc/sudoers"
-      state: present
-      line: "%crstaff ALL = NOPASSWD: CMD"
+  # SSH BASIC SETUP
   - name: no root login via SSH
     lineinfile:
       dest: "/etc/ssh/sshd_config"
@@ -93,54 +63,30 @@
       dest: "/etc/ssh/sshd_config"
       regexp: "^AcceptEnv LANG"
       state: absent
-  - name: add line to /etc/hosts
-    lineinfile:
-      dest: /etc/hosts
-      state: present
-      line: 192.168.10.100  ssb-manutencoop.telecomitalia.it
-  - name: copying Bladelogic RPM
-    copy:
-      src: /iso/software/RSCD/RSCD89-SP4-LIN64.rpm
-      dest: /tmp/RSCD89-SP4-LIN64.rpm
-  - name: local installation of Bladelogic
-    command:
-      cmd: yum -y localinstall /tmp/RSCD89-SP4-LIN64.rpm
-  - name: Bladelogic exports file
-    copy:
-      src: etc/rsc/exports
-      dest: /etc/rsc/exports
-      owner: root
-      group: root
-  - name:
-    command:
-      cmd: chkconfig --add rscd
-  - name: Restart and enable Bladelogic
-    service:
-      name: rscd
-      state: restarted
-      enabled: yes
-  - name: copying Syslog-NG Premium
-    copy:
-      src: /iso/software/SYSLOG-NG/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
-      dest: /tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
-  - name: local installation of Syslog-NG Premium
-    command:
-      cmd: yum -y localinstall /tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
-  - name: systemctl daemon-reload
-    systemd:
-      daemon_reload: yes
-  - name: enable and restart rsyslog and syslog-ng
-    systemd:
-      name: "{{ item }}"
-      state: restarted
-      enabled: yes
-    loop:
-      - rsyslog
-      - syslog-ng
+
+  # HOSTS FILE CUSTOMIZATION
+  - name: if HOSTS setup task file exists, run it
+    stat:
+      path: "tasks/build.{{ customer }}.hosts.yml"
+    register: extra_hosts_file
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.hosts.yml"
+    when: extra_hosts_file.stat.exists
+  - name: if HOSTS setup task file exists, run it (location specific)
+    stat:
+      path: "tasks/build.{{ customer }}.{{ location }}.hosts.yml"
+    register: extra_hosts_file_location
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.{{ location }}.hosts.yml"
+    when: extra_hosts_file_location.stat.exists  
+
+  # NO ROOT LOGIN
   - name: lock root password
     user:
       name: "root"
       password_lock: yes
+  
+  # SECURITY AND BUGFIX UPDATES
   - name: install security updates (CentOS8)
     register: security
     when:
@@ -181,3 +127,19 @@
       update_cache: yes
       bugfix: yes
       name: '*'
+  
+  # CUSTOMER AND LOCATION-SPECIFIC SETUP TASKS
+  - name: if EXTRA setup task file exists, run it
+    stat:
+      path: "tasks/build.{{ customer }}.extra.yml"
+    register: extra_file
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.extra.yml"
+    when: extra_file.stat.exists
+  - name: if EXTRA setup task file exists, run it (location specific)
+    stat:
+      path: "tasks/build.{{ customer }}.{{ location }}.extra.yml"
+    register: extra_file_location
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.{{ location }}.extra.yml"
+    when: extra_file_location.stat.exists  

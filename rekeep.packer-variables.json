@@ -3,5 +3,7 @@
   "vcenter_username": "customer-admin@vsphere.local",
   "centos7_guestos": "centos64Guest",
   "centos8_guestos": "centos64Guest",
-  "vm_version": "13"
+  "vm_version": "13",
+  "customer": "rekeep",
+  "ansibleuser": "admbvtech"
 }

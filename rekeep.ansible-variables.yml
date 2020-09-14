@@ -1,3 +1,5 @@
+# ANSIBLE
+ansibleuser: "admbvtech"
 # DOMAIN
 addomain: intra.manutencoop.it
 adrealm: INTRA.MANUTENCOOP.IT

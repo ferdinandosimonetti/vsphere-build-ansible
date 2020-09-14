@@ -1,0 +1,47 @@
+---
+- name: copying Bladelogic RPM
+  copy:
+    src: /iso/software/RSCD/RSCD89-SP4-LIN64.rpm
+    dest: /tmp/RSCD89-SP4-LIN64.rpm
+- name: local installation of Bladelogic
+  command:
+    cmd: yum -y localinstall /tmp/RSCD89-SP4-LIN64.rpm
+  environment:
+    http_proxy: "http://10.10.10.31:8080"
+    https_proxy: "http://10.10.10.31:8080"
+- name: Bladelogic exports file
+  copy:
+    src: etc/rsc/exports
+    dest: /etc/rsc/exports
+    owner: root
+    group: root
+- name:
+  command:
+    cmd: chkconfig --add rscd
+- name: Restart and enable Bladelogic
+  service:
+    name: rscd
+    state: restarted
+    enabled: yes
+- name: copying Syslog-NG Premium
+  copy:
+    src: /iso/software/SYSLOG-NG/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
+    dest: /tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
+- name: local installation of Syslog-NG Premium
+  command:
+    cmd: yum -y localinstall /tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
+  environment:
+    http_proxy: "http://10.10.10.31:8080"
+    https_proxy: "http://10.10.10.31:8080"
+
+- name: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+- name: enable and restart rsyslog and syslog-ng
+  systemd:
+    name: "{{ item }}"
+    state: restarted
+    enabled: yes
+  loop:
+    - rsyslog
+    - syslog-ng

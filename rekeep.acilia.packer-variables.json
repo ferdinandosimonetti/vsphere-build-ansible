@@ -6,5 +6,6 @@
   "isopath_windows": "ISO/WINDOWS/",
   "templatedatastore": "MANUTENCOOP-FC5MS-0624-008",
   "templatenetwork": "Vlan-Zola_20",
-  "templatefolder": "Template/LINUX"
+  "templatefolder": "Template/LINUX",
+  "location": "acilia"
 }
