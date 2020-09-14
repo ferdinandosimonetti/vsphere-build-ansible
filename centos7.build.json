@@ -32,10 +32,12 @@
 
       "http_directory": "ks",
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/centos7/{{ user `customer` }}.ks<enter><wait>"
-      ],
-      "iso_paths": [
+        "<tab> text ks=hd:fd0:/{{ user `customer` }}.ks<enter><wait>"
+      ],      "iso_paths": [
         "[{{ user `isodatastore` }}] {{ user `isopath_linux` }}{{ user `iso-name` }}"
+      ],
+      "floppy_files": [
+        "ks/centos7/{{ user `customer` }}.ks"
       ],
       "network_adapters": [
         {
@@ -46,7 +48,7 @@
       "storage": [
         {
           "disk_size": "{{user `vm-disk-size`}}",
-          "disk_thin_provisioned": true
+          "disk_thin_provisioned": "{{ user `disk-thin` }}"
         }
       ]
     }

@@ -1,10 +1,8 @@
 ---
 - name: grub setup
-  hosts: other
+  hosts: k8s
   become: yes
   user: admbvtech
-  vars:
-    - userpass: "Temporanea.1234"
   gather_facts: true
   tasks:
   - name: overwrite /etc/default/grub

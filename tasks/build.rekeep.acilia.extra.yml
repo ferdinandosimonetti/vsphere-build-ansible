@@ -23,6 +23,7 @@
     name: rscd
     state: restarted
     enabled: yes
+
 - name: copying Syslog-NG Premium
   copy:
     src: /iso/software/SYSLOG-NG/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
@@ -33,7 +34,6 @@
   environment:
     http_proxy: "http://10.10.10.31:8080"
     https_proxy: "http://10.10.10.31:8080"
-
 - name: systemctl daemon-reload
   systemd:
     daemon_reload: yes
@@ -45,3 +45,42 @@
   loop:
     - rsyslog
     - syslog-ng
+
+- name: create temp directory per NIMS install
+  file:
+    path: /tmp/NAGIOS
+    state: directory
+- name: transfer NIMS files to dir
+  copy:
+    src: "/iso/software/NAGIOS/{{ item }}"
+    dest: "/tmp/NAGIOS/{{ item }}"
+  loop:
+    - libsysstat-0.3.1-4.el7.x86_64.rpm
+    - nagios-common-4.3.4-5.el7.x86_64.rpm
+    - nagios-plugins-2.2.1-9git5c7eb5b9.el7.x86_64.rpm
+    - nagios-plugins-perl-2.2.1-9git5c7eb5b9.el7.x86_64.rpm
+    - nagios-plugins-uptime-2.2.1-9git5c7eb5b9.el7.x86_64.rpm
+    - nrpe-3.2.0-6.el7.x86_64.rpm
+    - perl-Sys-Statistics-Linux-0.66-14.el7.noarch.rpm
+- name: install NIMS
+  shell:
+    chdir: /tmp/NAGIOS
+    cmd: "yum -y localinstall *.rpm"
+  environment:
+    http_proxy: "http://10.10.10.31:8080"
+    https_proxy: "http://10.10.10.31:8080"
+- name: copy NIMS config and plugin
+  copy:
+    src: "/iso/software/NAGIOS/{{ item.src }}"
+    dest: "{{ item.destdir }}/{{ item.src }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - { "src": "op5_commands.cfg", "destdir": "/etc/nrpe.d", "mode": 644 }
+    - { "src": "nrpe.cfg", "destdir": "/etc/nagios", "mode": 644 }
+    - { "src": "check_linux_stats.pl", "destdir": "/usr/lib64/nagios/plugins", "mode": 755 }
+    - { "src": "nrpe", "destdir": "/etc/sysconfig", "mode": 644 }
+- name: restart NIMS
+  systemd:
+    name: nrpe
+    state: restarted
+    enabled: yes

@@ -23,8 +23,8 @@
       user: "{{ ansibleuser }}"
       key: "{{ lookup('file', '{{ item.keyfile }}') }}"
     loop:
-      - { "keyfile": "./id_rsa.pub" }
-      - { "keyfile": "./id_ed25519.pub" }
+      - { "keyfile": "sshkeys/id_rsa.pub" }
+      - { "keyfile": "sshkeys/id_ed25519.pub" }
   
   # EXTRA USERS
   - name: if extra users/group/sudo setup task file exists, run it
@@ -127,6 +127,17 @@
       update_cache: yes
       bugfix: yes
       name: '*'
+  
+  # KERNEL PARAMETERS VIA GRUB (ELEVATOR=NOOP IS BETTER FOR VMs)
+  - name: overwrite /etc/default/grub
+    copy:
+      src: etc/default/grub
+      dest: /etc/default/grub
+      owner: root
+      group: root
+  - name: mkgrub
+    command:
+      cmd: grub2-mkconfig -o /boot/grub2/grub.cfg
   
   # CUSTOMER AND LOCATION-SPECIFIC SETUP TASKS
   - name: if EXTRA setup task file exists, run it

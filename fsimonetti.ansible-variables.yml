@@ -1,3 +1,5 @@
+# CUSTOMER
+customer: "fsimonetti"
 # ANSIBLE
 ansibleuser: "ubuntu" 
 # DOMAIN
@@ -13,7 +15,6 @@ adpass: !vault |
           6564383165386432390a363032633363316636623238656438333137336664306361623430303535
           3233
 addns1: "192.168.101.104"
-addns2: "192.168.101.104"
 # TIMEZONES
 adtimezone: "Europe/Rome"
 adtimezonewin: "110"

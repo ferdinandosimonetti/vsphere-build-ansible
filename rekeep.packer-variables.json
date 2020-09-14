@@ -5,5 +5,6 @@
   "centos8_guestos": "centos64Guest",
   "vm_version": "13",
   "customer": "rekeep",
-  "ansibleuser": "admbvtech"
+  "ansibleuser": "admbvtech",
+  "disk-thin": "false"
 }
