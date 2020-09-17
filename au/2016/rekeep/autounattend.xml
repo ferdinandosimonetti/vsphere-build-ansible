@@ -65,7 +65,7 @@
                 <ProductKey>
                     <!-- Do not uncomment the Key element if you are using trial ISOs -->
                     <!-- You must uncomment the Key element (and optionally insert your own key) if you are using retail or volume license ISOs -->
-                    <!-- <Key>6XBNX-4JQGW-QX6QG-74P76-72V67</Key> -->
+                      <Key>6XBNX-4JQGW-QX6QG-74P76-72V67</Key>
                     <WillShowUI>OnError</WillShowUI>
                 </ProductKey>
                 <AcceptEula>true</AcceptEula>
@@ -82,7 +82,7 @@
                <Ipv6Settings>
                   <DhcpEnabled>false</DhcpEnabled>
                </Ipv6Settings>
-               <Identifier>Ethernet0</Identifier>
+               <Identifier>Ethernet</Identifier>
                <UnicastIpAddresses>
                   <IpAddress wcm:action="add" wcm:keyValue="1">10.20.0.200/16</IpAddress>
                </UnicastIpAddresses>
@@ -95,6 +95,30 @@
                </Routes>
             </Interface>
           </Interfaces>
+        </component>
+        <component name="Microsoft-Windows-DNS-Client" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <Interfaces>
+              <Interface wcm:action="add">
+                  <Identifier>Ethernet</Identifier>
+                  <DNSServerSearchOrder>
+                      <IpAddress wcm:action="add" wcm:keyValue="1">10.197.65.53</IpAddress>
+                      <IpAddress wcm:action="add" wcm:keyValue="2">10.20.0.11</IpAddress>
+                  </DNSServerSearchOrder>
+                  <EnableAdapterDomainNameRegistration>true</EnableAdapterDomainNameRegistration>
+                  <DisableDynamicUpdate>false</DisableDynamicUpdate>
+              </Interface>
+          </Interfaces>
+        </component>
+        <component name="Microsoft-Windows-NetBT" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Interfaces>
+                <Interface wcm:action="add">
+                    <NameServerList>
+                        <IpAddress wcm:action="add" wcm:keyValue="1">10.197.65.53</IpAddress>
+                    </NameServerList>
+                    <NetbiosOptions>1</NetbiosOptions>
+                    <Identifier>Ethernet</Identifier>
+                </Interface>
+            </Interfaces>
         </component>
         <component name="Microsoft-Windows-Shell-Setup" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <OEMInformation>

@@ -47,6 +47,7 @@ vcenter_password: !vault |
           3035626465323432390a643030663464646562613232303666373735376362373964616137626265
           3830
 # SYSTEM
+winrmport: 5985
 rootuser: "admbvtech"
 rootpass: !vault |
           $ANSIBLE_VAULT;1.1;AES256
