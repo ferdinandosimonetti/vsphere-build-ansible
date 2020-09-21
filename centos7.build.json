@@ -1,0 +1,82 @@
+{
+  "variables": {
+    "vcenter-password": "{{env `VCENTERPASSWORD`}}",
+    "admin-password": "{{ env `ADMINPASSWORD`}}"
+  },
+  "builders": [
+    {
+      "type": "vsphere-iso",
+
+      "vcenter_server": "{{user `vcenter_hostname`}}",
+      "username": "{{user `vcenter_username`}}",
+      "password": "{{user `vcenter-password`}}",
+      "insecure_connection": "true",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "cluster": "{{user `vsphere_cluster`}}",
+      "datastore": "{{user `templatedatastore`}}",
+
+      "vm_name": "{{user `vm-name`}}",
+      "notes": "Built via Packer - {{isotime}}",
+      "convert_to_template": "true",
+      "folder": "{{user `templatefolder`}}",
+
+      "guest_os_type": "{{ user `centos7_guestos` }}",
+
+      "CPUs": "2",
+      "RAM": "4096",
+      "RAM_reserve_all": false,
+      "disk_controller_type": "pvscsi",
+
+      "ssh_password": "{{user `admin-password`}}",
+      "ssh_username": "root",
+
+      "http_directory": "ks",
+      "boot_command": [
+        "<tab> text ks=hd:fd0:/{{ user `customer` }}.ks<enter><wait>"
+      ],      "iso_paths": [
+        "[{{ user `isodatastore` }}] {{ user `isopath_linux` }}{{ user `iso-name` }}"
+      ],
+      "floppy_files": [
+        "ks/centos7/{{ user `customer` }}.ks"
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `templatenetwork`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "storage": [
+        {
+          "disk_size": "{{user `vm-disk-size`}}",
+          "disk_thin_provisioned": "{{ user `disk-thin` }}"
+        }
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "file",
+      "source": "/iso/software/RSCD/RSCD89-SP4-LIN64.rpm",
+      "destination": "/tmp/RSCD89-SP4-LIN64.rpm"
+    },
+    {
+      "type": "file",
+      "source": "/iso/software/SYSLOG-NG/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm",
+      "destination": "/tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm"
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "./build.yml",
+      "extra_arguments": [ 
+        "-v",
+        "--vault-password-file", 
+        "~/.password",
+        "--extra-vars",
+        "@./{{user `customer`}}.ansible-variables.yml",
+        "--extra-vars",
+        "@./{{user `customer`}}.{{user `location`}}.ansible-variables.yml"
+        ]
+    }
+  ]
+}
+

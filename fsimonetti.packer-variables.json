@@ -1,0 +1,11 @@
+{
+  "vcenter_hostname": "vcsa.fsimonetti.lan",
+  "vcenter_username": "administrator@vsphere.local",
+  "centos7_guestos": "centos7_64Guest",
+  "centos8_guestos": "centos8_64Guest",
+  "windows_guestos": "windows9Server64Guest",
+  "vm_version": "15",
+  "customer": "fsimonetti",
+  "ansibleuser": "ubuntu",
+  "disk-thin": "true"
+}

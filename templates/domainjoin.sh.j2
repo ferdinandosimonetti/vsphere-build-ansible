@@ -1,0 +1,3 @@
+#!/bin/bash
+net ads join -U{{ aduser }}%{{ adpass}}
+authconfig --update --enablesssd --enablesssdauth --enablemkhomedir

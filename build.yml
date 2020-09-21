@@ -1,0 +1,156 @@
+- name: set up CentOS template
+  hosts: all
+  gather_facts: true
+  tasks:
+
+  # ANSIBLE USER SETUP
+  - name: create sudo group
+    group:
+      name: sudo
+  - name: nopasswd sudo for sudo group
+    lineinfile:
+      dest: "/etc/sudoers"
+      state: "present"
+      regexp: "^%sudo"
+      line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+  - name: create Ansible user
+    user:
+      name: "{{ ansibleuser }}"
+      groups: "sudo"
+      password: "{{ rootpass | string | password_hash('sha512', 'mysecretsalt') }}"
+  - name: add authkey
+    authorized_key:
+      user: "{{ ansibleuser }}"
+      key: "{{ lookup('file', '{{ item.keyfile }}') }}"
+    loop:
+      - { "keyfile": "sshkeys/id_rsa.pub" }
+      - { "keyfile": "sshkeys/id_ed25519.pub" }
+  
+  # EXTRA USERS
+  - name: if extra users/group/sudo setup task file exists, run it
+    stat:
+      path: "tasks/build.{{ customer }}.users.yml"
+    register: extra_users_file
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.users.yml"
+    when: extra_users_file.stat.exists
+  - name: if extra users/group/sudo setup task file exists (for specific location), run it
+    stat:
+      path: "tasks/build.{{ customer }}.{{ location }}.users.yml"
+    register: extra_users_file_location
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.{{ location }}.users.yml"
+    when: extra_users_file_location.stat.exists
+
+  # SSH BASIC SETUP
+  - name: no root login via SSH
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      state: "present"
+      regexp: "{{ item.reg }}"
+      line: "{{ item.lin }}"
+    loop:
+      - { "reg": "^PermitRootLogin", "lin": "PermitRootLogin without-password" }
+      - { "reg": "^PubkeyAuthentication", "lin": "PubkeyAuthentication yes" }
+      - { "reg": "AllowAgentForwarding", "lin": "AllowAgentForwarding yes" }
+  - name: disable AcceptEnv per le variabili LC_
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      regexp: "^AcceptEnv LC_"
+      state: absent
+  - name: disable AcceptEnv per le variabili LANG
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      regexp: "^AcceptEnv LANG"
+      state: absent
+
+  # HOSTS FILE CUSTOMIZATION
+  - name: if HOSTS setup task file exists, run it
+    stat:
+      path: "tasks/build.{{ customer }}.hosts.yml"
+    register: extra_hosts_file
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.hosts.yml"
+    when: extra_hosts_file.stat.exists
+  - name: if HOSTS setup task file exists, run it (location specific)
+    stat:
+      path: "tasks/build.{{ customer }}.{{ location }}.hosts.yml"
+    register: extra_hosts_file_location
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.{{ location }}.hosts.yml"
+    when: extra_hosts_file_location.stat.exists  
+
+  # NO ROOT LOGIN
+  - name: lock root password
+    user:
+      name: "root"
+      password_lock: yes
+  
+  # SECURITY AND BUGFIX UPDATES
+  - name: install security updates (CentOS8)
+    register: security
+    when:
+      - ansible_facts['distribution'] == "CentOS"
+      - ansible_facts['distribution_major_version'] == "8"
+    dnf:
+      state: latest
+      update_cache: yes
+      security: yes
+      name: '*'
+  - name: install bugfix/errata (CentOS8)
+    register: bugfix
+    when:
+      - ansible_facts['distribution'] == "CentOS"
+      - ansible_facts['distribution_major_version'] == "8"
+    dnf:
+      state: latest
+      update_cache: yes
+      bugfix: yes
+      name: '*'
+  - name: install security updates (CentOS7)
+    register: security
+    when:
+      - ansible_facts['distribution'] == "CentOS"
+      - ansible_facts['distribution_major_version'] == "7"
+    yum:
+      state: latest
+      update_cache: yes
+      security: yes
+      name: '*'
+  - name: install bugfix/errata (CentOS7)
+    register: bugfix
+    when:
+      - ansible_facts['distribution'] == "CentOS"
+      - ansible_facts['distribution_major_version'] == "7"
+    yum:
+      state: latest
+      update_cache: yes
+      bugfix: yes
+      name: '*'
+  
+  # KERNEL PARAMETERS VIA GRUB (ELEVATOR=NOOP IS BETTER FOR VMs)
+  - name: overwrite /etc/default/grub
+    copy:
+      src: etc/default/grub
+      dest: /etc/default/grub
+      owner: root
+      group: root
+  - name: mkgrub
+    command:
+      cmd: grub2-mkconfig -o /boot/grub2/grub.cfg
+  
+  # CUSTOMER AND LOCATION-SPECIFIC SETUP TASKS
+  - name: if EXTRA setup task file exists, run it
+    stat:
+      path: "tasks/build.{{ customer }}.extra.yml"
+    register: extra_file
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.extra.yml"
+    when: extra_file.stat.exists
+  - name: if EXTRA setup task file exists, run it (location specific)
+    stat:
+      path: "tasks/build.{{ customer }}.{{ location }}.extra.yml"
+    register: extra_file_location
+    connection: local
+  - include_tasks: "tasks/build.{{ customer }}.{{ location }}.extra.yml"
+    when: extra_file_location.stat.exists  

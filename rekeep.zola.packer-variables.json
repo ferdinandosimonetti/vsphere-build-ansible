@@ -1,0 +1,11 @@
+{
+  "vsphere_datacenter": "DC2-ZOLA",
+  "vsphere_cluster": "ZPO-APOLLO",
+  "isodatastore": "VM_DSZPO_15",
+  "isopath_linux": "ISO/LINUX/",
+  "isopath_windows": "ISO/WINDOWS/",
+  "templatedatastore": "VM_DSZPO_15",
+  "templatenetwork": "VLAN 10 - LAN Zola NEW",
+  "templatefolder": "Template/LINUX",
+  "location": "zola"
+}

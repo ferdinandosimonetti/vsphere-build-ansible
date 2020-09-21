@@ -1,0 +1,24 @@
+---
+#    Windows Server 2008 SP2: KB3154517
+#    Windows Server 2008 R2: KB3154518
+#    Windows Server 2012: KB3154519
+#    Windows Server 2012 R2: KB3154520
+- hosts: reachable
+  gather_facts: false
+  vars_files:
+    - "../{{customer}}.ansible-variables.yml"
+    - "../{{customer}}.{{location}}.ansible-variables.yml"
+    - ../winrm-local.yml
+
+  tasks:
+  - name: Gather facts
+    register: result
+    setup:
+  - name: output facts
+    debug:
+      var: 
+        "result.ansible_facts.{{ item }}"
+    loop:
+      - ansible_distribution
+      - ansible_hostname
+      - ansible_os_name

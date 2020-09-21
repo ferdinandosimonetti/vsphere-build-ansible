@@ -1,0 +1,18 @@
+  # NTP SETUP
+  - name: setup chrony.conf
+    template:
+      src: "etc/chrony.conf.{{ customer }}.j2"
+      dest: /etc/chrony.conf
+      owner: root
+      group: root
+  - name: setup step tickers
+    template:
+      src: "etc/ntp/step-tickers.{{ customer }}.j2"
+      dest: /etc/ntp/step-tickers
+      owner: root
+      group: root
+  - name: restart chrony
+    systemd:
+      name: chronyd
+      state: restarted
+      enabled: yes

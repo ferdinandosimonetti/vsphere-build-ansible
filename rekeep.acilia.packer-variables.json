@@ -1,0 +1,11 @@
+{
+  "vsphere_datacenter": "DC1-ACILIA",
+  "vsphere_cluster": "CLU01-REKEEP",
+  "isodatastore": "MANUTENCOOP-FC15MS-0624-001",
+  "isopath_linux": "ISO/LINUX/",
+  "isopath_windows": "ISO/MICROSOFT/",
+  "templatedatastore": "MANUTENCOOP-FC5MS-0624-008",
+  "templatenetwork": "Vlan-Zola_20",
+  "templatefolder": "Template",
+  "location": "acilia"
+}
