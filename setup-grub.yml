@@ -1,5 +1,5 @@
 ---
-- hosts: worker
+- hosts: c7
   become: yes
   user: admbvtech
   gather_facts: true
@@ -13,5 +13,5 @@
     - name: mkgrub
       command:
         cmd: grub2-mkconfig -o /boot/grub2/grub.cfg
-    - name: reboot
-      reboot:
+
+

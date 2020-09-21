@@ -1,0 +1,16 @@
+---
+vmhostname: "testvm19"
+vmdescription: "{{ vmhostname }} 6"
+vmnetwork: "192.168.101.0/24"
+vmnetworkname: "VM Network"
+template: "c7"
+vmtype: "linux"
+vmdisksize: 60
+vmfolder: ""
+vmram: 4096
+vmcpu: 2
+vmosid: "centos7_64Guest"
+vmdisktype: "thick"
+vmdatastore: "vm-ds"
+#template: "w2016template"
+#vmtype: "windows"

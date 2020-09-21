@@ -1,0 +1,19 @@
+
+[sssd]
+domains = {{ addomain }}
+services = nss, pam, pac
+config_file_version = 2
+
+[domain/{{ addomain }}]
+id_provider = ad
+auth_provider = ad
+access_provider = ad
+chpass_provider = ad
+cache_credentials = true
+ad_domain = {{ addomain }}
+ad_gpo_ignore_unreadable = True
+ignore_group_members = True
+default_shell = /bin/bash
+fallback_homedir = /home/%u
+use_fully_qualified_names = False
+enable_files_domains = False

@@ -5,17 +5,17 @@ port = "443"
 insecure-flag = "1"
 
 [VirtualCenter "{{ vcenter_hostname }}"]
-datacenters = "{{ myvmdcname }}"
+datacenters = "{{ vsphere_datacenter }}"
 
 [Workspace]
 server = "{{ vcenter_hostname }}"
-datacenter = "{{ myvmdcname }}"
-default-datastore = "{{ myvmdatastore }}"
-resourcepool-path = "{{ myvmclname }}/Resources"
-folder = "{{ k8folder }}"
+datacenter = "{{ vsphere_datacenter }}"
+default-datastore = "{{ k8_default_datastore }}"
+resourcepool-path = "{{ k8_default_cluster }}/Resources"
+folder = "{{ k8_default_folder }}"
 
 [Disk]
 scsicontrollertype = pvscsi
 
 [Network]
-public-network = "{{ myvmnetwork }}"
+public-network = "{{ k8_public_network }}"

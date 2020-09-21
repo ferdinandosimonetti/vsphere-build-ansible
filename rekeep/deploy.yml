@@ -121,3 +121,24 @@
   - name: extend pv
     command:
       cmd: pvresize /dev/sda2
+  - name: setup chrony.conf
+    template:
+      src: etc/chrony.conf.j2
+      dest: /etc/chrony.conf
+      owner: root
+      group: root
+  - name: setup step tickers
+    template:
+      src: etc/ntp/step-tickers.j2
+      dest: /etc/ntp/step-tickers.j2
+      owner: root
+      group: root
+  - name: restart chrony
+    systemd:
+      name: chronyd
+      state: restarted
+      enabled: yes
+
+      
+
+

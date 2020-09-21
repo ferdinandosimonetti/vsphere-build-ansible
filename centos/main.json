@@ -4,7 +4,7 @@
     "iso-url": "[iso-ds] {{ env `ISOPATH`}}",
     "vm-cpu-num": "2",
     "vm-disk-size": "{{ env `DISKSIZE`}}",
-    "vm-mem-size": "1024",
+    "vm-mem-size": "4096",
     "vm-name": "{{ env `TEMPLATENAME`}}",
     "vm-guest-os": "{{ env `VMOS` }}",
     "vsphere-cluster": "CL0",
@@ -60,9 +60,20 @@
   ],
   "provisioners": [
     {
+      "type": "file",
+      "source": "/iso/software/RSCD/RSCD89-SP4-LIN64.rpm",
+      "destination": "/tmp/RSCD89-SP4-LIN64.rpm"
+    },
+    {
+      "type": "file",
+      "source": "/iso/software/SYSLOG-NG/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm",
+      "destination": "/tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm"
+    },
+    {
       "type": "ansible",
       "playbook_file": "./build.yml",
       "extra_arguments": [ 
+        "-v",
         "--vault-password-file", 
         "~/.password",
         "--extra-vars",

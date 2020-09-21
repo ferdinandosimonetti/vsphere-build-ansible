@@ -1,0 +1,86 @@
+{
+  "variables": {
+    "vcenter-password": "{{env `VCENTERPASSWORD`}}",
+    "admin-password": "{{ env `ADMINPASSWORD`}}"
+  },
+  "builders": [
+    {
+      "type": "vsphere-iso",
+
+      "vcenter_server": "{{user `vcenter_hostname`}}",
+      "username": "{{user `vcenter_username`}}",
+      "password": "{{user `vcenter-password`}}",
+      "insecure_connection": "true",
+      "datacenter": "{{user `vsphere_datacenter`}}",
+      "cluster": "{{user `vsphere_cluster`}}",
+      "datastore": "{{user `templatedatastore`}}",
+
+      "vm_name": "{{user `vm-name`}}",
+      "notes": "Built via Packer - {{isotime}}",
+      "convert_to_template": "true",
+      "folder": "{{user `templatefolder`}}",
+
+      "guest_os_type": "{{ user `windows_guestos` }}",
+
+      "CPUs": "2",
+      "RAM": "4096",
+      "RAM_reserve_all": false,
+      "disk_controller_type": "lsilogic-sas",
+      "firmware": "bios",
+
+      "communicator": "winrm",
+      "winrm_username": "Administrator",
+      "winrm_password": "{{user `admin-password`}}",
+      "winrm_timeout": "45m",
+
+      "iso_paths": [
+        "[{{ user `isodatastore` }}] {{ user `isopath_windows` }}{{ user `iso-name` }}",
+        "[] /vmimages/tools-isoimages/windows.iso"
+      ],
+      "floppy_files": [
+        "./au/{{ user `vm-os` }}/{{ user `customer` }}/autounattend.xml",
+        "./auscripts/disable-network-discovery.cmd",
+        "./auscripts/disable-winrm.ps1",
+        "./auscripts/enable-rdp.cmd",
+        "./auscripts/enable-winrm.ps1",
+        "./auscripts/install-vm-tools.cmd",
+        "./auscripts/set-temp.ps1"
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `templatenetwork`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "storage": [
+        {
+          "disk_size": "{{user `vm-disk-size`}}",
+          "disk_thin_provisioned": "{{ user `disk-thin` }}"
+        }
+      ]  
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-restart" 
+    },
+    {
+      "type": "windows-update",
+      "search_criteria": "IsInstalled=0",
+      "filters": [
+          "exclude:$_.InstallationBehavior.CanRequestUserInput",
+          "include:$true"
+      ],
+      "update_limit": 25
+    },
+    {
+      "type": "powershell",
+      "script": "./auscripts/ansibleremoting.ps1"
+    }
+  ],
+  "sensitive-variables": [
+    "vsphere-password",
+    "admin-password"
+  ]
+}
+
