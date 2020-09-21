@@ -1,5 +1,6 @@
 # CUSTOMER
 customer: "fsimonetti"
+customername: "Ferdinando Simonetti Inc."
 # ANSIBLE
 ansibleuser: "ubuntu" 
 # DOMAIN
@@ -15,6 +16,7 @@ adpass: !vault |
           6564383165386432390a363032633363316636623238656438333137336664306361623430303535
           3233
 addns1: "192.168.101.104"
+addns2: "192.168.101.104"
 # TIMEZONES
 adtimezone: "Europe/Rome"
 adtimezonewin: "110"
@@ -36,7 +38,7 @@ ipam_lookup_network: "{{ ipam_base_url }}{{ ipam_app_id }}/subnets/cidr/"
 ipam_lookup_ip:   "{{ ipam_base_url }}{{ ipam_app_id }}/addresses/first_free/"
 ipam_description:    "ansible created"
 # VSPHERE
-vcenter_hostname: "vcsa.{{ myaddomain }}"
+vcenter_hostname: "vcsa.{{ addomain }}"
 vcenter_username: "administrator@vsphere.local"
 vcenter_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -71,6 +73,10 @@ k8_vcenter_password: !vault |
           66396664646134636432626166653065313138346363306563306336326138646135653932613333
           3332623836373961360a396532396630316261626537633165333761393332393736623565363137
           6564
+k8_default_datastore: "vm-ds"
+k8_default_cluster: "CL0"
+k8_default_folder: "k8s"
+k8_public_network: "VM Network"
 esxi_username: "root"
 esxi_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -94,10 +100,10 @@ vcenter_license: !vault |
           6532373030353933660a323433386364363632663537333538393034383236303538343262363038
           35333932623839353563353230343465353062373136663065313731376464653730
 # STORAGE
-mynfs: "iscsi.{{ myaddomain }}"
+mynfs: "iscsi.{{ addomain }}"
 # NETWORK CONFIG
 mygw: "192.168.101.2"
 mydc: "192.168.101.104"
 myinaddrarpa: "101.168.192.in-addr.arpa"
-mydcname: "dc.{{ myaddomain }}"
+mydcname: "dc.{{ addomain }}"
 

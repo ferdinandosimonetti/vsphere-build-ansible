@@ -6,7 +6,7 @@
   vars:
     k8s_cni: calico                                      # calico, flannel
     container_runtime: docker                            # docker, cri-o, containerd 
-    configure_firewalld: true                            # true / false
+    configure_firewalld: false                            # true / false
     # Docker proxy support
     setup_proxy: false                                   # Set to true to configure proxy
     proxy_server: "proxy.example.com:8080"               # Proxy server address and port
@@ -34,7 +34,8 @@
   vars:
     k8folder: "k8s"
   vars_files:
-    - ../deployvariables.yml
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
   tasks:
     - name: copy vSphere K8 configuration
       template:
@@ -69,7 +70,8 @@
   vars:
     k8folder: "k8s"
   vars_files:
-    - ../deployvariables.yml
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
   tasks:
     - name: deploy Calico
       command:
@@ -98,7 +100,8 @@
   vars:
     k8folder: "k8s"
   vars_files:
-    - ../deployvariables.yml
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
   tasks:
     - name: compile discovery.yml
       template:
@@ -118,7 +121,8 @@
   user: admbvtech
   gather_facts: true
   vars_files:
-    - ../deployvariables.yml
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
   tasks:
     - name: cycle checking if all nodes are Ready
       register: result

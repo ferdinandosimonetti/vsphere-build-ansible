@@ -1,5 +1,6 @@
 # CUSTOMER
 customer: "rekeep"
+customername: "Rekeep S.p.A."
 # ANSIBLE
 ansibleuser: "admbvtech"
 # DOMAIN
