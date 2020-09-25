@@ -32,6 +32,16 @@
       state: "present"
       regexp: "^svck8s"
       line: "svck8s  ALL=(ALL)       ALL"
+  - name: set allowed groups for SSH
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      state: "present"
+      regexp: "^AllowGroups"
+      line: "AllowGroups sudo crstaff kubernetes-prd.bvtech kubernetes-prd.ff3d kubernetes-prd.sshusers svck8s"
+  - name: restart SSHD
+    systemd:
+      service: sshd
+      state: restarted
 
   - name: Put SELinux in permissive mode
     selinux:
