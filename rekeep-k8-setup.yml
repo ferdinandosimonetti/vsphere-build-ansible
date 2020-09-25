@@ -1,0 +1,99 @@
+- name: set up for k8s
+  hosts: rekeep-k8s
+  become: yes
+  user: admbvtech
+  vars:
+    - userpass: "Temporanea.1234"
+  gather_facts: true
+  tasks:
+  - name: create docker group
+    group:
+      name: "docker"
+  - name: sudo for kubernetes-prd group
+    lineinfile:
+      dest: "/etc/sudoers"
+      state: "present"
+      regexp: "^%kubernetes-prd.sudo"
+      line: "%kubernetes-prd.sudo ALL=(ALL) ALL"
+  - name: create user
+    user:
+      name: "{{ item }}"
+      groups:
+        - docker
+        - kubernetes-prd.sudo
+      password: "{{ userpass | string | password_hash('sha512', 'mysecretsalt') }}"
+    loop:
+      - "ff3dadmin"
+      - "ff3dop"
+      - "svck8s"
+  - name: sudo for svck8s
+    lineinfile:
+      dest: "/etc/sudoers"
+      state: "present"
+      regexp: "^svck8s"
+      line: "svck8s  ALL=(ALL)       ALL"
+
+  - name: Put SELinux in permissive mode
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
+    shell: |
+      swapoff -a
+
+  - name: Disable SWAP in fstab since kubernetes can't work with swap enabled (2/2)
+    replace:
+      path: /etc/fstab
+      regexp: '^([^#].*?\sswap\s+.*)$'
+      replace: '# \1'
+
+  - name: Load required modules
+    modprobe:
+      name: "{{ item }}"
+      state: present
+    with_items:
+      - br_netfilter
+      - overlay
+      - ip_vs
+      - ip_vs_rr
+      - ip_vs_wrr
+      - ip_vs_sh
+      - nf_conntrack_ipv4
+
+  - name: Modify sysctl entries
+    sysctl:
+      name: '{{ item.key }}'
+      value: '{{ item.value }}'
+      sysctl_set: yes
+      state: present
+      reload: yes
+    ignore_errors: True
+    with_items:
+      - {key: net.bridge.bridge-nf-call-ip6tables, value: 1}
+      - {key: net.bridge.bridge-nf-call-iptables,  value: 1}
+      - {key: net.ipv4.ip_forward,  value: 1}
+  
+  - name: overwrite /etc/default/grub
+    copy:
+      src: etc/default/grub
+      dest: /etc/default/grub
+      owner: root
+      group: root
+  - name: mkgrub
+    command:
+      cmd: grub2-mkconfig -o /boot/grub2/grub.cfg
+  
+  - name: Remove the swap LV
+    lvol:
+      vg: vg00
+      lv: swap
+      state: absent
+      force: yes
+
+  - name: extend /var to at least 40Gb
+    lvol:
+      vg: vg00
+      lv: var
+      resizefs: yes
+      size: 40G

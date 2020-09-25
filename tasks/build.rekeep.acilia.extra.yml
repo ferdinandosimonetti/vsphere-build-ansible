@@ -6,9 +6,9 @@
 - name: local installation of Bladelogic
   command:
     cmd: yum -y localinstall /tmp/RSCD89-SP4-LIN64.rpm
-  environment:
-    http_proxy: "http://10.10.10.31:8080"
-    https_proxy: "http://10.10.10.31:8080"
+#  environment:
+#    http_proxy: "http://10.10.10.31:8080"
+#    https_proxy: "http://10.10.10.31:8080"
 - name: Bladelogic exports file
   copy:
     src: etc/rsc/exports
@@ -31,9 +31,9 @@
 - name: local installation of Syslog-NG Premium
   command:
     cmd: yum -y localinstall /tmp/syslog-ng-premium-edition-7.0.3-1.rhel7.x86_64.rpm
-  environment:
-    http_proxy: "http://10.10.10.31:8080"
-    https_proxy: "http://10.10.10.31:8080"
+#  environment:
+#    http_proxy: "http://10.10.10.31:8080"
+#    https_proxy: "http://10.10.10.31:8080"
 - name: systemctl daemon-reload
   systemd:
     daemon_reload: yes
@@ -66,9 +66,9 @@
   shell:
     chdir: /tmp/NAGIOS
     cmd: "yum -y localinstall *.rpm"
-  environment:
-    http_proxy: "http://10.10.10.31:8080"
-    https_proxy: "http://10.10.10.31:8080"
+#  environment:
+#    http_proxy: "http://10.10.10.31:8080"
+#    https_proxy: "http://10.10.10.31:8080"
 - name: copy NIMS config and plugin
   copy:
     src: "/iso/software/NAGIOS/{{ item.src }}"

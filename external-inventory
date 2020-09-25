@@ -23,3 +23,7 @@ testvm18
 
 [quasi]
 testvm21
+
+[rekeep-k8s]
+10.197.65.196
+10.197.65.202

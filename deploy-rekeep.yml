@@ -1,0 +1,310 @@
+# linea di comando:
+# ansible-playbook -i external-inventory -i fsimonetti.vmware.yml --vault-password-file ~/.password --extra-vars @testvm11.yml deploy.yml
+---
+- hosts: localhost
+  gather_facts: true
+  vars_files:
+    - "{{ customer }}.ansible-variables.yml"
+    - "{{ customer }}.{{ location }}.ansible-variables.yml"
+  tasks:
+
+  # LINUX VM
+  - name: complete deployment of a Linux VM
+    when: vmtype == "linux" 
+    block:
+      - name: Clone a virtual machine from CentOS template and customize
+        register: vm
+        vmware_guest:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          datacenter: "{{ vsphere_datacenter }}"
+          cluster: "{{ vsphere_cluster }}"
+          name: "{{ vmhostname }}"
+          annotation: "{{ vmdescription }}"
+          folder: "/{{ vsphere_datacenter }}/vm{{ vmfolder }}"
+          template: "{{ template }}"
+          hardware:
+            memory_mb: "{{ vmram }}"
+            num_cpus: "{{ vmcpu }}"
+            osid: "{{ vmosid }}"
+          disk:
+          - size_gb: "{{ vmdisksize }}"
+            type: "{{ vmdisktype }}"
+            datastore: "{{ vmdatastore }}"
+          networks:
+          - name: "{{ vmnetworkname }}"
+            ip: "{{ vmipaddress }}"
+            netmask: "{{ vmnetmask }}"
+            gateway: "{{ vmgateway }}"
+          customization:
+            dns_servers:
+            - "{{ addns1 }}"
+            - "{{ addns2 }}"
+            dns_suffix:
+            - "{{ addomain }}"
+            domain: "{{ addomain }}"
+            timezone: "{{ adtimezone }}"
+            hwclockUTC: true
+          state: poweredon
+          wait_for_ip_address: true
+          wait_for_customization: true
+      - name: Add newly created Linux VM to inventory
+        add_host:
+          name: "{{ vm.instance.ipv4 }}"
+          group: linuxvms
+          hw_guest_id: "{{ vm.instance.hw_guest_id }}"
+          hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
+          hw_name: "{{ vm.instance.hw_name }}"
+      - name: record VM creation date/time
+        shell: date +%Y%m%d%H%M
+        register: deploydate
+      - name: add attribute DEPLOYDATE to new VM
+        vmware_guest_custom_attributes:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          name: "{{ vm.instance.hw_name }}"
+          state: present
+          attributes:
+            - name: DEPLOYDATE
+              value: "{{ deploydate.stdout }}"
+      - name: add attribute DEPLOYTEMPLATE to new VM
+        vmware_guest_custom_attributes:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          name: "{{ vm.instance.hw_name }}"
+          state: present
+          attributes:
+            - name: DEPLOYTEMPLATE
+              value: "{{ template }}"
+
+  # WINDOWS VM
+  - name: Complete deployment of a Windows VM
+    when: vmtype == "windows"
+    block:
+      - name: Clone a virtual machine from W2016 template and customize
+        register: vm
+        vmware_guest:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          datacenter: "{{ vsphere_datacenter }}"
+          cluster: "{{ vsphere_cluster }}"
+          name: "{{ vmhostname }}"
+          annotation: "{{ vmdescription }}"
+          folder: "/{{ vsphere_datacenter }}/vm{{ vmfolder }}"
+          template: "{{ template }}"
+          hardware:
+            memory_mb: "{{ vmram }}"
+            num_cpus: "{{ vmcpu }}"
+            osid: "{{ vmosid }}"
+            scsi: lsilogicsas 
+          networks:
+          - name: "{{ vmnetworkname }}"
+            ip: "{{ resipaddr.json.data }}"
+            netmask: "{{ vmnetmask }}"
+            gateway: "{{ vmgateway }}"
+          customization:
+            dns_servers:
+            - "{{ addns1 }}"
+            - "{{ addns2 }}"
+            dns_suffix:
+            - "{{ addomain }}"
+            domain: "{{ addomain }}"
+            domainadmin: "{{ aduser }}@{{ addomain }}"
+            domainadminpassword: "{{ adpass }}"
+            joindomain: "{{ addomain }}"
+            orgname: "{{ customername }}"
+            password: "{{ adpass }}"
+    #        # For Windows VMs        
+    #        # https://docs.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)?redirectedfrom=MSDN
+            timezone: "{{ adtimezonewin }}"
+            hwclockUTC: true
+          state: poweredon
+          wait_for_ip_address: true
+          wait_for_customization: true
+      - name: Add newly created Windows VM to inventory
+        add_host:
+          name: "{{ vm.instance.ipv4 }}"
+          group: windowsvms
+          hw_guest_id: "{{ vm.instance.hw_guest_id }}"
+          hw_guest_full_name: "{{ vm.instance.hw_guest_full_name }}"
+          hw_name: "{{ vm.instance.hw_name }}"
+      - name: record VM creation date/time
+        shell: date +%Y%m%d%H%M
+        register: creationdate
+      - name: add attribute CREATIONDATE to new VM
+        vmware_guest_custom_attributes:
+          hostname: "{{ vcenter_hostname }}"
+          username: "{{ vcenter_username }}"
+          password: "{{ vcenter_password }}"
+          validate_certs: no
+          name: "{{ vm.instance.hw_name }}"
+          state: present
+          attributes:
+            - name: CREATIONDATE
+              value: "{{ creationdate.stdout }}"
+
+# LINUX VM      
+- hosts: linuxvms
+  gather_facts: true
+  become: yes
+  user: "{{ ansibleuser }}"
+  vars_files:
+    - "{{ customer }}.ansible-variables.yml"
+    - "{{ customer }}.{{ location }}.ansible-variables.yml"    
+  tasks:
+    - name: install security updates (CentOS8)
+      register: security
+      when: hw_guest_id == "centos8_64Guest"
+      dnf:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+      environment:
+        http_proxy: "http://10.10.10.31:8080"
+        https_proxy: "http://10.10.10.31:8080"
+    - name: install bugfix/errata (CentOS8)
+      register: bugfix
+      when: hw_guest_id == "centos8_64Guest"
+      dnf:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
+      environment:
+        http_proxy: "http://10.10.10.31:8080"
+        https_proxy: "http://10.10.10.31:8080"
+    - name: install security updates (CentOS7)
+      register: security
+      when: hw_guest_id == "centos7_64Guest"
+      yum:
+        state: latest
+        update_cache: yes
+        security: yes
+        name: '*'
+      environment:
+        http_proxy: "http://10.10.10.31:8080"
+        https_proxy: "http://10.10.10.31:8080"
+    - name: install bugfix/errata (CentOS7)
+      register: bugfix
+      when: hw_guest_id == "centos7_64Guest"
+      yum:
+        state: latest
+        update_cache: yes
+        bugfix: yes
+        name: '*'
+      environment:
+        http_proxy: "http://10.10.10.31:8080"
+        https_proxy: "http://10.10.10.31:8080"
+    - debug: var=security
+    - debug: var=bugfix
+    - name: get parted info
+      register: result
+      parted:
+        device: /dev/sda
+        number: 2
+        state: info
+        unit: cyl
+    - name: print info for partition 2
+      debug:
+        var: result.partitions[1].size
+    - name: resize partition to end of disk
+      command:
+        cmd: parted /dev/sda resizepart 2 100%
+    - name: get parted info
+      register: result
+      parted:
+        device: /dev/sda
+        number: 2
+        state: info
+        unit: cyl
+    - name: print info for partition 2
+      debug:
+        var: result.partitions[1].size
+    - name: extend pv
+      command:
+        cmd: pvresize /dev/sda2
+    - name: setup chrony.conf
+      template:
+        src: "etc/chrony.conf.{{ customer }}.j2"
+        dest: /etc/chrony.conf
+        owner: root
+        group: root
+    - name: setup step tickers
+      template:
+        src: "etc/ntp/step-tickers.{{ customer }}.j2"
+        dest: /etc/ntp/step-tickers
+        owner: root
+        group: root
+    - name: restart chrony
+      systemd:
+        name: chronyd
+        state: restarted
+        enabled: yes
+    - name: setup krb5.conf
+      template:
+        src: etc/krb5.conf.j2
+        dest: /etc/krb5.conf
+        owner: root
+        group: root
+    - name: setup smb.conf
+      template:
+        src: etc/samba/smb.conf.j2
+        dest: /etc/samba/smb.conf
+        owner: root
+        group: root
+    - name: setup sssd.conf
+      template:
+        src: etc/sssd/sssd.conf.j2
+        dest: /etc/sssd/sssd.conf
+        owner: root
+        group: root
+        mode: 0600
+    - name: compose join script
+      template:
+        src: domainjoin.sh.j2
+        dest: /usr/local/bin/domainjoin.sh
+        owner: root
+        group: root
+        mode: 0700
+    - name: run join script
+      command:
+        cmd: /usr/local/bin/domainjoin.sh
+    - name: remove join script
+      file:
+        path: /usr/local/bin/domainjoin.sh
+        state: absent
+    - name: start and enable sssd
+      systemd:
+        name: sssd
+        state: started
+        enabled: true
+    - name: restart sshd
+      systemd:
+        name: sshd
+        state: restarted
+        enabled: true
+
+
+# WINDOWS VM
+- hosts: windowsvms
+  gather_facts: true
+  vars_files:
+    - "{{ customer }}.ansible-variables.yml"
+    - "{{ customer }}.{{ location }}.ansible-variables.yml"
+    - ./winrm-local.yml
+  tasks:
+    - name: Latest (security-only) updates
+      win_updates:
+        category_names:
+          - SecurityUpdates
+        state: installed
+        log_path: c:\last-updates.txt

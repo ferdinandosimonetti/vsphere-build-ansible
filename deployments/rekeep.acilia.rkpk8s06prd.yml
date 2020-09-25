@@ -1,0 +1,19 @@
+---
+vmhostname: "rkpk8s06prd"
+vmdescription: "worker addizionale nuovo cluster K8S"
+vmnetwork: "10.197.65.0/24"
+vmnetworkname: "Erog-ORA_476"
+vmipaddress: "10.197.65.196"
+vmgateway: "10.197.65.1"
+vmnetmask: "255.255.255.0"
+template: "CENTOS7-2003-64G"
+vmtype: "linux"
+vmdisksize: 65
+vmfolder: "/Rekeep-Produzione/KUBERNETES-PRD/K8S-PRD"
+vmram: 16384
+vmcpu: 12
+vmosid: "centos64Guest"
+vmdisktype: "thick"
+vmdatastore: "MANUTENCOOP-SSD-0767-008"
+#template: "w2016template"
+#vmtype: "windows"
