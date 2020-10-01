@@ -1,9 +1,9 @@
 ---
-vmhostname: "testvm21"
+vmhostname: "testvm22"
 vmdescription: "{{ vmhostname }}"
-vmnetwork: "192.168.201.0/24"
-vmnetworkname: "testnet1"
-vmgateway: "192.168.201.254"
+vmnetwork: "192.168.202.0/24"
+vmnetworkname: "testnet2"
+vmgateway: "192.168.202.254"
 vmnetmask: "255.255.255.0"
 template: "CENTOS7-2003"
 vmtype: "linux"
@@ -12,7 +12,7 @@ vmfolder: ""
 vmram: 4096
 vmcpu: 2
 vmosid: "centos7_64Guest"
-vmdisktype: "thick"
+vmdisktype: "thin"
 vmdatastore: "vm-ds"
 #template: "w2016template"
 #vmtype: "windows"

@@ -17,6 +17,8 @@ adpass: !vault |
           6165
 addns1: "10.197.65.53"
 addns2: "10.20.0.11"
+# PROXY FOR UPDATES
+updateproxy: "http://10.10.10.31:8080"
 # TIMEZONES
 adtimezone: "Europe/Rome"
 adtimezonewin: "110"

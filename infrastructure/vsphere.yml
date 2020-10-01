@@ -1,8 +1,11 @@
 # linea di comando:
-# ansible-playbook -i ../fsimonetti.vmware.yml --vault-password-file ~/.password vsphere-remove-unwanted-attributes.yml
+# ansible-playbook -i ../fsimonetti.vmware.yml --vault-password-file ~/.password vsphere.yml
 ---
 - hosts: localhost
   gather_facts: false
+  vars_files:
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
   tasks:
   - name: create Datacenter
     delegate_to: localhost
@@ -10,7 +13,7 @@
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      datacenter_name: "{{ myvmdcname }}"
+      datacenter_name: "{{ vsphere_datacenter }}"
       validate_certs: false
       state: present
   - name: create Cluster
@@ -19,8 +22,8 @@
       hostname: "{{ vcenter_hostname }}"
       username: "{{ vcenter_username }}"
       password: "{{ vcenter_password }}"
-      datacenter_name: "{{ myvmdcname }}"
-      cluster_name: "{{ myvmclname }}"
+      datacenter_name: "{{ vsphere_datacenter }}"
+      cluster_name: "{{ vsphere_cluster }}"
       validate_certs: false
       state: present
   - name: Add ESXi Host 1 to vCenter
@@ -29,8 +32,8 @@
       hostname: '{{ vcenter_hostname }}'
       username: '{{ vcenter_username }}'
       password: '{{ vcenter_password }}'
-      datacenter: "{{ myvmdcname }}"
-      cluster: "{{ myvmclname }}"
+      datacenter: "{{ vsphere_datacenter }}"
+      cluster: "{{ vsphere_cluster }}"
       esxi_hostname: "esx01.fsimonetti.lan"
       esxi_username: '{{ esxi_username }}'
       esxi_password: '{{ esxi_password }}'
@@ -52,8 +55,8 @@
       hostname: '{{ vcenter_hostname }}'
       username: '{{ vcenter_username }}'
       password: '{{ vcenter_password }}'
-      datacenter: "{{ myvmdcname }}"
-      cluster: "{{ myvmclname }}"
+      datacenter: "{{ vsphere_datacenter }}"
+      cluster: "{{ vsphere_cluster }}"
       esxi_hostname: "esx02.fsimonetti.lan"
       esxi_username: '{{ esxi_username }}'
       esxi_password: '{{ esxi_password }}'
@@ -85,7 +88,7 @@
       username: '{{ vcenter_username }}'
       password: '{{ vcenter_password }}'
       validate_certs: false
-      nfs_server: '{{ mynfs }}'
+      nfs_server: '{{ vsphere_nfs }}'
       nfs_path: '{{ item.path }}'
       datastore_type: 'nfs'
       datastore_name: '{{ item.name }}'
@@ -102,7 +105,7 @@
       username: '{{ vcenter_username }}'
       password: '{{ vcenter_password }}'
       validate_certs: false
-      nfs_server: '{{ mynfs }}'
+      nfs_server: '{{ vsphere_nfs }}'
       nfs_path: '{{ item.path }}'
       datastore_type: 'nfs'
       datastore_name: '{{ item.name }}'
@@ -119,7 +122,7 @@
       username: '{{ vcenter_username }}'
       password: '{{ vcenter_password }}'
       validate_certs: false
-      datacenter: "{{ myvmdcname }}"
+      datacenter: "{{ vsphere_datacenter }}"
       datastore: '{{ item.ds }}'
       path: '{{ item.dst }}'
       state: directory
@@ -130,13 +133,13 @@
   - name: enable fully automated DRS on the cluster
     delegate_to: localhost
     vmware_cluster_drs:
-      cluster_name: "{{ myvmclname }}"
+      cluster_name: "{{ vsphere_cluster }}"
       enable_drs: yes
       hostname: '{{ vcenter_hostname }}'
       username: '{{ vcenter_username }}'
       password: '{{ vcenter_password }}'
       validate_certs: false
-      datacenter: "{{ myvmdcname }}"
+      datacenter: "{{ vsphere_datacenter }}"
 #  - name: copy Windows 2012R2 ISO to datastore
 #    delegate_to: localhost  
 #    vsphere_copy:
@@ -145,7 +148,7 @@
 #      password: '{{ vcenter_password }}'
 #      validate_certs: false
 #      src: /iso/win/2012r2.iso
-#      datacenter: "{{ myvmdcname }}"
+#      datacenter: "{{ vsphere_datacenter }}"
 #      datastore: 'iso-ds'
 #      path: /win/2012r2.iso
 #  - name: copy Windows 2016 ISO to datastore
@@ -156,20 +159,20 @@
 #      password: '{{ vcenter_password }}'
 #      validate_certs: false
 #      src: /iso/win/2016.iso
-#      datacenter: "{{ myvmdcname }}"
+#      datacenter: "{{ vsphere_datacenter }}"
 #      datastore: 'iso-ds'
 #      path: /win/2016.iso
-  - name: copy CentOS 7 ISO to datastore
-    delegate_to: localhost  
-    vsphere_copy:
-      hostname: '{{ vcenter_hostname }}'
-      username: '{{ vcenter_username }}'
-      password: '{{ vcenter_password }}'
-      validate_certs: false
-      src: /iso/linux/centos7.iso
-      datacenter: "{{ myvmdcname }}"
-      datastore: 'iso-ds'
-      path: /linux/centos7.iso
+#  - name: copy CentOS 7 ISO to datastore
+#    delegate_to: localhost  
+#    vsphere_copy:
+#      hostname: '{{ vcenter_hostname }}'
+#      username: '{{ vcenter_username }}'
+#      password: '{{ vcenter_password }}'
+#      validate_certs: false
+#      src: /iso/linux/centos7.iso
+#      datacenter: "{{ vsphere_datacenter }}"
+#      datastore: 'iso-ds'
+#      path: /linux/centos7.iso
 #  - name: Clone a virtual machine from Windows template and customize
 #    delegate_to: localhost
 #    vmware_guest:
@@ -177,10 +180,10 @@
 #      username: "{{ vcenter_username }}"
 #      password: "{{ vcenter_password }}"
 #      validate_certs: no
-#      datacenter: "{{ myvmdcname }}"
-#      cluster: "{{ myvmclname }}"
+#      datacenter: "{{ vsphere_datacenter }}"
+#      cluster: "{{ vsphere_cluster }}"
 #      name: "testvm1"
-#      folder: "/{{ myvmdcname }}/vm"
+#      folder: "/{{ vsphere_datacenter }}/vm"
 #      template: "w2016template"
 #      networks:
 #      - name: VM Network

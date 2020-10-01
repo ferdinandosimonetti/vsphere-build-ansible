@@ -197,6 +197,31 @@
             - name: CREATIONDATE
               value: "{{ creationdate.stdout }}"
 
+- hosts: domaincontrollers
+  gather_facts: true
+  vars_files:
+    - "{{ customer }}.ansible-variables.yml"
+    - "{{ customer }}.{{ location }}.ansible-variables.yml"
+    - ./winrm.yml
+  tasks:
+  - name: Add DNS A record
+    when: vmtype == "linux"
+    win_dns_record:
+      name: "{{ vmhostname }}"
+      value: "{{ hostvars['localhost']['resipaddr'].json.data }}"
+      type: "A"
+      state: present
+      zone: "{{ addomain }}"
+  - debug: var={{ hostvars['localhost']['resipaddr'].json.data.split('.')[-1:][0] | string }}
+  - name: Add DNS PTR record
+    when: vmtype == "linux"
+    win_dns_record:
+      name:  "{{ hostvars['localhost']['resipaddr'].json.data.split('.')[-1:][0] | string }}"
+      value: "{{ vmhostname }}.{{ addomain }}"
+      type: "PTR"
+      state: present
+      zone: "{{ hostvars['localhost']['reversezone'].stdout }}"
+
 # LINUX VM      
 - hosts: linuxvms
   gather_facts: true
