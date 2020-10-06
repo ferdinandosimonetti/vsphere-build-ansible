@@ -1,13 +1,17 @@
 ---
 vmhostname: "k8node01"
-vmdescription: "worker host K8S"
+vmdescription: "worker node"
 vmnetwork: "192.168.101.0/24"
 vmnetworkname: "VM Network"
-template: "centos7template"
+vmipaddress: ""
+vmgateway: "192.168.101.2"
+vmnetmask: "255.255.255.0"
+template: "CENTOS7-2003"
 vmtype: "linux"
+vmdisksize: 50
 vmfolder: "/k8s"
-vmcpu: 2
-vmram: 2048
+vmram: "2048"
+vmcpu: "2"
 vmosid: "centos7_64Guest"
-#template: "w2016template"
-#vmtype: "windows"
+vmdisktype: "thin"
+vmdatastore: "vm-ds"

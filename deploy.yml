@@ -1,5 +1,5 @@
 # linea di comando:
-# ansible-playbook -i external-inventory -i fsimonetti.vmware.yml --vault-password-file ~/.password --extra-vars @testvm11.yml deploy.yml
+# ansible-playbook -i external-inventory -v --vault-password-file ~/.password --extra-vars customer=fsimonetti --extra-vars location=home --extra-vars @deployments/fsimonetti.home.k8node01.yml deploy.yml
 ---
 - hosts: localhost
   gather_facts: true
@@ -326,21 +326,25 @@
         name: sshd
         state: restarted
         enabled: true
-    
-
-
 
 # WINDOWS VM
 - hosts: windowsvms
-  gather_facts: true
+  gather_facts: false
   vars_files:
     - "{{ customer }}.ansible-variables.yml"
     - "{{ customer }}.{{ location }}.ansible-variables.yml"
     - ./winrm-local.yml
   tasks:
-    - name: Latest (security-only) updates
-      win_updates:
-        category_names:
-          - SecurityUpdates
-        state: installed
-        log_path: c:\last-updates.txt
+#    - name: Latest updates
+#      win_updates:
+#        state: installed
+#        log_path: c:\last-updates.txt
+    - name: add local administrator
+      ansible.windows.win_user:
+        name: "{{ rootuser }}"
+        password: "{{ rootpass }}"
+        password_never_expires: true
+        state: present
+        groups:
+          - Users
+          - Administrators

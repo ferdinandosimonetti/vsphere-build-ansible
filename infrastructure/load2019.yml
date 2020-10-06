@@ -4,7 +4,8 @@
 - hosts: localhost
   gather_facts: false
   vars_files:
-    - ../deployvariables.yml
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
   tasks:
   - name: copy Windows 2019 ISO to datastore
     delegate_to: localhost  

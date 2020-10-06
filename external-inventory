@@ -3,26 +3,16 @@ dc
 
 [c8]
 testvm3
-testvm9
 
 [k8]
 k8master
 k8node01
-k8node02
 
 [master]
 k8master
 
 [worker]
 k8node01
-k8node02
-
-[c7]
-testvm17
-testvm18
-
-[quasi]
-testvm21
 
 [rekeep-k8s]
 10.197.65.196

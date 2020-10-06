@@ -1,8 +1,9 @@
-ansible_user: "{{ rootuser }}"
+ansible_user: "administrator"
 ansible_password: "{{ rootpass }}"
 ansible_connection: winrm
 ansible_winrm_transport: ntlm
 ansible_winrm_port: "{{ winrmport }}"
+ansible_winrm_scheme: "{{ winrmscheme }}"
 ansible_winrm_server_cert_validation: ignore
-ansible_winrm_operation_timeout_sec: 120
-ansible_winrm_read_timeout_sec: 240
+ansible_winrm_operation_timeout_sec: 600
+ansible_winrm_read_timeout_sec: 1200

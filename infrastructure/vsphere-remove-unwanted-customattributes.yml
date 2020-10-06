@@ -4,7 +4,8 @@
 - hosts: localhost
   gather_facts: true
   vars_files:
-    - ../deployvariables.yml
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
   tasks:
     - name: Remove VMware Attribute Definition
       delegate_to: localhost

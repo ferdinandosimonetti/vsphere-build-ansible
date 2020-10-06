@@ -1,7 +1,10 @@
 ---
 - hosts: k8
   become: yes
-  user: admbvtech
+  vars_files:
+    - ../fsimonetti.ansible-variables.yml
+    - ../fsimonetti.home.ansible-variables.yml
+  user: "{{ ansibleuser }}"
   gather_facts: true
   vars:
     k8s_cni: calico                                      # calico, flannel
@@ -29,7 +32,7 @@
 
 - hosts: master
   become: yes
-  user: admbvtech
+  user: "{{ ansibleuser }}"
   gather_facts: true
   vars:
     k8folder: "k8s"
@@ -65,7 +68,7 @@
   
 - hosts: master
   become: no
-  user: admbvtech
+  user: "{{ ansibleuser }}"
   gather_facts: true
   vars:
     k8folder: "k8s"
@@ -95,7 +98,7 @@
 
 - hosts: worker
   become: yes
-  user: admbvtech
+  user: "{{ ansibleuser }}"
   gather_facts: true
   vars:
     k8folder: "k8s"
@@ -118,7 +121,7 @@
 
 - hosts: master
   become: no
-  user: admbvtech
+  user: "{{ ansibleuser }}"
   gather_facts: true
   vars_files:
     - ../fsimonetti.ansible-variables.yml
@@ -134,18 +137,15 @@
     - name: copy storage classes definitions
       copy:
         src: "{{ item }}"
-        dest: "/home/admbvtech/{{ item }}"
-        owner: admbvtech
+        dest: "/home/{{ ansibleuser }}/{{ item }}"
+        owner: "{{ ansibleuser }}"
         group: sudo
       loop:
         - sc-thin.yml
         - sc-thick.yml
     - name: create storage classese
       command:
-        cmd: "kubectl apply -f /home/admbvtech/{{ item }}"
+        cmd: "kubectl apply -f /home/{{ ansibleuser }}/{{ item }}"
       loop:
         - sc-thin.yml
         - sc-thick.yml
-
-
-
