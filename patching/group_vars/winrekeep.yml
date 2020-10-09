@@ -1,0 +1,14 @@
+---
+ansible_user: "admbvtech"
+ansible_password: "!Rekeep2018!"
+ansible_connection: winrm
+ansible_winrm_transport: ntlm
+ansible_winrm_port: 5986
+ansible_winrm_scheme: https
+ansible_winrm_server_cert_validation: ignore
+ansible_winrm_operation_timeout_sec: 600
+ansible_winrm_read_timeout_sec: 1200
+proxyaddress: "10.10.10.31"
+proxyport: "8080"
+installwinupdates: false
+listwinupdates: true

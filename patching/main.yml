@@ -1,0 +1,118 @@
+---
+- name: patching win
+  hosts: win
+  gather_facts: true
+  tasks:
+  - debug:
+      msg: "{{ ansible_distribution }} - {{ ansible_distribution_version }}"
+  - name: set proxy
+    community.windows.win_http_proxy:
+      proxy: "{{ proxyaddress }}:{{ proxyport }}"
+  - name: check for security updates
+    register: result
+    ansible.windows.win_updates:
+      reboot: no
+      state: searched
+      category_names:
+        - SecurityUpdates
+  - name: list found updates
+    debug:
+      var: result
+  - name: install security updates
+    ansible.windows.win_updates:
+      reboot: no
+      state: installed
+      category_names:
+        - SecurityUpdates
+    when: installwinupdates
+  - name: unset proxy
+    community.windows.win_http_proxy:
+      proxy: ""
+    
+- name: patching Linux
+  hosts: local
+  become: yes
+  gather_facts: true
+  tasks:
+  - debug:
+      msg: "{{ ansible_distribution }} - {{ ansible_distribution_version }}"
+  - name: list available security updates
+    yum: 
+      list: security
+      security: yes
+      update_cache: true
+    register: yumoutput
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  - debug: 
+      msg: "{{ yumoutput.results | map(attribute='name') | list }}"
+  - name: list available updates
+    yum: 
+      list: updates
+      update_cache: true
+    register: yumoutput
+    when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  - debug: 
+      msg: "{{ yumoutput.results | map(attribute='name') | list }}"
+
+- name: patching win rekeep
+  hosts: winrekeep
+  gather_facts: true
+  tasks:
+  - debug:
+      msg: "{{ ansible_distribution }} - {{ ansible_distribution_version }}"
+  - name: set proxy win rekeep
+    community.windows.win_http_proxy:
+      proxy: "{{ proxyaddress }}:{{ proxyport }}"
+  - name: check for security updates
+    register: result
+    ignore_errors: true
+    ansible.windows.win_updates:
+      reboot: no
+      state: searched
+      category_names:
+        - SecurityUpdates
+    when: listwinupdates
+  - name: list found updates
+    debug:
+      var: result
+  - name: unset proxy win rekeep
+    community.windows.win_http_proxy:
+      proxy: ""
+
+- name: patching win10
+  hosts: win10
+  gather_facts: true
+  tasks:
+  - debug:
+      msg: "{{ ansible_distribution }} - {{ ansible_distribution_version }}"
+  - name: check w10
+    register: result
+    ignore_errors: true
+    when: listwinupdates
+    ansible.windows.win_updates:
+      reboot: no
+      state: searched
+      category_names:
+        - SecurityUpdates
+  - name: install w10
+    ignore_errors: true
+    when: installwinupdates
+    ansible.windows.win_updates:
+      reboot: no
+      state: installed
+      category_names:
+        - SecurityUpdates
+  - name: schedule a reboot for 17:00
+    community.windows.win_scheduled_task:
+      name: Reboot
+      description: Reboot VM
+      run_level: highest
+      actions:
+      - path: cmd.exe
+        arguments: /c shutdown /r /t 0
+      triggers:
+      - type: time
+        start_boundary: '2020-10-09T17:00:00'
+      username: SYSTEM
+      state: present
+      enabled: yes
