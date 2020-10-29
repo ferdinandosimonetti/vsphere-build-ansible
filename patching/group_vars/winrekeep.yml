@@ -1,14 +1,20 @@
 ---
 ansible_user: "admbvtech"
-ansible_password: "!Rekeep2018!"
+ansible_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34663637613839373566613162336230323730663033363931663535343532626363363834333162
+          6162643264343936613063666534343331633364643734320a393466636431323831623964373235
+          35326362393532363364346536613264303631653561633030666137393338346364643061336561
+          6461313963636562380a396332643965363733616133383363306664306561663732613338636239
+          3864
 ansible_connection: winrm
 ansible_winrm_transport: ntlm
-ansible_winrm_port: 5986
-ansible_winrm_scheme: https
+ansible_winrm_port: 5985
+ansible_winrm_scheme: http
 ansible_winrm_server_cert_validation: ignore
 ansible_winrm_operation_timeout_sec: 600
 ansible_winrm_read_timeout_sec: 1200
-proxyaddress: "10.10.10.31"
+proxyaddress: "10.197.68.128"
 proxyport: "8080"
 installwinupdates: false
 listwinupdates: true

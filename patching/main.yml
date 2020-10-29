@@ -54,31 +54,6 @@
   - debug: 
       msg: "{{ yumoutput.results | map(attribute='name') | list }}"
 
-- name: patching win rekeep
-  hosts: winrekeep
-  gather_facts: true
-  tasks:
-  - debug:
-      msg: "{{ ansible_distribution }} - {{ ansible_distribution_version }}"
-  - name: set proxy win rekeep
-    community.windows.win_http_proxy:
-      proxy: "{{ proxyaddress }}:{{ proxyport }}"
-  - name: check for security updates
-    register: result
-    ignore_errors: true
-    ansible.windows.win_updates:
-      reboot: no
-      state: searched
-      category_names:
-        - SecurityUpdates
-    when: listwinupdates
-  - name: list found updates
-    debug:
-      var: result
-  - name: unset proxy win rekeep
-    community.windows.win_http_proxy:
-      proxy: ""
-
 - name: patching win10
   hosts: win10
   gather_facts: true
@@ -116,3 +91,28 @@
       username: SYSTEM
       state: present
       enabled: yes
+
+- name: patching win rekeep
+  hosts: winrekeep
+  gather_facts: true
+  tasks:
+  - debug:
+      msg: "{{ ansible_distribution }} - {{ ansible_distribution_version }}"
+  - name: set proxy win rekeep
+    community.windows.win_http_proxy:
+      proxy: "{{ proxyaddress }}:{{ proxyport }}"
+  - name: check for security updates
+    register: result
+    ignore_errors: true
+    ansible.windows.win_updates:
+      reboot: no
+      state: searched
+      category_names:
+        - SecurityUpdates
+    when: listwinupdates
+  - name: list found updates
+    debug:
+      var: result
+  - name: unset proxy win rekeep
+    community.windows.win_http_proxy:
+      proxy: ""

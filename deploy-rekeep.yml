@@ -169,8 +169,8 @@
         security: yes
         name: '*'
       environment:
-        http_proxy: "http://10.10.10.31:8080"
-        https_proxy: "http://10.10.10.31:8080"
+        http_proxy: "http://10.197.68.128:8080"
+        https_proxy: "http://10.197.68.128:8080"
     - name: install bugfix/errata (CentOS8)
       register: bugfix
       when: hw_guest_id == "centos8_64Guest"
@@ -180,8 +180,8 @@
         bugfix: yes
         name: '*'
       environment:
-        http_proxy: "http://10.10.10.31:8080"
-        https_proxy: "http://10.10.10.31:8080"
+        http_proxy: "http://10.197.68.128:8080"
+        https_proxy: "http://10.197.68.128:8080"
     - name: install security updates (CentOS7)
       register: security
       when: hw_guest_id == "centos7_64Guest"
@@ -191,8 +191,8 @@
         security: yes
         name: '*'
       environment:
-        http_proxy: "http://10.10.10.31:8080"
-        https_proxy: "http://10.10.10.31:8080"
+        http_proxy: "http://10.197.68.128:8080"
+        https_proxy: "http://10.197.68.128:8080"
     - name: install bugfix/errata (CentOS7)
       register: bugfix
       when: hw_guest_id == "centos7_64Guest"
@@ -202,8 +202,8 @@
         bugfix: yes
         name: '*'
       environment:
-        http_proxy: "http://10.10.10.31:8080"
-        https_proxy: "http://10.10.10.31:8080"
+        http_proxy: "http://10.197.68.128:8080"
+        https_proxy: "http://10.197.68.128:8080"
     - debug: var=security
     - debug: var=bugfix
     - name: get parted info

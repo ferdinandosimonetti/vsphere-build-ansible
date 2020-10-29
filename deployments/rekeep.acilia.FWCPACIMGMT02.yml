@@ -1,0 +1,19 @@
+---
+vmhostname: "fwcpacimgmt02"
+vmdescription: "sostituto-test per FWCPACIMGMT02"
+vmnetwork: "10.20.0.0/16"
+vmnetworkname: "Vlan-Zola_20"
+vmipaddress: "10.20.20.1"
+vmgateway: "10.20.2.120"
+vmnetmask: "255.255.0.0"
+template: "CENTOS7-2003-64G"
+vmtype: "linux"
+vmdisksize: 500
+vmfolder: "/Rekeep-ProduzioneCheckpoint-VEM"
+vmram: 16384
+vmcpu: 4
+vmosid: "centos64Guest"
+vmdisktype: "thick"
+vmdatastore: "MANUTENCOOP-SSD-0767-008"
+#template: "w2016template"
+#vmtype: "windows"
